@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/fonts/fonts.css';
+ 
+:host {
+  --font-family: 'Tajawal_ar'
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+  // font-family: 'Tajawal_ar' ;
+}
+
+.m-icon {
+  font-size: 1.5rem !important;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.block {
+  display: block;   
+} 
+.sub-title {
+  font-size: 1.1rem !important;
+  margin: 1% 0 3%;
+}

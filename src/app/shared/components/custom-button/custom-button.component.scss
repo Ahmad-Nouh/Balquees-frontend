@@ -1,0 +1,35 @@
+::ng-deep .cdk-overlay-pane {
+    width: 40%;
+}
+
+::ng-deep nb-dialog-container {
+    width: 100%;
+}
+
+.our-card {
+    min-height: 500px;
+}
+
+.our-card nb-card-header {
+    text-align: center;
+    font-size: x-large;
+}
+
+.our-card p {
+    text-align: center;
+}
+
+.our-card .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.our-list {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.center {
+    display: block;
+    margin: auto;
+}

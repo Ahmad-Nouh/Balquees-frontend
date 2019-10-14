@@ -1,0 +1,47 @@
+{
+    "PAGES": {
+        "Home": {
+            "TITLE": "الصفحة الرئيسية"
+        },
+        "PaintMixes": {
+            "paintMixes": "خلطات الطلاء",
+            "createPaintMix": "إضافة خلطة طلاء",
+            "editPaintMix": "تعديل خلطة الطلاء",
+            "create": "إضافة",
+            "save": "حفظ",
+            "back": "رجوع",
+            "paintMixDetails": "تفاصيل خلطة الطلاء",
+            "paintMixComponents": "مكونات الخلطة",
+            "code": "الكود",
+            "type": "النوع",
+            "glize": "الغليز",
+            "components": "المكونات",
+            "date": "تاريخ الإدخال",
+            "componentsList": "قائمة المكونات",
+            "actions": "الخيارات",
+            "enterMixCode": "أدخل كود الخلطة",
+            "selectType": "حدد النوع",
+            "selectGlize": "حدد الغليز",
+            "walls": "جدران",
+            "floors": "أرضيات",
+            "transparent": "شفاف",
+            "mat": "مت",
+            "name": "الاسم",
+            "quantity": "النسبة",
+            "noDataFound": "لا يوجد بيانات"
+        },
+        "Common": {
+            "yes": "نعم",
+            "no": "لا",
+            "alert": "تنبيه",
+            "askDeleteMessage": "هل أنت متأكد من أنك تريد حذف العنصر؟",
+            "validationMessage": "الرجاء التأكد من صحة المعلومات ضمن الفورم",
+            "numValidationMessage": "الرجاء إدخال النسبة كرقم",
+            "requiredTableMessage": "الرجاء ملأ جميع حقول السطر قبل التأكيد",
+            "overQuantityMessage": "مجموع نسب المكونات يجب ألا يتجاوز المئة بالمئة",
+            "validQuantityMessage": "مجموع نسب المكونات يجب أن يكون مئة بالمئة تماماً",
+            "close": "إغلاق",
+            "danger": "تنبيه"
+        }
+    }
+}

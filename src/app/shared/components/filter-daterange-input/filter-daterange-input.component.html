@@ -1,0 +1,7 @@
+<input nbInput 
+    [ngClass]="inputClass"
+    [formControl]="inputDateControl"
+    class="form-control"
+    [placeholder]="column.title"
+    [nbDatepicker]="datepicker">
+<nb-rangepicker #datepicker (rangeChange)="onRangeChange($event)"></nb-rangepicker>

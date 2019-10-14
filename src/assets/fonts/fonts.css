@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Tajawal_ar;
+    src: url(../../assets/fonts/tajawal-arabic.woff2) format('woff2');
+}
+  
+@font-face {
+    font-family: Tajawal_lat;
+    src: url(../../assets/fonts/tajawal-latin.woff2) format('woff2');
+}

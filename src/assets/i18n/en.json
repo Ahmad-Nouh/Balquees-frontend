@@ -1,0 +1,47 @@
+{
+  "PAGES": {
+      "Home": {
+          "TITLE": "Home"
+      },
+      "PaintMixes": {
+        "paintMixes": "Paint Mixes",
+        "createPaintMix": "Create Paint Mix",
+        "editPaintMix": "Edit Paint Mix",
+        "create": "Create",
+        "save": "Save",
+        "back": "Back",
+        "paintMixDetails": "Paint Mix Details",
+        "paintMixComponents": "Paint Mix Components",
+        "code": "Code",
+        "type": "Type",
+        "glize": "Glize",
+        "components": "Components",
+        "date": "Date",
+        "componentsList": "Components List",
+        "actions": "Actions",
+        "enterMixCode": "Enter Mix Code",
+        "selectType": "Select Type",
+        "selectGlize": "Select Glize",
+        "walls": "Walls",
+        "floors": "Floors",
+        "transparent": "Transparent",
+        "mat": "Mat",
+        "name": "Name",
+        "quantity": "Quantity",
+        "noDataFound": "No Data Found"
+      },
+      "Common": {
+        "yes": "Yes",
+        "no": "No",
+        "alert": "Alert",
+        "askDeleteMessage": "Are You Sure You Want To Delete Item ?",
+        "validationMessage": "Please check if form is valid before submit it.",
+        "numValidationMessage": "Quantity must be number",
+        "requiredTableMessage": "Please fill all row cells before submit",
+        "overQuantityMessage": "Total quanity should not exceed 100%",
+        "validQuantityMessage": "Total quanity of components should be exactly 100%",
+        "close": "Close",
+        "danger": "Alert"
+      }
+  }
+}
