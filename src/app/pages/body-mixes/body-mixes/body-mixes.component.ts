@@ -1,42 +1,29 @@
-import { PaintMix } from './../../../models/paintMix';
-import { CustomButtonComponent } from './../../../shared/components/custom-button/custom-button.component';
-import { PaintMixesService } from './../../../services/paint-mixes.service';
-import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
-import { MixType } from './../../../models/enums/mixType';
-import { Glize } from './../../../models/enums/glize';
-import { MixComponent } from '../../../models/mixComponent';
-import { TranslateServiceOur } from '../../../services/our-translate.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NbDialogService } from '@nebular/theme';
-import { LocalDataSource, Cell } from 'ee-ng-smart-table';
-import { CommonService } from '../../../services/common.service';
-
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Glize } from '../../../models/enums/glize';
+import { MixType } from '../../../models/enums/mixType';
+import { FilterDaterangeInputComponent } from '../../../shared/components/filter-daterange-input/filter-daterange-input.component';
+import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { FilterInputComponent } from '../../../shared/components/filter-input/filter-input.component';
 import { EditorInputNumberComponent } from '../../../shared/components/editor-input-number/editor-input-number.component';
-import { FilterDaterangeInputComponent } from '../../../shared/components/filter-daterange-input/filter-daterange-input.component';
-
+import { BodyMixComponent } from '../../../models/BodyMixComponent';
+import { BodyMixesService } from '../../../services/body-mixes.service';
+import { NbDialogService } from '@nebular/theme';
+import { TranslateServiceOur } from '../../../services/our-translate.service';
+import { TranslateService } from '@ngx-translate/core';
+import { CommonService } from '../../../services/common.service';
+import { LocalDataSource } from 'ee-ng-smart-table';
+import { BodyMix } from '../../../models/bodyMix';
 
 var moment = require('moment');
 var momentRange = require('moment-range');
 momentRange.extendMoment(moment);
 
-
 @Component({
-  selector: 'app-paint-mixes',
-  templateUrl: './paint-mixes.component.html',
-  styleUrls: ['./paint-mixes.component.scss']
+  selector: 'app-body-mixes',
+  templateUrl: './body-mixes.component.html',
+  styleUrls: ['./body-mixes.component.scss']
 })
-export class PaintMixesComponent implements OnInit, AfterViewInit {
-
-  GLIZE_OPTIONS = [
-    { value: Glize.MAT, title: 'PAGES.PaintMixes.mat' },
-    { value: Glize.TRANSPARENT, title: 'PAGES.PaintMixes.transparent' },
-  ];
-  
-  TYPE_OPTIONS = [
-    { value: MixType.WALLS, title: 'PAGES.PaintMixes.walls' },
-    { value: MixType.FLOORS, title: 'PAGES.PaintMixes.floors' },
-  ];
+export class BodyMixesComponent implements OnInit {
 
   settings = {
     add: {
@@ -70,26 +57,6 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       },
       code: {
         title: 'Code',
-      },
-      type: {
-        title: 'Type',
-        filter: {
-          type: 'list',
-          config: {
-            list: this.TYPE_OPTIONS
-          }
-        },
-        valuePrepareFunction: (value) => value,
-      },
-      glize: {
-        title: 'Glize',
-        filter: {
-          type: 'list',
-          config: {
-            list: this.GLIZE_OPTIONS
-          }
-        },
-        valuePrepareFunction: (value) => value,
       },
       components: {
         filter: false,
@@ -156,14 +123,12 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   isFlipped = false;
   selectedType = MixType.WALLS;
   formTitle = '';
-  paintMixes: Array<PaintMix> = [];
-  mixComponents: Array<MixComponent> = [];
+  bodyMixes: Array<BodyMix> = [];
+  bodyMixComponents: Array<BodyMixComponent> = [];
   totalQuantity = 0;
 
-  newPaintMix: PaintMix = {
+  newBodyMix: BodyMix = {
     code: '',
-    type: '',
-    glize: '',
     components: []
   };
 
@@ -182,20 +147,20 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   componentsValidation = 'PAGES.Common.componentsValidation';
 
   data: any;
-  @ViewChild('paintMixTable', { static: true }) paintMixTable;
+  @ViewChild('bodyMixTable', { static: true }) bodyMixTable;
 
-  constructor(private paintMixesService: PaintMixesService,
+  constructor(private bodyMixesService: BodyMixesService,
     private dialogService: NbDialogService,
     private translate: TranslateServiceOur,
     private trans: TranslateService,
     private commonService: CommonService) { }
 
   async ngOnInit() {
-    this.paintMixes = await this.paintMixesService.getPaintMixes();
-    this.commonService.paintMixes = this.paintMixes;
-    // moment(paintMix.createdAt).format('llll')
-    console.log('paintMixes ', this.paintMixes);
-    this.loadTableData(this.paintMixes);
+    this.bodyMixes = await this.bodyMixesService.getBodyMixes();
+    this.commonService.bodyMixes = this.bodyMixes;
+    // moment(bodyMix.createdAt).format('llll')
+    console.log('bodyMixes ', this.bodyMixes);
+    this.loadTableData(this.bodyMixes);
     this.trans.use(this.translate.currentLanguage);
     await this.initSettingTranslation();
   }
@@ -212,19 +177,19 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onCreatePaintMix(event: any): void {
+  onCreateBodyMix(event: any): void {
     console.log('create');
-    this.formTitle = 'PAGES.PaintMixes.createPaintMix';
+    this.formTitle = 'PAGES.BodyMixes.createBodyMix';
     this.isFlipped = true;
   }
 
-  onEditPaintMix(event: any): void {
+  onEditBodyMix(event: any): void {
     console.log('edit', event);
-    this.newPaintMix = {...event.data};
-    this.formTitle = 'PAGES.PaintMixes.editPaintMix';
+    this.newBodyMix = {...event.data};
+    this.formTitle = 'PAGES.BodyMixes.editBodyMix';
     this.isEdit = true;
-    this.totalQuantity = this.newPaintMix.components
-    .map((component: MixComponent) => +component.quantity)
+    this.totalQuantity = this.newBodyMix.components
+    .map((component: BodyMixComponent) => +component.quantity)
     .reduce((sum, num) => sum + num);
     console.log('totalQuantity ', this.totalQuantity);
     this.isFlipped = true;
@@ -259,10 +224,10 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
     // save component
     event.confirm.resolve();
 
-    const index = this.newPaintMix.components.indexOf(event.data);
+    const index = this.newBodyMix.components.indexOf(event.data);
     console.log('ind ', index);
     if (index >= 0) {
-      this.newPaintMix[index] = event.data;
+      this.newBodyMix[index] = event.data;
     }
   }
 
@@ -272,10 +237,10 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
     this.totalQuantity -= (+component.quantity);
     event.confirm.resolve();
 
-    const index = this.newPaintMix.components.indexOf(event.data);
+    const index = this.newBodyMix.components.indexOf(event.data);
     console.log('ind ', index);
     if (index >= 0) {
-      this.newPaintMix.components.splice(index, 1);
+      this.newBodyMix.components.splice(index, 1);
     }
   }
 
@@ -301,26 +266,25 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   }
 
   handleCreate(form: any): void {
-    this.paintMixesService.createPaintMix(this.newPaintMix)
+    this.bodyMixesService.createBodyMix(this.newBodyMix)
         .subscribe((result) => {
           console.log(result);
           this.resetForm(form);
-          this.paintMixes.push(result);
-          this.loadTableData(this.paintMixes);
+          this.bodyMixes.push(result);
+          this.loadTableData(this.bodyMixes);
           this.totalQuantity = 0;
           this.isFlipped = false;
         });
   }
 
   handleEdit(form: any): void {
-    console.log('components ', this.newPaintMix.components);
-    this.paintMixesService.updatePaintMix(this.newPaintMix._id, this.newPaintMix)
+    this.bodyMixesService.updateBodyMix(this.newBodyMix._id, this.newBodyMix)
         .subscribe((result) => {
           this.resetForm(form);
-          const index = this.paintMixes.findIndex((paintMix: PaintMix) => paintMix._id == result._id);
+          const index = this.bodyMixes.findIndex((bodyMix: BodyMix) => bodyMix._id == result._id);
           console.log('index ', index);
-          this.paintMixes[index] = result;
-          this.loadTableData(this.paintMixes);
+          this.bodyMixes[index] = result;
+          this.loadTableData(this.bodyMixes);
           this.totalQuantity = 0;
           this.isFlipped = false;
         });
@@ -335,14 +299,14 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  handleAccept(paintMix: PaintMix, dialog: any): void {
-    this.paintMixesService.deletePaintMix(paintMix._id)
+  handleAccept(bodyMix: BodyMix, dialog: any): void {
+    this.bodyMixesService.deleteBodyMix(bodyMix._id)
       .subscribe((result: any) => {
-        const index = this.paintMixes.findIndex(mix => mix._id === paintMix._id);
+        const index = this.bodyMixes.findIndex(mix => mix._id === bodyMix._id);
         if (index >= 0) {
-          this.paintMixes.splice(index, 1);
+          this.bodyMixes.splice(index, 1);
         }
-        this.loadTableData(this.paintMixes);
+        this.loadTableData(this.bodyMixes);
         dialog.close();
       })
   }
@@ -350,15 +314,13 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   resetForm(form): void {
     form.reset();
     this.isSubmited = false;
-    this.newPaintMix = {
+    this.newBodyMix = {
       code: '',
-      type: '',
-      glize: '',
       components: []
     };
   }
 
-  loadTableData(data: Array<PaintMix>): void {
+  loadTableData(data: Array<BodyMix>): void {
     this.data = new LocalDataSource(data);
   }
 
@@ -407,7 +369,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
 
   validateForm(form): boolean {
     // validate form
-    if (form.invalid || this.newPaintMix.components.length <= 0) {
+    if (form.invalid || this.newBodyMix.components.length <= 0) {
       this.commonService.showToast('bottom-end', 'danger', this.validationMessage, 3000);
       return true;
     }
@@ -423,27 +385,6 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
 
   async initSettingTranslation() {
     moment.locale(this.translate.currentLanguage);
-
-    const typeOptions = [], glizeOptions = [];
-    for(const item of this.TYPE_OPTIONS.slice()) {
-      const temp = {
-        ...item,
-        title: await this.trans.get(item.title).toPromise()
-      };
-      typeOptions.push(temp);
-    }
-
-    for(const item of this.GLIZE_OPTIONS.slice()) {
-      const temp = {
-        ...item,
-        title: await this.trans.get(item.title).toPromise()
-      };
-      glizeOptions.push(temp);
-    }
-    
-    
-
-    console.log(typeOptions);
 
     this.settings = {
       add: {
@@ -463,7 +404,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       },
       columns: {
         createdAt: {
-          title: await this.trans.get('PAGES.PaintMixes.date').toPromise(),
+          title: await this.trans.get('PAGES.BodyMixes.date').toPromise(),
           valuePrepareFunction: (value) => {
             const newVal = moment.utc(value).format('YYYY-MM-DD hh:mm a');
             return newVal;
@@ -491,27 +432,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
           }
         },
         code: {
-          title: await this.trans.get('PAGES.PaintMixes.code').toPromise(),
-        },
-        type: {
-          title: await this.trans.get('PAGES.PaintMixes.type').toPromise(),
-          filter: {
-            type: 'list',
-            config: {
-              list: typeOptions
-            }
-          },
-          valuePrepareFunction: (value) => this.handleTranslateCells(value, true),
-        },
-        glize: {
-          title: await this.trans.get('PAGES.PaintMixes.glize').toPromise(),
-          filter: {
-            type: 'list',
-            config: {
-              list: glizeOptions
-            }
-          },
-          valuePrepareFunction: (value) => this.handleTranslateCells(value, false),
+          title: await this.trans.get('PAGES.BodyMixes.code').toPromise(),
         },
         components: {
           filter: false,
@@ -553,11 +474,11 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       },
       columns: {
         name: {
-          title: await this.trans.get('PAGES.PaintMixes.name').toPromise(),
+          title: await this.trans.get('PAGES.BodyMixes.name').toPromise(),
           type:'text'
         },
         quantity: {
-          title: await this.trans.get('PAGES.PaintMixes.quantity').toPromise(),
+          title: await this.trans.get('PAGES.BodyMixes.quantity').toPromise(),
           filter: {
             type: 'custom',
             component: FilterInputComponent
@@ -576,6 +497,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       sortDirection: 'desc'
     };
     
-    this.loadTableData(this.paintMixes);
+    this.loadTableData(this.bodyMixes);
   }
+
 }

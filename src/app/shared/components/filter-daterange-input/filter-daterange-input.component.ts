@@ -21,6 +21,23 @@ export class FilterDaterangeInputComponent extends DefaultFilter implements OnIn
   ngOnInit() {
   }
 
+  onChangeInput(event) {
+    if (event.target.value === '') {
+      this.query = '';
+      this.setFilter();
+
+      of(undefined)
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(this.delay),
+      )
+      .subscribe(() => {
+        this.query = '';
+        this.setFilter();
+      });
+    }
+  }
+
   onRangeChange(value): void {
     of(undefined)
     .pipe(
@@ -30,6 +47,7 @@ export class FilterDaterangeInputComponent extends DefaultFilter implements OnIn
     .subscribe(() => {
       console.log('value ', value);
       console.log('cells ', this.commonService.paintMixes);
+      console.log('queryyy ', this.query);
       this.query = JSON.stringify(value);
       // this.commonService.paintMixes
       //   .map((paintMix: PaintMix) => paintMix.createdAt)
@@ -45,7 +63,7 @@ export class FilterDaterangeInputComponent extends DefaultFilter implements OnIn
     if (changes.query) {
       console.log('changes.query ', changes.query.currentValue);
       this.query = changes.query.currentValue;
-      this.inputDateControl.setValue(this.query);
+      // this.inputDateControl.setValue(this.query);
     }
   }
 

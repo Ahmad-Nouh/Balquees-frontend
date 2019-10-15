@@ -2,7 +2,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,6 +16,11 @@ const routes: Routes = [{
       path: 'paintMixes',
       loadChildren: () => import('./paint-mixes/paint-mixes.module')
       .then(m => m.PaintMixesModule),
+    },
+    {
+      path: 'bodyMixes',
+      loadChildren: () => import('./body-mixes/body-mixes.module')
+      .then(m => m.BodyMixesModule),
     },
     {
       path: '',

@@ -3,5 +3,6 @@
     [formControl]="inputDateControl"
     class="form-control"
     [placeholder]="column.title"
-    [nbDatepicker]="datepicker">
+    [nbDatepicker]="datepicker"
+    (change)="onChangeInput($event);">
 <nb-rangepicker #datepicker (rangeChange)="onRangeChange($event)"></nb-rangepicker>

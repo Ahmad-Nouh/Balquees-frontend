@@ -3,12 +3,14 @@ import { NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateServiceOur } from './our-translate.service';
 import { PaintMix } from '../models/paintMix';
+import { BodyMix } from '../models/bodyMix';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
   paintMixes: Array<PaintMix> = [];
+  bodyMixes: Array<BodyMix> = [];
 
   constructor(private toastrService: NbToastrService,
     private trans: TranslateService,

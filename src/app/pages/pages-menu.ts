@@ -9,8 +9,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'PAGES.PaintMixes.paintMixes',
-    icon: 'brush-outline',
+    icon: `brush-outline`,
     link: '/pages/paintMixes',
+    home: true,
+  },
+  {
+    title: 'PAGES.BodyMixes.bodyMixes',
+    icon: 'archive-outline',
+    link: '/pages/bodyMixes',
     home: true,
   },
   // {

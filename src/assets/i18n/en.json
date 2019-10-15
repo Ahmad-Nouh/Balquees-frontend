@@ -30,6 +30,27 @@
         "quantity": "Quantity",
         "noDataFound": "No Data Found"
       },
+      "BodyMixes": {
+        "bodyMixes": "Body Mixes",
+        "createBodyMix": "Create Body Mix",
+        "editBodyMix": "Edit Body Mix",
+        "create": "Create",
+        "save": "Save",
+        "back": "Back",
+        "bodyMixDetails": "Body Mix Details",
+        "bodyMixComponents": "Body Mix Components",
+        "code": "Code",
+        "components": "Components",
+        "date": "Date",
+        "componentsList": "Components List",
+        "actions": "Actions",
+        "enterMixCode": "Enter Mix Code",
+        "walls": "Walls",
+        "floors": "Floors",
+        "name": "Name",
+        "quantity": "Quantity",
+        "noDataFound": "No Data Found"
+      },
       "Common": {
         "yes": "Yes",
         "no": "No",
@@ -40,6 +61,8 @@
         "requiredTableMessage": "Please fill all row cells before submit",
         "overQuantityMessage": "Total quanity should not exceed 100%",
         "validQuantityMessage": "Total quanity of components should be exactly 100%",
+        "requiredMessage": "This Field is required.",
+        "componentsValidation": "You should enter one component at least.",
         "close": "Close",
         "danger": "Alert"
       }

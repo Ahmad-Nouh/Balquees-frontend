@@ -1,0 +1,65 @@
+<nb-flip-card class="our-flip-card" [showToggleButton]="false" [flipped]="isFlipped">
+    <nb-card-front class="row">
+        <nb-card class="main-card col-md-12">
+            <nb-card-header class="text-heading text-primary card-title">
+                {{ 'PAGES.BodyMixes.bodyMixes' | translate }}
+            </nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table #bodyMixTable class="body-table" [settings]="settings" [source]="data"
+                    (create)="onCreateBodyMix($event)" (delete)="openAskModal(dialog, $event)" (edit)="onEditBodyMix($event)"></ng2-smart-table>
+
+                <ng-template #dialog let-data let-ref="dialogRef">
+                    <nb-card class="popup">
+                        <nb-card-header>{{ 'PAGES.Common.alert' | translate }}</nb-card-header>
+                        <nb-card-body>
+                            <p>{{ data.message | translate }}</p>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <button nbButton status="success" (click)="handleAccept(data.info, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
+                            <button nbButton (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
+                        </nb-card-footer>
+                    </nb-card>
+                </ng-template>
+            </nb-card-body>
+        </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+        <nb-card class="main-card">
+            <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+            <nb-card-body class="card-body">
+                <div class="row">
+                    <p class="sub-title col-4 details"> {{ 'PAGES.BodyMixes.bodyMixDetails' | translate }} </p>
+                    <p class="sub-title col-8 components"> {{ 'PAGES.BodyMixes.bodyMixComponents' | translate }} </p>
+                </div>
+                <div class="row">
+                    <form class="our-form col-4" #bodyForm="ngForm">
+                        <input class="block" nbInput 
+                        [placeholder]="'PAGES.BodyMixes.enterMixCode' | translate"
+                        required
+                        type="text" id="code" name="code" #code="ngModel" [(ngModel)]="newBodyMix.code">
+                        <nb-alert class="form-alert" *ngIf="bodyForm.getControl(code)?.invalid && isSubmited" status="danger">
+                            {{ (bodyForm.getControl(code).hasError('required') ? requiredMessage : '') | translate }}
+                        </nb-alert>
+                    </form>
+                    <div class="col-8">
+                        <nb-alert *ngIf="!newBodyMix.components.length && isSubmited" status="danger">
+                            {{ componentsValidation | translate }}
+                        </nb-alert>
+                        <ng2-smart-table class="body-table components-table" [settings]="settings1"
+                        [source]="newBodyMix?.components"
+                        (deleteConfirm)="onDeleteComponent($event)"
+                        (editConfirm)="onEditComponent($event)"
+                        (createConfirm)="onAddComponent($event)"></ng2-smart-table>
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton status="success" type="submit" (click)="onSubmit(bodyForm)">
+                    {{ (isEdit ? 'PAGES.BodyMixes.save' : 'PAGES.BodyMixes.create') | translate }}
+                    <nb-icon icon="save"></nb-icon>
+                </button>
+                <button nbButton status="primary" (click)="onClickBack(bodyForm)">{{ 'PAGES.BodyMixes.back' | translate }}<nb-icon icon="arrow-left"></nb-icon></button>
+            </nb-card-footer>
+        </nb-card>
+    </nb-card-back>
+</nb-flip-card>

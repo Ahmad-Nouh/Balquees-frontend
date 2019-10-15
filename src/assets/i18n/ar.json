@@ -30,6 +30,27 @@
             "quantity": "النسبة",
             "noDataFound": "لا يوجد بيانات"
         },
+        "BodyMixes": {
+            "bodyMixes": "خلطات الجسم",
+            "createBodyMix": "إضافة خلطة جسم",
+            "editBodyMix": "تعديل خلطة الجسم",
+            "create": "إضافة",
+            "save": "حفظ",
+            "back": "رجوع",
+            "bodyMixDetails": "تفاصيل خلطة الجسم",
+            "bodyMixComponents": "مكونات الخلطة",
+            "code": "الكود",
+            "components": "المكونات",
+            "date": "تاريخ الإدخال",
+            "componentsList": "قائمة المكونات",
+            "actions": "الخيارات",
+            "enterMixCode": "أدخل كود الخلطة",
+            "walls": "جدران",
+            "floors": "أرضيات",
+            "name": "الاسم",
+            "quantity": "النسبة",
+            "noDataFound": "لا يوجد بيانات"
+        },
         "Common": {
             "yes": "نعم",
             "no": "لا",
@@ -40,6 +61,8 @@
             "requiredTableMessage": "الرجاء ملأ جميع حقول السطر قبل التأكيد",
             "overQuantityMessage": "مجموع نسب المكونات يجب ألا يتجاوز المئة بالمئة",
             "validQuantityMessage": "مجموع نسب المكونات يجب أن يكون مئة بالمئة تماماً",
+            "requiredMessage": "الرجاء ملأ هذا الحقل",
+            "componentsValidation": "الرجاء إدخال مكون واحد على الأقل",
             "close": "إغلاق",
             "danger": "تنبيه"
         }

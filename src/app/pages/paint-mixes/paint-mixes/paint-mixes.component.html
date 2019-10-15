@@ -38,7 +38,7 @@
                         required
                         type="text" id="code" name="code" #code="ngModel" [(ngModel)]="newPaintMix.code">
                         <nb-alert class="form-alert" *ngIf="paintForm.getControl(code)?.invalid && isSubmited" status="danger">
-                            {{ paintForm.getControl(code).hasError('required') ? 'This Field is required' : '' }}
+                            {{ (paintForm.getControl(code).hasError('required') ? requiredMessage : '') | translate }}
                         </nb-alert>
 
                         <nb-select class="block" [placeholder]="'PAGES.PaintMixes.selectType' | translate"
@@ -48,7 +48,7 @@
                             </nb-option>
                         </nb-select>
                         <nb-alert class="form-alert" *ngIf="paintForm.getControl(type)?.invalid && isSubmited" status="danger">
-                            {{ paintForm.getControl(type).hasError('required') ? 'This Field is required' : '' }}
+                            {{ (paintForm.getControl(type).hasError('required') ? requiredMessage : '') | translate }}
                         </nb-alert>
 
                         <nb-select class="block" [placeholder]="'PAGES.PaintMixes.selectGlize' | translate"
@@ -58,12 +58,12 @@
                             </nb-option>
                         </nb-select>
                         <nb-alert class="form-alert" *ngIf="paintForm.getControl(glize)?.invalid && isSubmited" status="danger">
-                            {{ paintForm.getControl(glize).hasError('required') ? 'This Field is required' : '' }}
+                            {{ (paintForm.getControl(glize).hasError('required') ? requiredMessage : '') | translate }}
                         </nb-alert>
                     </form>
                     <div class="col-8">
                         <nb-alert *ngIf="!newPaintMix.components.length && isSubmited" status="danger">
-                            You should enter one component at least
+                            {{ componentsValidation | translate }}
                         </nb-alert>
                         <ng2-smart-table class="paint-table components-table" [settings]="settings1"
                         [source]="newPaintMix?.components"

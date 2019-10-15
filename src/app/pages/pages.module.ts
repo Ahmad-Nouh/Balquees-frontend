@@ -1,3 +1,4 @@
+import { BodyMixesModule } from './body-mixes/body-mixes.module';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { NbMenuModule, NbLayoutModule } from '@nebular/theme';
@@ -24,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbMenuModule,
     DashboardModule,
     PaintMixesModule,
+    BodyMixesModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {
