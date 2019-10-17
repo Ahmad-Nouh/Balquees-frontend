@@ -313,8 +313,13 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   }
 
   handleEdit(form: any): void {
-    console.log('components ', this.newPaintMix.components);
-    this.paintMixesService.updatePaintMix(this.newPaintMix._id, this.newPaintMix)
+    const temp: PaintMix = {
+      code: this.newPaintMix.code,
+      components: this.newPaintMix.components,
+      type: this.newPaintMix.type,
+      glize: this.newPaintMix.glize
+    };
+    this.paintMixesService.updatePaintMix(this.newPaintMix._id, temp)
         .subscribe((result) => {
           this.resetForm(form);
           const index = this.paintMixes.findIndex((paintMix: PaintMix) => paintMix._id == result._id);

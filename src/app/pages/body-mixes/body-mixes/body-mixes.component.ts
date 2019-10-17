@@ -278,7 +278,11 @@ export class BodyMixesComponent implements OnInit {
   }
 
   handleEdit(form: any): void {
-    this.bodyMixesService.updateBodyMix(this.newBodyMix._id, this.newBodyMix)
+    const temp: BodyMix = {
+      code: this.newBodyMix.code,
+      components: this.newBodyMix.components
+    };
+    this.bodyMixesService.updateBodyMix(this.newBodyMix._id, temp)
         .subscribe((result) => {
           this.resetForm(form);
           const index = this.bodyMixes.findIndex((bodyMix: BodyMix) => bodyMix._id == result._id);
