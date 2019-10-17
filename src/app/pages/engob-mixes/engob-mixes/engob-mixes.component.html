@@ -1,0 +1,85 @@
+<nb-flip-card class="our-flip-card" [showToggleButton]="false" [flipped]="isFlipped">
+    <nb-card-front class="row">
+        <nb-card class="main-card col-md-12">
+            <nb-card-header class="text-heading text-primary card-title">
+                {{ 'PAGES.EngobMixes.engobMixes' | translate }}
+            </nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table #engobMixTable class="engob-table" [settings]="settings" [source]="data"
+                    (create)="onCreateEngobMix($event)" (delete)="openAskModal(dialog, $event)" (edit)="onEditEngobMix($event)"></ng2-smart-table>
+
+                <ng-template #dialog let-data let-ref="dialogRef">
+                    <nb-card class="popup">
+                        <nb-card-header>{{ 'PAGES.Common.alert' | translate }}</nb-card-header>
+                        <nb-card-body>
+                            <p>{{ data.message | translate }}</p>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <button nbButton status="success" (click)="handleAccept(data.info, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
+                            <button nbButton (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
+                        </nb-card-footer>
+                    </nb-card>
+                </ng-template>
+            </nb-card-body>
+        </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+        <nb-card class="main-card">
+            <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+            <nb-card-body class="card-body">
+                <div class="row">
+                    <p class="sub-title col-4 details"> {{ 'PAGES.EngobMixes.engobMixDetails' | translate }} </p>
+                    <p class="sub-title col-8 components"> {{ 'PAGES.EngobMixes.engobMixComponents' | translate }} </p>
+                </div>
+                <div class="row">
+                    <form class="our-form col-4" #engobForm="ngForm">
+                        <input class="block" nbInput 
+                        [placeholder]="'PAGES.EngobMixes.enterMixCode' | translate"
+                        required
+                        type="text" id="code" name="code" #code="ngModel" [(ngModel)]="newEngobMix.code">
+                        <nb-alert class="form-alert" *ngIf="engobForm.getControl(code)?.invalid && isSubmited" status="danger">
+                            {{ (engobForm.getControl(code).hasError('required') ? requiredMessage : '') | translate }}
+                        </nb-alert>
+
+                        <nb-select class="block" [placeholder]="'PAGES.EngobMixes.selectType' | translate"
+                        required
+                        id="type" name="type" #type="ngModel" [(ngModel)]="newEngobMix.type">
+                            <nb-option *ngFor="let type of TYPE_OPTIONS" [value]="type.value">{{ type.title | translate }}
+                            </nb-option>
+                        </nb-select>
+                        <nb-alert class="form-alert" *ngIf="engobForm.getControl(type)?.invalid && isSubmited" status="danger">
+                            {{ (engobForm.getControl(type).hasError('required') ? requiredMessage : '') | translate }}
+                        </nb-alert>
+
+                        <nb-select class="block" [placeholder]="'PAGES.EngobMixes.selectGlize' | translate"
+                        required
+                        id="glize" name="glize" #glize="ngModel" [(ngModel)]="newEngobMix.glize">
+                            <nb-option *ngFor="let glize of GLIZE_OPTIONS" [value]="glize.value">{{ glize.title | translate }}
+                            </nb-option>
+                        </nb-select>
+                        <nb-alert class="form-alert" *ngIf="engobForm.getControl(glize)?.invalid && isSubmited" status="danger">
+                            {{ (engobForm.getControl(glize).hasError('required') ? requiredMessage : '') | translate }}
+                        </nb-alert>
+                    </form>
+                    <div class="col-8">
+                        <nb-alert *ngIf="!newEngobMix.components.length && isSubmited" status="danger">
+                            {{ componentsValidation | translate }}
+                        </nb-alert>
+                        <ng2-smart-table class="engob-table components-table" [settings]="settings1"
+                        [source]="newEngobMix?.components"
+                        (deleteConfirm)="onDeleteComponent($event)"
+                        (editConfirm)="onEditComponent($event)"
+                        (createConfirm)="onAddComponent($event)"></ng2-smart-table>
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton status="success" type="submit" (click)="onSubmit(engobForm)">
+                    {{ (isEdit ? 'PAGES.EngobMixes.save' : 'PAGES.EngobMixes.create') | translate }}
+                    <nb-icon icon="save"></nb-icon>
+                </button>
+                <button nbButton status="primary" (click)="onClickBack(engobForm)">{{ 'PAGES.EngobMixes.back' | translate }}<nb-icon icon="arrow-left"></nb-icon></button>
+            </nb-card-footer>
+        </nb-card>
+    </nb-card-back>
+</nb-flip-card>

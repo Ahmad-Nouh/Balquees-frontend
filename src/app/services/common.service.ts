@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TranslateServiceOur } from './our-translate.service';
 import { PaintMix } from '../models/paintMix';
 import { BodyMix } from '../models/bodyMix';
+import { EngobMix } from '../models/engobMix';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { BodyMix } from '../models/bodyMix';
 export class CommonService {
   paintMixes: Array<PaintMix> = [];
   bodyMixes: Array<BodyMix> = [];
+  engobMixes: Array<EngobMix> = [];
 
   constructor(private toastrService: NbToastrService,
     private trans: TranslateService,

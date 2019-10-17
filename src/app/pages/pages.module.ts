@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateServiceOur } from '../services/our-translate.service';
+import { EngobMixesModule } from './engob-mixes/engob-mixes.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -26,6 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardModule,
     PaintMixesModule,
     BodyMixesModule,
+    EngobMixesModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {

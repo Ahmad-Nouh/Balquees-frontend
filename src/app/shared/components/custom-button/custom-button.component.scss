@@ -7,7 +7,7 @@
 }
 
 .our-card {
-    min-height: 500px;
+    min-height: fit-content;
 }
 
 .our-card nb-card-header {
@@ -30,6 +30,11 @@
 }
 
 .center {
+    display: block;
+    margin: auto;
+}
+
+.our-button {
     display: block;
     margin: auto;
 }

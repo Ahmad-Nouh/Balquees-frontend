@@ -1,13 +1,12 @@
+import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule } from '@nebular/theme';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateServiceOur } from './../../services/our-translate.service';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BodyMixesRoutingModule } from './body-mixes-routing.module';
-import { BodyMixesComponent } from './body-mixes/body-mixes.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { BodyMixesService } from '../../services/body-mixes.service';
-import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule } from '@nebular/theme';
+import { EngobMixesRoutingModule } from './engob-mixes-routing.module';
+import { EngobMixesComponent } from './engob-mixes/engob-mixes.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ee-ng-smart-table';
 import { SharedModule } from '../../shared/shared.module';
@@ -18,9 +17,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [BodyMixesComponent],
+  declarations: [EngobMixesComponent],
   imports: [
     CommonModule,
+    EngobMixesRoutingModule,
     NbCardModule,
     NbIconModule,
     NbDialogModule,
@@ -33,7 +33,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    BodyMixesRoutingModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -41,13 +40,9 @@ export function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
     })
-  ],
-  providers: [
-    TranslateService,
-    BodyMixesService
   ]
 })
-export class BodyMixesModule {
+export class EngobMixesModule {
   constructor(private translate: TranslateServiceOur,
     private trans: TranslateService) {
     

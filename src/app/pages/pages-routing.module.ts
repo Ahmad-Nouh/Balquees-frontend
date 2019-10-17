@@ -23,6 +23,11 @@ const routes: Routes = [{
       .then(m => m.BodyMixesModule),
     },
     {
+      path: 'engobMixes',
+      loadChildren: () => import('./engob-mixes/engob-mixes.module')
+      .then(m => m.EngobMixesModule),
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',

@@ -19,6 +19,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/bodyMixes',
     home: true,
   },
+  {
+    title: 'PAGES.EngobMixes.engobMixes',
+    icon: 'cube-outline',
+    link: '/pages/engobMixes',
+    home: true,
+  },
   // {
   //   title: 'FEATURES',
   //   group: true,

@@ -106,7 +106,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       perPage: 5
     },
     mode: 'external',
-    sortDirection: 'desc'
+    
   };
 
   settings1 = {
@@ -142,7 +142,10 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         editor: {
           type: 'custom',
           component: EditorInputNumberComponent
-        }
+        },
+        valuePrepareFunction: (value) => {
+          return value + '%';
+        },
       }
     },
     pager: {
@@ -150,7 +153,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       perPage: 4
     },
     mode: 'inline',
-    sortDirection: 'desc'
+    
   };
 
   isFlipped = false;
@@ -301,7 +304,13 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   }
 
   handleCreate(form: any): void {
-    this.paintMixesService.createPaintMix(this.newPaintMix)
+    const temp: PaintMix = {
+      code: this.newPaintMix.code,
+      components: this.newPaintMix.components,
+      type: this.newPaintMix.type,
+      glize: this.newPaintMix.glize
+    };
+    this.paintMixesService.createPaintMix(temp)
         .subscribe((result) => {
           console.log(result);
           this.resetForm(form);
@@ -393,7 +402,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       return true;
     }
 
-    if (this.isEdit && oldComponent) {
+    if (oldComponent) {
       if (this.totalQuantity + (+newComponent.quantity) - (+oldComponent.quantity) > 100) {
         console.log('total ', this.totalQuantity + (+newComponent.quantity) - (+oldComponent.quantity));
         this.commonService.showToast('bottom-end', 'danger', this.overQuantityMessage, 3000);
@@ -533,7 +542,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         perPage: 5
       },
       mode: 'external',
-      sortDirection: 'desc'
+      
     };
 
 
@@ -570,7 +579,10 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
           editor: {
             type: 'custom',
             component: EditorInputNumberComponent
-          }
+          },
+          valuePrepareFunction: (value) => {
+            return value + '%';
+          },
         }
       },
       pager: {
@@ -578,7 +590,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         perPage: 4
       },
       mode: 'inline',
-      sortDirection: 'desc'
+      
     };
     
     this.loadTableData(this.paintMixes);

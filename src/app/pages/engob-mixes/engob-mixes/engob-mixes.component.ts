@@ -1,3 +1,4 @@
+import { EngobMixesService } from './../../../services/engob-mixes.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Glize } from '../../../models/enums/glize';
 import { MixType } from '../../../models/enums/mixType';
@@ -5,25 +6,34 @@ import { FilterDaterangeInputComponent } from '../../../shared/components/filter
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { FilterInputComponent } from '../../../shared/components/filter-input/filter-input.component';
 import { EditorInputNumberComponent } from '../../../shared/components/editor-input-number/editor-input-number.component';
-import { BodyMixComponent } from '../../../models/BodyMixComponent';
-import { BodyMixesService } from '../../../services/body-mixes.service';
+import { EngobMix } from '../../../models/engobMix';
+import { MixComponent } from '../../../models/mixComponent';
 import { NbDialogService } from '@nebular/theme';
 import { TranslateServiceOur } from '../../../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonService } from '../../../services/common.service';
 import { LocalDataSource } from 'ee-ng-smart-table';
-import { BodyMix } from '../../../models/bodyMix';
 
 var moment = require('moment');
 var momentRange = require('moment-range');
 momentRange.extendMoment(moment);
 
 @Component({
-  selector: 'app-body-mixes',
-  templateUrl: './body-mixes.component.html',
-  styleUrls: ['./body-mixes.component.scss']
+  selector: 'app-engob-mixes',
+  templateUrl: './engob-mixes.component.html',
+  styleUrls: ['./engob-mixes.component.scss']
 })
-export class BodyMixesComponent implements OnInit {
+export class EngobMixesComponent implements OnInit {
+
+  GLIZE_OPTIONS = [
+    { value: Glize.MAT, title: 'PAGES.EngobMixes.mat' },
+    { value: Glize.TRANSPARENT, title: 'PAGES.EngobMixes.transparent' },
+  ];
+  
+  TYPE_OPTIONS = [
+    { value: MixType.WALLS, title: 'PAGES.EngobMixes.walls' },
+    { value: MixType.FLOORS, title: 'PAGES.EngobMixes.floors' },
+  ];
 
   settings = {
     add: {
@@ -57,6 +67,26 @@ export class BodyMixesComponent implements OnInit {
       },
       code: {
         title: 'Code',
+      },
+      type: {
+        title: 'Type',
+        filter: {
+          type: 'list',
+          config: {
+            list: this.TYPE_OPTIONS
+          }
+        },
+        valuePrepareFunction: (value) => value,
+      },
+      glize: {
+        title: 'Glize',
+        filter: {
+          type: 'list',
+          config: {
+            list: this.GLIZE_OPTIONS
+          }
+        },
+        valuePrepareFunction: (value) => value,
       },
       components: {
         filter: false,
@@ -113,51 +143,7 @@ export class BodyMixesComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return value + '%';
         },
-      },
-      moisture: {
-        title: 'Moisture',
-        filter: {
-          type: 'custom',
-          component: FilterInputComponent
-        },
-        editor: {
-          type: 'custom',
-          component: EditorInputNumberComponent
-        }
-      },
-      dryRM: {
-        title: 'DryRM',
-        filter: {
-          type: 'custom',
-          component: FilterInputComponent
-        },
-        editor: {
-          type: 'custom',
-          component: EditorInputNumberComponent
-        }
-      },
-      wetRM: {
-        title: 'WetRM',
-        filter: {
-          type: 'custom',
-          component: FilterInputComponent
-        },
-        editor: {
-          type: 'custom',
-          component: EditorInputNumberComponent
-        }
-      },
-      wet: {
-        title: 'Wet',
-        filter: {
-          type: 'custom',
-          component: FilterInputComponent
-        },
-        editor: {
-          type: 'custom',
-          component: EditorInputNumberComponent
-        }
-      },
+      }
     },
     pager: {
       display : true,
@@ -170,12 +156,14 @@ export class BodyMixesComponent implements OnInit {
   isFlipped = false;
   selectedType = MixType.WALLS;
   formTitle = '';
-  bodyMixes: Array<BodyMix> = [];
-  bodyMixComponents: Array<BodyMixComponent> = [];
+  engobMixes: Array<EngobMix> = [];
+  mixComponents: Array<MixComponent> = [];
   totalQuantity = 0;
 
-  newBodyMix: BodyMix = {
+  newEngobMix: EngobMix = {
     code: '',
+    type: '',
+    glize: '',
     components: []
   };
 
@@ -194,20 +182,20 @@ export class BodyMixesComponent implements OnInit {
   componentsValidation = 'PAGES.Common.componentsValidation';
 
   data: any;
-  @ViewChild('bodyMixTable', { static: true }) bodyMixTable;
+  @ViewChild('engobMixTable', { static: true }) engobMixTable;
 
-  constructor(private bodyMixesService: BodyMixesService,
+  constructor(private engobMixesService: EngobMixesService,
     private dialogService: NbDialogService,
     private translate: TranslateServiceOur,
     private trans: TranslateService,
     private commonService: CommonService) { }
 
   async ngOnInit() {
-    this.bodyMixes = await this.bodyMixesService.getBodyMixes();
-    this.commonService.bodyMixes = this.bodyMixes;
-    // moment(bodyMix.createdAt).format('llll')
-    console.log('bodyMixes ', this.bodyMixes);
-    this.loadTableData(this.bodyMixes);
+    this.engobMixes = await this.engobMixesService.getEngobMixes();
+    this.commonService.engobMixes = this.engobMixes;
+    // moment(engobMix.createdAt).format('llll')
+    console.log('engobMixes ', this.engobMixes);
+    this.loadTableData(this.engobMixes);
     this.trans.use(this.translate.currentLanguage);
     await this.initSettingTranslation();
   }
@@ -224,19 +212,19 @@ export class BodyMixesComponent implements OnInit {
       });
   }
 
-  onCreateBodyMix(event: any): void {
+  onCreateEngobMix(event: any): void {
     console.log('create');
-    this.formTitle = 'PAGES.BodyMixes.createBodyMix';
+    this.formTitle = 'PAGES.EngobMixes.createEngobMix';
     this.isFlipped = true;
   }
 
-  onEditBodyMix(event: any): void {
+  onEditEngobMix(event: any): void {
     console.log('edit', event);
-    this.newBodyMix = {...event.data};
-    this.formTitle = 'PAGES.BodyMixes.editBodyMix';
+    this.newEngobMix = {...event.data};
+    this.formTitle = 'PAGES.EngobMixes.editEngobMix';
     this.isEdit = true;
-    this.totalQuantity = this.newBodyMix.components
-    .map((component: BodyMixComponent) => +component.quantity)
+    this.totalQuantity = this.newEngobMix.components
+    .map((component: MixComponent) => +component.quantity)
     .reduce((sum, num) => sum + num);
     console.log('totalQuantity ', this.totalQuantity);
     this.isFlipped = true;
@@ -258,6 +246,9 @@ export class BodyMixesComponent implements OnInit {
   onEditComponent(event): void {
     const newComponent = event.newData;
     const oldComponent = event.data;
+    console.log('newComponent ', newComponent);
+    console.log('oldComponent ', oldComponent);
+    console.log('quantity ', this.totalQuantity);
     // validate component
     if (this.validateComponent(newComponent, oldComponent)) {
       return;
@@ -271,10 +262,10 @@ export class BodyMixesComponent implements OnInit {
     // save component
     event.confirm.resolve();
 
-    const index = this.newBodyMix.components.indexOf(event.data);
+    const index = this.newEngobMix.components.indexOf(event.data);
     console.log('ind ', index);
     if (index >= 0) {
-      this.newBodyMix[index] = event.data;
+      this.newEngobMix[index] = event.data;
     }
   }
 
@@ -284,10 +275,10 @@ export class BodyMixesComponent implements OnInit {
     this.totalQuantity -= (+component.quantity);
     event.confirm.resolve();
 
-    const index = this.newBodyMix.components.indexOf(event.data);
+    const index = this.newEngobMix.components.indexOf(event.data);
     console.log('ind ', index);
     if (index >= 0) {
-      this.newBodyMix.components.splice(index, 1);
+      this.newEngobMix.components.splice(index, 1);
     }
   }
 
@@ -313,33 +304,37 @@ export class BodyMixesComponent implements OnInit {
   }
 
   handleCreate(form: any): void {
-    const temp: BodyMix = {
-      code: this.newBodyMix.code,
-      components: this.newBodyMix.components
+    const temp: EngobMix = {
+      code: this.newEngobMix.code,
+      components: this.newEngobMix.components,
+      type: this.newEngobMix.type,
+      glize: this.newEngobMix.glize
     };
-    this.bodyMixesService.createBodyMix(temp)
+    this.engobMixesService.createEngobMix(temp)
         .subscribe((result) => {
           console.log(result);
           this.resetForm(form);
-          this.bodyMixes.push(result);
-          this.loadTableData(this.bodyMixes);
+          this.engobMixes.push(result);
+          this.loadTableData(this.engobMixes);
           this.totalQuantity = 0;
           this.isFlipped = false;
         });
   }
 
   handleEdit(form: any): void {
-    const temp: BodyMix = {
-      code: this.newBodyMix.code,
-      components: this.newBodyMix.components
+    const temp: EngobMix = {
+      code: this.newEngobMix.code,
+      components: this.newEngobMix.components,
+      type: this.newEngobMix.type,
+      glize: this.newEngobMix.glize
     };
-    this.bodyMixesService.updateBodyMix(this.newBodyMix._id, temp)
+    this.engobMixesService.updateEngobMix(this.newEngobMix._id, temp)
         .subscribe((result) => {
           this.resetForm(form);
-          const index = this.bodyMixes.findIndex((bodyMix: BodyMix) => bodyMix._id == result._id);
+          const index = this.engobMixes.findIndex((engobMix: EngobMix) => engobMix._id == result._id);
           console.log('index ', index);
-          this.bodyMixes[index] = result;
-          this.loadTableData(this.bodyMixes);
+          this.engobMixes[index] = result;
+          this.loadTableData(this.engobMixes);
           this.totalQuantity = 0;
           this.isFlipped = false;
         });
@@ -354,14 +349,14 @@ export class BodyMixesComponent implements OnInit {
     });
   }
 
-  handleAccept(bodyMix: BodyMix, dialog: any): void {
-    this.bodyMixesService.deleteBodyMix(bodyMix._id)
+  handleAccept(engobMix: EngobMix, dialog: any): void {
+    this.engobMixesService.deleteEngobMix(engobMix._id)
       .subscribe((result: any) => {
-        const index = this.bodyMixes.findIndex(mix => mix._id === bodyMix._id);
+        const index = this.engobMixes.findIndex(mix => mix._id === engobMix._id);
         if (index >= 0) {
-          this.bodyMixes.splice(index, 1);
+          this.engobMixes.splice(index, 1);
         }
-        this.loadTableData(this.bodyMixes);
+        this.loadTableData(this.engobMixes);
         dialog.close();
       })
   }
@@ -369,13 +364,15 @@ export class BodyMixesComponent implements OnInit {
   resetForm(form): void {
     form.reset();
     this.isSubmited = false;
-    this.newBodyMix = {
+    this.newEngobMix = {
       code: '',
+      type: '',
+      glize: '',
       components: []
     };
   }
 
-  loadTableData(data: Array<BodyMix>): void {
+  loadTableData(data: Array<EngobMix>): void {
     this.data = new LocalDataSource(data);
   }
 
@@ -424,7 +421,7 @@ export class BodyMixesComponent implements OnInit {
 
   validateForm(form): boolean {
     // validate form
-    if (form.invalid || this.newBodyMix.components.length <= 0) {
+    if (form.invalid || this.newEngobMix.components.length <= 0) {
       this.commonService.showToast('bottom-end', 'danger', this.validationMessage, 3000);
       return true;
     }
@@ -440,6 +437,27 @@ export class BodyMixesComponent implements OnInit {
 
   async initSettingTranslation() {
     moment.locale(this.translate.currentLanguage);
+
+    const typeOptions = [], glizeOptions = [];
+    for(const item of this.TYPE_OPTIONS.slice()) {
+      const temp = {
+        ...item,
+        title: await this.trans.get(item.title).toPromise()
+      };
+      typeOptions.push(temp);
+    }
+
+    for(const item of this.GLIZE_OPTIONS.slice()) {
+      const temp = {
+        ...item,
+        title: await this.trans.get(item.title).toPromise()
+      };
+      glizeOptions.push(temp);
+    }
+    
+    
+
+    console.log(typeOptions);
 
     this.settings = {
       add: {
@@ -459,7 +477,7 @@ export class BodyMixesComponent implements OnInit {
       },
       columns: {
         createdAt: {
-          title: await this.trans.get('PAGES.BodyMixes.date').toPromise(),
+          title: await this.trans.get('PAGES.EngobMixes.date').toPromise(),
           valuePrepareFunction: (value) => {
             const newVal = moment.utc(value).format('YYYY-MM-DD hh:mm a');
             return newVal;
@@ -487,7 +505,27 @@ export class BodyMixesComponent implements OnInit {
           }
         },
         code: {
-          title: await this.trans.get('PAGES.BodyMixes.code').toPromise(),
+          title: await this.trans.get('PAGES.EngobMixes.code').toPromise(),
+        },
+        type: {
+          title: await this.trans.get('PAGES.EngobMixes.type').toPromise(),
+          filter: {
+            type: 'list',
+            config: {
+              list: typeOptions
+            }
+          },
+          valuePrepareFunction: (value) => this.handleTranslateCells(value, true),
+        },
+        glize: {
+          title: await this.trans.get('PAGES.EngobMixes.glize').toPromise(),
+          filter: {
+            type: 'list',
+            config: {
+              list: glizeOptions
+            }
+          },
+          valuePrepareFunction: (value) => this.handleTranslateCells(value, false),
         },
         components: {
           filter: false,
@@ -529,11 +567,11 @@ export class BodyMixesComponent implements OnInit {
       },
       columns: {
         name: {
-          title: await this.trans.get('PAGES.BodyMixes.name').toPromise(),
+          title: await this.trans.get('PAGES.EngobMixes.name').toPromise(),
           type:'text'
         },
         quantity: {
-          title: await this.trans.get('PAGES.BodyMixes.quantity').toPromise(),
+          title: await this.trans.get('PAGES.EngobMixes.quantity').toPromise(),
           filter: {
             type: 'custom',
             component: FilterInputComponent
@@ -545,51 +583,7 @@ export class BodyMixesComponent implements OnInit {
           valuePrepareFunction: (value) => {
             return value + '%';
           },
-        },
-        moisture: {
-          title: await this.trans.get('PAGES.BodyMixes.moisture').toPromise(),
-          filter: {
-            type: 'custom',
-            component: FilterInputComponent
-          },
-          editor: {
-            type: 'custom',
-            component: EditorInputNumberComponent
-          }
-        },
-        dryRM: {
-          title: await this.trans.get('PAGES.BodyMixes.dryRM').toPromise(),
-          filter: {
-            type: 'custom',
-            component: FilterInputComponent
-          },
-          editor: {
-            type: 'custom',
-            component: EditorInputNumberComponent
-          }
-        },
-        wetRM: {
-          title: await this.trans.get('PAGES.BodyMixes.wetRM').toPromise(),
-          filter: {
-            type: 'custom',
-            component: FilterInputComponent
-          },
-          editor: {
-            type: 'custom',
-            component: EditorInputNumberComponent
-          }
-        },
-        wet: {
-          title: await this.trans.get('PAGES.BodyMixes.wet').toPromise(),
-          filter: {
-            type: 'custom',
-            component: FilterInputComponent
-          },
-          editor: {
-            type: 'custom',
-            component: EditorInputNumberComponent
-          }
-        },
+        }
       },
       pager: {
         display : true,
@@ -599,7 +593,7 @@ export class BodyMixesComponent implements OnInit {
       
     };
     
-    this.loadTableData(this.bodyMixes);
+    this.loadTableData(this.engobMixes);
   }
 
 }
