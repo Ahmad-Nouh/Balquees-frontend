@@ -82,6 +82,10 @@
         "quantity": "Quantity",
         "noDataFound": "No Data Found"
       },
+      "ProductsCards": {
+        "productsCards": "Products Cards",
+        "back": "Back"
+      },
       "Common": {
         "yes": "Yes",
         "no": "No",

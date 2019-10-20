@@ -1,0 +1,45 @@
+table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
+
+.my-paginator ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: rgba(0,0,0,0) !important;
+}
+
+.my-paginator ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    bottom: 0.25em;
+}
+
+.filter-header {
+  padding: 0.5% !important;
+  padding-left: 24px;
+  text-align: center;
+}
+
+.filter-input, .filter-input::placeholder {
+  text-align: center;
+}
+
+.filter-input {
+  padding: 0% !important;
+}
+
+.our-table td,
+.our-table th {
+  text-align: center;
+  border: 1px solid #DDD;
+}
+
+::ng-deep .nb-theme-default [nbInput].size-medium:not(.input-full-width) {
+  padding: 0.5rem !important;
+  max-width: 10rem !important;
+}
+
+::ng-deep .nb-theme-default [nbButton].appearance-filled.size-medium {
+  padding: 0.625rem 3.125rem;
+  font-size: 1.1rem;
+}

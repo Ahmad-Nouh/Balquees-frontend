@@ -1,10 +1,16 @@
 import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
+  // {
+  //   title: 'PAGES.Home.TITLE',
+  //   icon: 'home-outline',
+  //   link: '/pages/dashboard',
+  //   home: true,
+  // },
   {
-    title: 'PAGES.Home.TITLE',
-    icon: 'home-outline',
-    link: '/pages/dashboard',
+    title: 'PAGES.ProductsCards.productsCards',
+    icon: 'file-text-outline',
+    link: '/pages/productsCards',
     home: true,
   },
   {
@@ -24,7 +30,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'cube-outline',
     link: '/pages/engobMixes',
     home: true,
-  },
+  }
   // {
   //   title: 'FEATURES',
   //   group: true,

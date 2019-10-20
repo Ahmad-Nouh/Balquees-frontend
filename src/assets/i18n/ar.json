@@ -82,6 +82,10 @@
             "quantity": "النسبة",
             "noDataFound": "لا يوجد بيانات"
         },
+        "ProductsCards": {
+            "productsCards": "بطاقات المنتجات ",
+            "back": "رجوع"
+        },
         "Common": {
             "yes": "نعم",
             "no": "لا",

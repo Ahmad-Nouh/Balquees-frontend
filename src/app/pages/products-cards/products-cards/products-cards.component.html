@@ -1,0 +1,27 @@
+<nb-flip-card class="our-flip-card" [showToggleButton]="false" [flipped]="isFlipped">
+    <nb-card-front class="row">
+        <nb-card class="main-card col-md-12">
+            <nb-card-header class="text-heading text-primary card-title">
+                {{ 'PAGES.ProductsCards.productsCards' | translate }}
+            </nb-card-header>
+            <nb-card-body>
+                <app-products-cards-table></app-products-cards-table>
+            </nb-card-body>
+        </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+        <nb-card class="main-card">
+            <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+            <nb-card-body class="card-body">
+                back
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton status="success" type="submit" (click)="onSubmit()">
+                    save
+                    <nb-icon icon="save"></nb-icon>
+                </button>
+                <button nbButton status="primary" (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}<nb-icon icon="arrow-left"></nb-icon></button>
+            </nb-card-footer>
+        </nb-card>
+    </nb-card-back>
+</nb-flip-card>

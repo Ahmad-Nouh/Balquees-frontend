@@ -1,3 +1,4 @@
+import { ProductsCardsModule } from './products-cards/products-cards.module';
 import { BodyMixesModule } from './body-mixes/body-mixes.module';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -28,6 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PaintMixesModule,
     BodyMixesModule,
     EngobMixesModule,
+    ProductsCardsModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {
