@@ -1,9 +1,11 @@
+
 table {
   width: 100%;
+  background-color: transparent;
 }
 
-button {
-  margin: 16px 8px;
+.my-paginator {
+  background-color: transparent;
 }
 
 .my-paginator ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
@@ -20,26 +22,48 @@ button {
   text-align: center;
 }
 
-.filter-input, .filter-input::placeholder {
-  text-align: center;
-}
-
-.filter-input {
-  padding: 0% !important;
-}
-
 .our-table td,
 .our-table th {
   text-align: center;
   border: 1px solid #DDD;
+  font-size: 1rem;
 }
 
 ::ng-deep .nb-theme-default [nbInput].size-medium:not(.input-full-width) {
   padding: 0.5rem !important;
-  max-width: 10rem !important;
+  width: 90% !important;
 }
 
 ::ng-deep .nb-theme-default [nbButton].appearance-filled.size-medium {
   padding: 0.625rem 3.125rem;
   font-size: 1.1rem;
+}
+
+#selectColumns {
+  margin: 1%;
+}
+
+#mylabel {
+  display: block;
+  height: fit-content;
+  font-size: 1.1rem;
+  padding: 1.5%;
+  font-weight: 600;
+  color: #2A3146;
+}
+
+.our-btn {
+  width: 90%;
+}
+
+.form-alert {
+  padding: 0.5% 1%;
+  height: fit-content;
+  margin-top: 1%;
+  margin-left: 4%;
+}
+
+.actions-btn {
+  font-size: 1.5rem !important;
+  margin: 0% 5%
 }

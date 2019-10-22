@@ -4,7 +4,7 @@ import { ProductsCardsRoutingModule } from './products-cards-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsCardsComponent } from './products-cards/products-cards.component';
-import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule, NbStepperModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ee-ng-smart-table';
 import { SharedModule } from '../../shared/shared.module';
@@ -35,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbInputModule,
     NbButtonModule,
     NbAlertModule,
+    NbStepperModule,
     ThemeModule,
     Ng2SmartTableModule,
     SharedModule,

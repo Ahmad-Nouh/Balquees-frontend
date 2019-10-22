@@ -1,9 +1,14 @@
 <div class="row">
-  <nb-select multiple style="width: 20rem;" (selectedChange)="onSelectionColumn()" placeholder="Multiple Select" 
+  <label id="mylabel" for="selectColumns">Select Columns To Display </label>
+  <nb-select id="selectColumns" multiple style="width: 20rem;" (selectedChange)="onSelectionColumn()" placeholder="Multiple Select" 
   name="selectedColumns" [(ngModel)]="columnsToDisplay">
-      <nb-option *ngFor="let column of displayedColumns"
+      <nb-option *ngFor="let column of allColumns"
       [value]="column.name">{{ column.title }}</nb-option>
   </nb-select>
+
+  <nb-alert class="form-alert" *ngIf="showAlert" status="danger">
+      {{ maximumColumnValidationMessage }}
+  </nb-alert>
 </div>
 
 <div class="our-table">
@@ -11,7 +16,14 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
-      <td mat-cell *matCellDef="let element"> test </td>
+      <td mat-cell *matCellDef="let element">
+          <button class="actions-btn" (click)="onClickEdit(element);" nbButton ghost status="info">
+              <i class="fa fa-pencil"></i>
+          </button>
+          <button class="actions-btn" (click)="onClickDelete(element);" nbButton ghost status="danger">
+              <i class="fa fa-trash"></i>
+          </button>
+      </td>
     </ng-container>
 
     <!-- ID Column -->
@@ -22,13 +34,17 @@
 
     <ng-container matColumnDef="actionsFilter">
       <th class="filter-header" mat-header-cell *matHeaderCellDef>
-        <button class="our-btn" nbButton status="primary"><i class="fa fa-plus"></i></button>
+        <button class="our-btn" nbButton (click)="onClickCreate()" status="primary"><i class="fa fa-plus"></i></button>
       </th>
     </ng-container>
 
     <ng-container [matColumnDef]="column.filterTitle" *ngFor="let column of displayedColumns">
       <th class="filter-header" mat-header-cell *matHeaderCellDef>
-        <input class="filter-input" style="width: inherit" type="text" nbInput placeholder="filter">
+        <app-table-filter 
+        [column]="column.name"
+        [placeholder]="column.title"
+        (onKeyup)="filterTable($event);">
+      </app-table-filter>
       </th>
     </ng-container>
 

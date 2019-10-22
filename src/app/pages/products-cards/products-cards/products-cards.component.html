@@ -5,7 +5,22 @@
                 {{ 'PAGES.ProductsCards.productsCards' | translate }}
             </nb-card-header>
             <nb-card-body>
-                <app-products-cards-table></app-products-cards-table>
+                <app-products-cards-table (onCreate)="isFlipped = true" (onEdit)="onEditProductCard($event);"
+                    (onDelete)="onDeleteProductCard(dialog ,$event);"></app-products-cards-table>
+                <!-- delete modal -->
+                <ng-template #dialog let-data let-ref="dialogRef">
+                    <nb-card class="popup">
+                        <nb-card-header>{{ 'PAGES.Common.alert' | translate }}</nb-card-header>
+                        <nb-card-body>
+                            <p>{{ data.message | translate }}</p>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <button nbButton status="success"
+                                (click)="ref.close()">{{ 'PAGES.Common.yes' | translate }}</button>
+                            <button nbButton (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
+                        </nb-card-footer>
+                    </nb-card>
+                </ng-template>
             </nb-card-body>
         </nb-card>
     </nb-card-front>
@@ -13,14 +28,58 @@
         <nb-card class="main-card">
             <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
             <nb-card-body class="card-body">
-                back
+
+                <nb-stepper #stepper [linear]="true">
+
+                    <nb-step [stepControl]="nameForm" label="Product Card Details">
+                        <form #nameForm="ngForm" class="step-container">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter your name" class="form-control" name="name"
+                                    required nbInput ngModel #name="ngModel" [status]="name.invalid ? 'danger' : ''">
+                            </div>
+                            <button nbButton nbStepperNext>next</button>
+                        </form>
+                    </nb-step>
+
+                    <nb-step [stepControl]="movieForm" label="Product Card Mixes">
+                        <form #movieForm="ngForm" class="step-container">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter your favorite movie" class="form-control"
+                                    name="movie" required nbInput ngModel #movie="ngModel"
+                                    [status]="movie.invalid ? 'danger' : ''">
+                            </div>
+                            <button nbButton nbStepperNext>next</button>
+                        </form>
+                    </nb-step>
+
+                    <nb-step [stepControl]="somethingForm" label="Other info">
+                        <form #somethingForm="ngForm" class="step-container">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter something" class="form-control" name="something"
+                                    required nbInput ngModel #somethingForm="ngModel"
+                                    [status]="somethingForm.invalid ? 'danger' : ''">
+                            </div>
+                            <button nbButton nbStepperNext>next</button>
+                        </form>
+                    </nb-step>
+
+                    <nb-step [hidden]="true">
+                        <div class="step-container">
+                            <h3>Wizard completed!</h3>
+                            <button nbButton (click)="stepper.reset()">Try again</button>
+                        </div>
+                    </nb-step>
+                </nb-stepper>
+
+
             </nb-card-body>
             <nb-card-footer>
                 <button nbButton status="success" type="submit" (click)="onSubmit()">
                     save
                     <nb-icon icon="save"></nb-icon>
                 </button>
-                <button nbButton status="primary" (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}<nb-icon icon="arrow-left"></nb-icon></button>
+                <button nbButton status="primary" (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}
+                    <nb-icon icon="arrow-left"></nb-icon></button>
             </nb-card-footer>
         </nb-card>
     </nb-card-back>

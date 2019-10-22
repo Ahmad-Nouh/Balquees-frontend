@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterInputComponent } from './components/filter-input/filter-input.component';
 import { EditorInputNumberComponent } from './components/editor-input-number/editor-input-number.component';
 import { FilterDaterangeInputComponent } from './components/filter-daterange-input/filter-daterange-input.component';
+import { TableFilterComponent } from './components/table-filter/table-filter.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -26,7 +27,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CustomButtonComponent,
     FilterInputComponent,
     EditorInputNumberComponent,
-    FilterDaterangeInputComponent
+    FilterDaterangeInputComponent,
+    TableFilterComponent
   ],
   imports: [
     CommonModule,
@@ -52,14 +54,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     CustomButtonComponent,
     FilterInputComponent,
     EditorInputNumberComponent,
-    FilterDaterangeInputComponent
+    FilterDaterangeInputComponent,
+    TableFilterComponent
   ],
   providers: [NbDialogService],
   entryComponents: [
     CustomButtonComponent,
     FilterInputComponent,
     EditorInputNumberComponent,
-    FilterDaterangeInputComponent
+    FilterDaterangeInputComponent,
+    TableFilterComponent
   ]
 })
 export class SharedModule {
