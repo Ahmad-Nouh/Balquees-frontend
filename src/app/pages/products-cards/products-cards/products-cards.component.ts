@@ -1,3 +1,4 @@
+
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 
@@ -8,6 +9,7 @@ import { NbDialogService } from '@nebular/theme';
 })
 export class ProductsCardsComponent implements OnInit {
   isFlipped = false;
+  isAdd = true;
   data = [];
 
   formTitle = 'PAGES.ProductsCards.productsCards';
@@ -18,16 +20,13 @@ export class ProductsCardsComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClickBack(): void {
-    this.isFlipped = false;
+  onClickBack(result: boolean, isAdd): void {
+    this.isFlipped = result;
   }
 
-  onSubmit(): void {
-    console.log('submited');
-  }
-
-  onCreateProductCard(): void {
-    console.log('create');
+  onCreateProductCard(event): void {
+    this.isFlipped = true;
+    this.isAdd = true;
   }
 
   onDeleteProductCard(dialog: TemplateRef<any>, product: any): void {
@@ -43,5 +42,6 @@ export class ProductsCardsComponent implements OnInit {
   onEditProductCard(productCard): void {
     console.log('edit ', productCard);
     this.isFlipped = true;
+    this.isAdd = false;
   }
 }

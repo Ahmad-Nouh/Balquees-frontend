@@ -4,7 +4,7 @@ import { ProductsCardsRoutingModule } from './products-cards-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsCardsComponent } from './products-cards/products-cards.component';
-import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule, NbStepperModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule, NbStepperModule, NbDatepickerModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ee-ng-smart-table';
 import { SharedModule } from '../../shared/shared.module';
@@ -17,6 +17,8 @@ import { ProductsCardsTableComponent } from './products-cards-table/products-car
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ProductCardDetailsComponent } from './product-card-details/product-card-details.component';
+import { ProductCardStepperComponent } from './product-card-stepper/product-card-stepper.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -24,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [ProductsCardsComponent, ProductsCardsTableComponent],
+  declarations: [ProductsCardsComponent, ProductsCardsTableComponent, ProductCardDetailsComponent, ProductCardStepperComponent],
   imports: [
     CommonModule,
     ProductsCardsRoutingModule,
@@ -36,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbButtonModule,
     NbAlertModule,
     NbStepperModule,
+    NbDatepickerModule.forRoot(),
     ThemeModule,
     Ng2SmartTableModule,
     SharedModule,

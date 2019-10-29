@@ -1,0 +1,227 @@
+<nb-card class="main-card">
+    <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+    <nb-card-body class="card-body">
+
+        <nb-stepper #stepper [linear]="false" disableStepNavigation>
+
+            <nb-step [stepControl]="firstForm" label="Product Card Details">
+                <form class="myform" [formGroup]="firstForm" class="step-container">
+                    <div class="form-item">
+                        <label class="mylabel" for="productName">Enter Product Name </label>
+                        <input nbInput id="productName" type="text" placeholder="Product Name"
+                            class="form-control" formControlName="productName"
+                            [status]="(productName?.invalid && (productName.dirty || productName.touched)) ? 'danger' : ''">
+                    </div>
+                    <div class="form-item">
+                        <label class="mylabel" for="code">Enter Product Code </label>
+                        <input nbInput id="code" type="text" placeholder="Code" class="form-control"
+                            formControlName="code"
+                            [status]="(code?.invalid && (code.dirty || code.touched)) ? 'danger' : ''">
+                    </div>
+                    <div class="form-item">
+                        <label class="mylabel" for="productionDate">Select Production Date </label>
+                        <input nbInput id="productionDate" placeholder="Production Date" class="form-control"
+                            formControlName="productionDate"
+                            [status]="(productionDate?.invalid && (productionDate.dirty || productionDate.touched)) ? 'danger' : ''"
+                            [nbDatepicker]="productionDatepicker" readonly>
+
+                        <nb-datepicker #productionDatepicker></nb-datepicker>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="dimensions">Enter Product Dimensions </label>
+                        <div id="dimensions">
+                            <input id="width" nbInput type="number" placeholder="Width" class="form-control"
+                                formControlName="width"
+                                [status]="(width?.invalid && (width.dirty || width.touched)) ? 'danger' : ''">
+
+                            <input id="height" nbInput type="number" placeholder="Height" class="form-control"
+                                formControlName="height"
+                                [status]="(height?.invalid && (height.dirty || height.touched)) ? 'danger' : ''">
+                        </div>
+                    </div>
+                </form>
+            </nb-step>
+
+            <nb-step [stepControl]="secondForm" label="Product Paint Mix">
+                <form [formGroup]="secondForm" class="step-container">
+                    <div class="form-item">
+                        <label class="mylabel" for="paintMix">Select Paint Mix </label>
+                        <nb-select class="my-select" id="paintMix" placeholder="Paint Mix"
+                        formControlName="paintMix"
+                        [status]="(paintMix?.invalid && (paintMix.dirty || paintMix.touched)) ? 'danger' : ''"
+                        [(selected)]="selectedPaintMix">
+                            <nb-option value="">Option empty</nb-option>
+                            <nb-option value="0">Option 0</nb-option>
+                            <nb-option value="1">Option 1</nb-option>
+                            <nb-option value="2">Option 2</nb-option>
+                            <nb-option value="3">Option 3</nb-option>
+                            <nb-option value="4">Option 4</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="form-item">
+                        <label class="mylabel" for="pWeight">Enter Weight </label>
+                        <input nbInput id="pWeight" type="number" placeholder="Weight" class="form-control"
+                            formControlName="pWeight"
+                            [status]="(pWeight?.invalid && (pWeight.dirty || pWeight.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="pDensity">Enter Density </label>
+                        <input nbInput id="pDensity" type="number" placeholder="Density" class="form-control"
+                            formControlName="pDensity"
+                            [status]="(pDensity?.invalid && (pDensity.dirty || pDensity.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="pViscosity">Enter Viscosity </label>
+                        <input nbInput id="pViscosity" type="number" placeholder="Viscosity" class="form-control"
+                            formControlName="pViscosity"
+                            [status]="(pViscosity?.invalid && (pViscosity.dirty || pViscosity.touched)) ? 'danger' : ''">
+                    </div>
+                </form>
+            </nb-step>
+
+            <nb-step [stepControl]="thirdForm" label="Product Engob Mix">
+                <form [formGroup]="thirdForm" class="step-container">
+                    <div class="form-item">
+                        <label class="mylabel" for="engobMix">Select Engob Mix </label>
+                        <nb-select class="my-select" id="engobMix" placeholder="Engob Mix"
+                        formControlName="engobMix"
+                        [status]="(engobMix?.invalid && (engobMix.dirty || engobMix.touched)) ? 'danger' : ''"
+                        [(selected)]="selectedEngobMix">
+                            <nb-option value="">Option empty</nb-option>
+                            <nb-option value="0">Option 0</nb-option>
+                            <nb-option value="1">Option 1</nb-option>
+                            <nb-option value="2">Option 2</nb-option>
+                            <nb-option value="3">Option 3</nb-option>
+                            <nb-option value="4">Option 4</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="form-item">
+                        <label class="mylabel" for="eWeight">Enter Weight </label>
+                        <input nbInput id="eWeight" type="number" placeholder="Weight" class="form-control"
+                            formControlName="eWeight"
+                            [status]="(eWeight?.invalid && (eWeight.dirty || eWeight.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="eDensity">Enter Density </label>
+                        <input nbInput id="eDensity" type="number" placeholder="Density" class="form-control"
+                            formControlName="eDensity"
+                            [status]="(eDensity?.invalid && (eDensity.dirty || eDensity.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="eViscosity">Enter Viscosity </label>
+                        <input nbInput id="eViscosity" type="number" placeholder="Viscosity" class="form-control"
+                            formControlName="eViscosity"
+                            [status]="(eViscosity?.invalid && (eViscosity.dirty || eViscosity.touched)) ? 'danger' : ''">
+                    </div>
+                </form>
+            </nb-step>
+
+            <nb-step [stepControl]="fourthForm" label="Other Info">
+                <form [formGroup]="fourthForm" class="step-container">
+                    <div class="form-item">
+                        <label class="mylabel" for="paintMix">Select Body Mix </label>
+                        <nb-select class="my-select" id="bodyMix" placeholder="Body Mix"
+                        formControlName="bodyMix"
+                        [status]="(bodyMix?.invalid && (bodyMix.dirty || bodyMix.touched)) ? 'danger' : ''"
+                        [(selected)]="selectedBodyMix">
+                            <nb-option value="">Option empty</nb-option>
+                            <nb-option value="0">Option 0</nb-option>
+                            <nb-option value="1">Option 1</nb-option>
+                            <nb-option value="2">Option 2</nb-option>
+                            <nb-option value="3">Option 3</nb-option>
+                            <nb-option value="4">Option 4</nb-option>
+                        </nb-select>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="pistonPressure">Enter Piston Pressure </label>
+                        <input nbInput id="pistonPressure" type="number" placeholder="Piston Pressure" class="form-control"
+                            formControlName="pistonPressure"
+                            [status]="(pistonPressure?.invalid && (pistonPressure.dirty || pistonPressure.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="breakingForce">Enter Breaking Force </label>
+                        <input nbInput id="breakingForce" type="number" placeholder="Breaking Force" class="form-control"
+                            formControlName="breakingForce"
+                            [status]="(breakingForce?.invalid && (breakingForce.dirty || breakingForce.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="radiation">Enter Radiation </label>
+                        <input nbInput id="radiation" type="number" placeholder="Radiation" class="form-control"
+                            formControlName="radiation"
+                            [status]="(radiation?.invalid && (radiation.dirty || radiation.touched)) ? 'danger' : ''">
+                    </div>
+                </form>
+            </nb-step>
+
+            <nb-step [stepControl]="fifthForm" label="Ovens">
+                <form [formGroup]="fifthForm" class="step-container">
+                    <div class="form-item">
+                        <label class="mylabel" for="pOvenPeriod">Enter Paint Oven Period </label>
+                        <input nbInput id="pOvenPeriod" type="number" placeholder="Paint Oven Period" class="form-control"
+                            formControlName="pOvenPeriod"
+                            [status]="(pOvenPeriod?.invalid && (pOvenPeriod.dirty || pOvenPeriod.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="pOvenHeat">Enter Paint Oven (Low & High) Temperatures </label>
+                        <div id="pOvenHeat">
+                            <input id="pOvenHeatLow" nbInput type="number" placeholder="Low Heat" class="form-control"
+                                formControlName="pOvenHeatLow"
+                                [status]="(pOvenHeatLow?.invalid && (pOvenHeatLow.dirty || pOvenHeatLow.touched)) ? 'danger' : ''">
+
+                            <input id="pOvenHeatHigh" nbInput type="number" placeholder="High Heat" class="form-control"
+                                formControlName="pOvenHeatHigh"
+                                [status]="(pOvenHeatHigh?.invalid && (pOvenHeatHigh.dirty || pOvenHeatHigh.touched)) ? 'danger' : ''">
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="bOvenPeriod">Enter Bascuit Oven Period </label>
+                        <input nbInput id="bOvenPeriod" type="number" placeholder="Bascuit Oven Period" class="form-control"
+                            formControlName="bOvenPeriod"
+                            [status]="(bOvenPeriod?.invalid && (bOvenPeriod.dirty || bOvenPeriod.touched)) ? 'danger' : ''">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="mylabel" for="bOvenHeat">Enter Bascuit Oven (Low & High) Temperatures </label>
+                        <div id="bOvenHeat">
+                            <input id="bOvenHeatLow" nbInput type="number" placeholder="Low Heat" class="form-control"
+                                formControlName="bOvenHeatLow"
+                                [status]="(bOvenHeatLow?.invalid && (bOvenHeatLow.dirty || bOvenHeatLow.touched)) ? 'danger' : ''">
+
+                            <input id="bOvenHeatHigh" nbInput type="number" placeholder="High Heat" class="form-control"
+                                formControlName="bOvenHeatHigh"
+                                [status]="(bOvenHeatHigh?.invalid && (bOvenHeatHigh.dirty || bOvenHeatHigh.touched)) ? 'danger' : ''">
+                        </div>
+                    </div>
+                </form>
+            </nb-step>
+        </nb-stepper>
+
+
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="danger"
+            (click)="onClickBack(stepper)">{{ 'PAGES.ProductsCards.back' | translate }}
+            <nb-icon icon="close-outline"></nb-icon>
+        </button>
+        <button nbButton status="success" type="submit" (click)="onNext(stepper)" style="float: right;">
+            {{ stepper.selectedIndex === 4 ? 'Submit' : 'Next' }}
+            <nb-icon *ngIf="stepper.selectedIndex === 4" icon="save"></nb-icon>
+            <nb-icon *ngIf="stepper.selectedIndex < 4" icon="arrow-right"></nb-icon>
+        </button>
+        <button nbButton *ngIf="stepper.selectedIndex !== 0" status="primary" (click)="onPrevious(stepper)"
+            style="float: right;">{{ 'PAGES.ProductsCards.back' | translate }}
+            <nb-icon icon="arrow-left"></nb-icon>
+        </button>
+
+    </nb-card-footer>
+</nb-card>

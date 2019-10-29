@@ -27,17 +27,19 @@ table {
   text-align: center;
   border: 1px solid #DDD;
   font-size: 1rem;
+  padding-left: 0.5% !important;
+  width: 12%;
 }
 
-::ng-deep .nb-theme-default [nbInput].size-medium:not(.input-full-width) {
-  padding: 0.5rem !important;
-  width: 90% !important;
-}
+// ::ng-deep .nb-theme-default [nbInput].size-medium:not(.input-full-width) {
+//   padding: 0.5rem !important;
+//   width: 90% !important;
+// }
 
-::ng-deep .nb-theme-default [nbButton].appearance-filled.size-medium {
-  padding: 0.625rem 3.125rem;
-  font-size: 1.1rem;
-}
+// ::ng-deep .nb-theme-default [nbButton].appearance-filled.size-medium {
+//   padding: 0.625rem 3.125rem;
+//   font-size: 1.1rem;
+// }
 
 #selectColumns {
   margin: 1%;
@@ -54,6 +56,8 @@ table {
 
 .our-btn {
   width: 90%;
+  padding: 0.625rem 3.125rem;
+  font-size: 1.1rem !important;
 }
 
 .form-alert {
@@ -65,5 +69,10 @@ table {
 
 .actions-btn {
   font-size: 1.5rem !important;
-  margin: 0% 5%
+  margin: 0% 5%;
+  padding: 0.75rem 12% !important;
 }
+
+// .our-table button {
+//   padding: 0.75rem 1rem !important;
+// }

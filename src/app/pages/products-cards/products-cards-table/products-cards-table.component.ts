@@ -32,7 +32,10 @@ export class ProductsCardsTableComponent implements OnInit {
     { name: 'dimensions', title: 'Dimensions', filterTitle: 'dimensionsFilter', index: 5 },
     { name: 'paintMix', title: 'Paint Mix', filterTitle: 'paintMixFilter', index: 6 },
     { name: 'engobMix', title: 'Engob Mix', filterTitle: 'engobMixFilter', index: 7 },
-    { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter', index: 8 }
+    { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter', index: 8 },
+    { name: 'paintType', title: 'Paint Type', filterTitle: 'paintTypeFilter', index: 9 },
+    { name: 'engobType', title: 'Engob Type', filterTitle: 'engobTypeFilter', index: 10 },
+    { name: 'bodyType', title: 'Body Type', filterTitle: 'bodyTypeFilter', index: 11 }
   ];
 
   dataSource: MatTableDataSource<any>;
@@ -67,7 +70,10 @@ export class ProductsCardsTableComponent implements OnInit {
         dimensions: '200x800', 
         paintMix: '1code1', 
         engobMix: '1code2',
-        bodyMix: '1code3'
+        bodyMix: '1code3',
+        paintType: '1type1',
+        engobType: '1type2',
+        bodyType: '1type3'
       },
       {
         productionDate : '2-2-2019', 
@@ -76,7 +82,10 @@ export class ProductsCardsTableComponent implements OnInit {
         dimensions: '200x800', 
         paintMix: '2code1', 
         engobMix: '2code2',
-        bodyMix: '2code3'
+        bodyMix: '2code3',
+        paintType: '2type1',
+        engobType: '2type2',
+        bodyType: '2type3'
       },
       {
         productionDate : '2-2-2019', 
@@ -85,7 +94,10 @@ export class ProductsCardsTableComponent implements OnInit {
         dimensions: '200x800', 
         paintMix: '3code1', 
         engobMix: '3code2',
-        bodyMix: '3code3'
+        bodyMix: '3code3',
+        paintType: '3type1',
+        engobType: '3type2',
+        bodyType: '3type3'
       },
       {
         productionDate : '2-2-2019', 
@@ -94,7 +106,10 @@ export class ProductsCardsTableComponent implements OnInit {
         dimensions: '200x800', 
         paintMix: '4code1', 
         engobMix: '4code2',
-        bodyMix: '4code3'
+        bodyMix: '4code3',
+        paintType: '4type1',
+        engobType: '4type2',
+        bodyType: '4type3'
       }
     ];
 
@@ -115,10 +130,13 @@ export class ProductsCardsTableComponent implements OnInit {
       { name: 'engobMix', title: 'Engob Mix', filterTitle: 'engobMixFilter' },
       { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter' },
       // { name: 'actions', title: 'Actions', filterTitle: 'filterTitle'}
+      { name: 'paintType', title: 'Paint Type', filterTitle: 'paintTypeFilter' },
+      { name: 'engobType', title: 'Engob Type', filterTitle: 'engobTypeFilter' },
+      { name: 'bodyType', title: 'Body Type', filterTitle: 'bodyTypeFilter' }
     ];
 
-    this.columnsToDisplay = this.displayedColumns.map(col => col.name).slice(0, 4);
-    this.filtersToDisplay = this.displayedColumns.map(col => col.filterTitle).slice(0, 4);
+    this.columnsToDisplay = this.displayedColumns.map(col => col.name).slice(0, 7);
+    this.filtersToDisplay = this.displayedColumns.map(col => col.filterTitle).slice(0, 7);
     this.columnsToDisplay.unshift('actions');
     this.filtersToDisplay.unshift('actionsFilter');
     this.prevColumns = this.columnsToDisplay.slice();
@@ -126,7 +144,7 @@ export class ProductsCardsTableComponent implements OnInit {
 
   onSelectionColumn(): void {
     // validate number of columns
-    if (this.columnsToDisplay.length > 5) {
+    if (this.columnsToDisplay.length > 8) {
       this.columnsToDisplay = this.prevColumns.slice();
       this.showAlert = true;
       setTimeout(() => {

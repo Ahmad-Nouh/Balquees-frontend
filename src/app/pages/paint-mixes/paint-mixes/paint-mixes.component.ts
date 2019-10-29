@@ -66,7 +66,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         },
         filterFunction: (cell: any, search?: string) => {
           return true;
-        }
+        },
       },
       code: {
         title: 'Code',
