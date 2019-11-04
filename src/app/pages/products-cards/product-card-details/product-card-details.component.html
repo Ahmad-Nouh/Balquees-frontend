@@ -1,11 +1,25 @@
 <nb-card class="main-card">
-    <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+    <nb-card-header class="text-heading text-primary card-title">
+        {{ formTitle | translate }}
+    </nb-card-header>
     <nb-card-body class="card-body">
-
+        <nb-tabset fullWidth>
+            <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCardsDetails.mainInfo' | translate" tabIcon="calendar-outline" responsive>
+                <app-main-info></app-main-info>
+            </nb-tab>
+            <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCardsDetails.paintMix' | translate" tabIcon="brush-outline" responsive>
+                <app-paint-mix></app-paint-mix>
+            </nb-tab>
+            <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCardsDetails.engobMix' | translate" tabIcon="cube-outline" responsive>
+                <app-engob-mix></app-engob-mix>
+            </nb-tab>
+            <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCardsDetails.bodyMix' | translate" tabIcon="archive-outline" responsive>
+                <app-body-mix></app-body-mix>
+            </nb-tab>
+        </nb-tabset>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton status="danger"
-            (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}
+        <button nbButton status="danger" (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}
             <nb-icon icon="close-outline"></nb-icon>
         </button>
     </nb-card-footer>

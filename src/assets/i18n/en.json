@@ -86,6 +86,24 @@
         "productsCards": "Products Cards",
         "back": "Back"
       },
+      "ProductsCardsDetails": {
+        "productCardDetails": "Product Card Details",
+        "productName":"Product Name",
+        "code":"Code",
+        "productionDate": "Production Date",
+        "dimensions":"Dimensions",
+        "mainInfo": "Main Info",
+        "paintMix": "Paint Mix",
+        "engobMix": "Engob Mix",
+        "bodyMix": "Body Mix",
+        "name": "Name",
+        "quantity": "Quantity",
+        "info": "Info",
+        "components": "Components",
+        "density": "Density",
+        "viscosity": "Viscosity",
+        "weight": "Weight"
+      },
       "Common": {
         "yes": "Yes",
         "no": "No",

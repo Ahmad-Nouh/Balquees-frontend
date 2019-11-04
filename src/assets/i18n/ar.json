@@ -86,6 +86,24 @@
             "productsCards": "بطاقات المنتجات ",
             "back": "رجوع"
         },
+        "ProductsCardsDetails": {
+            "productCardDetails": "تفاصيل بطاقة المنتج",
+            "productName":"اسم المنتج",
+            "code":"الكود",
+            "productionDate": "تاريخ الانتاج",
+            "dimensions":"الأبعاد",
+            "mainInfo": "المعلومات الأساسية",
+            "paintMix": "خلطة الطلاء",
+            "engobMix": "خلطة الإنغوب",
+            "bodyMix": "خلطة الجسم",
+            "name": "الاسم",
+            "quantity": "النسبة",
+            "info": "معلومات",
+            "components": "العناصر",
+            "density": "الكثافة",
+            "viscosity": "اللزوجة",
+            "weight": "الوزن"
+          },
         "Common": {
             "yes": "نعم",
             "no": "لا",
