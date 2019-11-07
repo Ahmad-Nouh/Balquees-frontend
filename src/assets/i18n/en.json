@@ -3,6 +3,12 @@
       "Home": {
           "TITLE": "Home"
       },
+      "Materials": {
+        "materials": "Materials",
+        "name": "Name",
+        "quantity": "Quantity",
+        "date": "Date"
+      },
       "PaintMixes": {
         "paintMixes": "Paint Mixes",
         "createPaintMix": "Create Paint Mix",

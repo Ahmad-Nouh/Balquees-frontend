@@ -3,6 +3,12 @@
         "Home": {
             "TITLE": "الصفحة الرئيسية"
         },
+        "Materials": {
+            "materials": "المواد",
+            "name": "الاسم",
+            "quantity": "الكمية",
+            "date": "التاريخ"
+        },
         "PaintMixes": {
             "paintMixes": "خلطات الطلاء",
             "createPaintMix": "إضافة خلطة طلاء",

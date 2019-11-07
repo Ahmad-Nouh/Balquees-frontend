@@ -1,3 +1,4 @@
+import { MaterialsModule } from './materials/materials.module';
 import { ProductsCardsModule } from './products-cards/products-cards.module';
 import { BodyMixesModule } from './body-mixes/body-mixes.module';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateServiceOur } from '../services/our-translate.service';
 import { EngobMixesModule } from './engob-mixes/engob-mixes.module';
+import { MaterialsService } from '../services/materials.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BodyMixesModule,
     EngobMixesModule,
     ProductsCardsModule,
+    MaterialsModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {
@@ -42,6 +45,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     PagesComponent,
   ],
+  providers: [
+    MaterialsService
+  ]
 })
 export class PagesModule {
   constructor(private translate: TranslateServiceOur,

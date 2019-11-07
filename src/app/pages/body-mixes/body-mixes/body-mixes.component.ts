@@ -98,7 +98,18 @@ export class BodyMixesComponent implements OnInit {
     columns: {
       name: {
         title: 'Name',
-        type:'text'
+        filter: {
+          type: 'list',
+          config: {
+            list: []
+          }
+        },
+        editor: {
+          type: 'list',
+          config: {
+            list: []
+          }
+        },
       },
       quantity: {
         title: 'Quantity',
@@ -530,7 +541,18 @@ export class BodyMixesComponent implements OnInit {
       columns: {
         name: {
           title: await this.trans.get('PAGES.BodyMixes.name').toPromise(),
-          type:'text'
+          filter: {
+            type: 'list',
+            config: {
+              list: []
+            }
+          },
+          editor: {
+            type: 'list',
+            config: {
+              list: []
+            }
+          },
         },
         quantity: {
           title: await this.trans.get('PAGES.BodyMixes.quantity').toPromise(),

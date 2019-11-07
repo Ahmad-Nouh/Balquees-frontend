@@ -1,0 +1,13 @@
+<nb-card class="main-card col-md-12">
+    <nb-card-header class="text-heading text-primary card-title">
+        {{ 'PAGES.Materials.materials' | translate }}
+    </nb-card-header>
+    <nb-card-body>
+            <ng2-smart-table [settings]="settings"
+            class="material-table"
+            [source]="data"
+            (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+    </nb-card-body>
+</nb-card>

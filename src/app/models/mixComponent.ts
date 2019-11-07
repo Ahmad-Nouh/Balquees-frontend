@@ -1,4 +1,6 @@
+import { Material } from "./material";
+
 export interface MixComponent {
-    name: string;
+    material: Material;
     quantity: number;
 }

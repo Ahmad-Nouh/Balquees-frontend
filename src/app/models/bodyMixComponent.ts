@@ -1,5 +1,6 @@
+import { Material } from './material';
 export interface BodyMixComponent {
-    name: string;
+    material: Material;
     quantity: number;
     moisture: number;
     dryRM: number;

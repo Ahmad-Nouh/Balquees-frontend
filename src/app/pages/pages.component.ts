@@ -1,3 +1,4 @@
+import { MaterialsService } from './../services/materials.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
@@ -20,12 +21,16 @@ export class PagesComponent implements OnInit , AfterViewInit{
   menu = MENU_ITEMS;
 
   constructor(private translate: TranslateServiceOur,
-    private trans: TranslateService) {}
+    private trans: TranslateService,
+    private materialsService: MaterialsService) {}
 
   ngOnInit(): void {
     this.trans.use(this.translate.currentLanguage);
     this.translateMenu();
-    console.log('menu ', this.menu);
+    this.materialsService.getMaterials()
+      .then((result: any) => {
+        this.materialsService.materials = result;
+      });
   }
 
   ngAfterViewInit(): void {

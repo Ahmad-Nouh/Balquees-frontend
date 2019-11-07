@@ -204,10 +204,6 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const h = document.getElementsByClassName('createdAt');
-    const input = h[1].children[0].children[0].children[0].children[0];
-
-    console.log('input ', input);
     this.translate.changeLang
       .subscribe(async(currentLang: string) => {
         this.trans.use(currentLang);
