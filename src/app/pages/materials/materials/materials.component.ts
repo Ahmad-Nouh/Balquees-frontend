@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Material } from './../../../models/material';
 import { MaterialsService } from './../../../services/materials.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -8,6 +9,7 @@ import { EditorInputNumberComponent } from '../../../shared/components/editor-in
 import { TranslateServiceOur } from '../../../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalDataSource } from 'ee-ng-smart-table';
+
 var moment = require('moment');
 var momentRange = require('moment-range');
 momentRange.extendMoment(moment);
@@ -74,7 +76,9 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
         filterFunction: (cell: any, search?: string) => {
           return true;
         },
-        editable: false
+        editable: false,
+        sort: true,
+        sortDirection: 'desc'
       },
     },
     // actions: {
@@ -90,10 +94,11 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
 
   constructor(private materialService: MaterialsService,
     private translate: TranslateServiceOur,
-    private trans: TranslateService,) { }
+    private trans: TranslateService,
+    private commonService: CommonService) { }
 
   async ngOnInit() {
-    this.loadTableData(this.materialService.materials);
+    this.loadTableData(this.materialService.materials.slice());
     console.log('materials ', this.data);
     this.trans.use(this.translate.currentLanguage);
     await this.initSettingTranslation();
@@ -111,10 +116,14 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
     this.data = new LocalDataSource(data);
   }
   onDeleteConfirm(event) {
-    console.log("Delete Event In Console")
-    console.log(event);
     if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
+      this.materialService.deleteMaterial(event.data._id)
+        .subscribe((result) => {
+          // remove from materials array
+          this.materialService.removeFromArray(result);
+          // remove from ui
+          event.confirm.resolve();
+        });
     } else {
       event.confirm.reject();
     }
@@ -122,8 +131,16 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
 
   onCreateConfirm(event) {
     console.log("Create Event In Console")
-    console.log(event);
-
+    const newMaterial = {
+      name: event.newData.name,
+      quantity: event.newData.quantity
+    };
+    this.materialService.createMaterial(newMaterial)
+      .subscribe((result: any) => {
+        event.confirm.resolve(result);
+        this.materialService.addToArray(result);
+        this.loadTableData(this.materialService.materials.slice());
+      });
   }
 
   onSaveConfirm(event) {
@@ -176,9 +193,7 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
         createdAt: {
           title: await this.trans.get('PAGES.Materials.date').toPromise(),
           valuePrepareFunction: (value) => {
-            const newVal = moment.utc(value).format('YYYY-MM-DD hh:mm a');
-            return newVal;
-            // return value;
+            return this.commonService.convertFromUTCtoLocalDate(value);
           },
           filter: {
             type: 'custom',
@@ -191,7 +206,9 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
           filterFunction: (cell: any, search?: string) => {
             return true;
           },
-          editable: false
+          editable: false,
+          sort: true,
+          sortDirection: 'desc'
         },
       },
       // actions: {
@@ -202,7 +219,7 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
         perPage: 5
       },
     }
-    this.loadTableData(this.materialService.materials);
+    this.loadTableData(this.materialService.materials.slice());
   }
 
 }

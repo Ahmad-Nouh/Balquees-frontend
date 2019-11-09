@@ -84,7 +84,7 @@
             "floors": "أرضيات",
             "transparent": "شفاف",
             "mat": "مت",
-            "name": "المادة",
+            "material": "المادة",
             "quantity": "النسبة",
             "noDataFound": "لا يوجد بيانات"
         },
@@ -123,7 +123,9 @@
             "requiredMessage": "الرجاء ملأ هذا الحقل",
             "componentsValidation": "الرجاء إدخال مكون واحد على الأقل",
             "close": "إغلاق",
-            "danger": "تنبيه"
+            "danger": "تنبيه",
+            "material": "المادة",
+            "quantity": "النسبة"
         }
     }
 }

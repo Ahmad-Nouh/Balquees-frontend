@@ -4,11 +4,11 @@
         <nb-card-body>
             <nb-list class="our-list">
                 <nb-list-item class="row">
-                    <p class="col-6 title">{{ 'PAGES.PaintMixes.name' | translate }}</p>
-                    <p class="col-6 title">{{ 'PAGES.PaintMixes.quantity' | translate }}</p>
+                    <p class="col-6 title">{{ 'PAGES.Common.material' | translate }}</p>
+                    <p class="col-6 title">{{ 'PAGES.Common.quantity' | translate }}</p>
                 </nb-list-item>
                 <nb-list-item class="row" *ngFor="let component of data">
-                    <p class="col-6">{{ component.name }}</p>
+                    <p class="col-6">{{ component.material.name }}</p>
                     <p class="col-6">{{ component.quantity }}</p>
                 </nb-list-item>
             </nb-list>

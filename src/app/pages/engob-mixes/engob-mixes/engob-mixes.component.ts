@@ -13,6 +13,7 @@ import { TranslateServiceOur } from '../../../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonService } from '../../../services/common.service';
 import { LocalDataSource } from 'ee-ng-smart-table';
+import { SelectComponent } from '../../../shared/components/select/select.component';
 
 var moment = require('moment');
 var momentRange = require('moment-range');
@@ -63,7 +64,9 @@ export class EngobMixesComponent implements OnInit {
         },
         filterFunction: (cell: any, search?: string) => {
           return true;
-        }
+        },
+        sort: true,
+        sortDirection: 'desc'
       },
       code: {
         title: 'Code',
@@ -126,9 +129,17 @@ export class EngobMixesComponent implements OnInit {
       confirmDelete: true
     },
     columns: {
-      name: {
-        title: 'Name',
-        type:'text'
+      material: {
+        title: 'Material',
+        filter: {
+          type: 'custom',
+          component: SelectComponent
+        },
+        editor: {
+          type: 'custom',
+          component: SelectComponent
+        },
+        valuePrepareFunction: (value) => value.name,
       },
       quantity: {
         title: 'Quantity',
@@ -246,9 +257,7 @@ export class EngobMixesComponent implements OnInit {
   onEditComponent(event): void {
     const newComponent = event.newData;
     const oldComponent = event.data;
-    console.log('newComponent ', newComponent);
-    console.log('oldComponent ', oldComponent);
-    console.log('quantity ', this.totalQuantity);
+
     // validate component
     if (this.validateComponent(newComponent, oldComponent)) {
       return;
@@ -306,10 +315,12 @@ export class EngobMixesComponent implements OnInit {
   handleCreate(form: any): void {
     const temp: EngobMix = {
       code: this.newEngobMix.code,
-      components: this.newEngobMix.components,
+      components: this.newEngobMix.components
+      .map((component: any) => ({ ...component, material: component.material._id })),
       type: this.newEngobMix.type,
       glize: this.newEngobMix.glize
     };
+
     this.engobMixesService.createEngobMix(temp)
         .subscribe((result) => {
           console.log(result);
@@ -324,7 +335,8 @@ export class EngobMixesComponent implements OnInit {
   handleEdit(form: any): void {
     const temp: EngobMix = {
       code: this.newEngobMix.code,
-      components: this.newEngobMix.components,
+      components: this.newEngobMix.components
+      .map((component: any) => ({ ...component, material: component.material._id })),
       type: this.newEngobMix.type,
       glize: this.newEngobMix.glize
     };
@@ -336,6 +348,7 @@ export class EngobMixesComponent implements OnInit {
           this.engobMixes[index] = result;
           this.loadTableData(this.engobMixes);
           this.totalQuantity = 0;
+          this.isEdit = false;
           this.isFlipped = false;
         });
   }
@@ -396,8 +409,9 @@ export class EngobMixesComponent implements OnInit {
   }
 
   validateComponent(newComponent: any, oldComponent?: any): boolean {
+    const quantity = (newComponent.quantity instanceof String) ? +newComponent.quantity : newComponent.quantity;
     // require validation
-    if (!newComponent.quantity.length || !newComponent.name.length) {
+    if (quantity == undefined || !newComponent.material) {
       this.commonService.showToast('bottom-end', 'danger', this.requiredTableMessage, 3000);
       return true;
     }
@@ -479,9 +493,7 @@ export class EngobMixesComponent implements OnInit {
         createdAt: {
           title: await this.trans.get('PAGES.EngobMixes.date').toPromise(),
           valuePrepareFunction: (value) => {
-            const newVal = moment.utc(value).format('YYYY-MM-DD hh:mm a');
-            return newVal;
-            // return value;
+            return this.commonService.convertFromUTCtoLocalDate(value);
           },
           filter: {
             type: 'custom',
@@ -502,7 +514,9 @@ export class EngobMixesComponent implements OnInit {
             } else {
               return true;
             }
-          }
+          },
+          sort: true,
+          sortDirection: 'desc'
         },
         code: {
           title: await this.trans.get('PAGES.EngobMixes.code').toPromise(),
@@ -566,9 +580,17 @@ export class EngobMixesComponent implements OnInit {
         confirmDelete: true
       },
       columns: {
-        name: {
-          title: await this.trans.get('PAGES.EngobMixes.name').toPromise(),
-          type:'text'
+        material: {
+          title: await this.trans.get('PAGES.Common.material').toPromise(),
+          filter: {
+            type: 'custom',
+            component: SelectComponent
+          },
+          editor: {
+            type: 'custom',
+            component: SelectComponent
+          },
+          valuePrepareFunction: (value) => value.name,
         },
         quantity: {
           title: await this.trans.get('PAGES.EngobMixes.quantity').toPromise(),

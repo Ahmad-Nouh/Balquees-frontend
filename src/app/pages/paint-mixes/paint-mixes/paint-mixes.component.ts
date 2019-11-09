@@ -14,6 +14,7 @@ import { CommonService } from '../../../services/common.service';
 import { FilterInputComponent } from '../../../shared/components/filter-input/filter-input.component';
 import { EditorInputNumberComponent } from '../../../shared/components/editor-input-number/editor-input-number.component';
 import { FilterDaterangeInputComponent } from '../../../shared/components/filter-daterange-input/filter-daterange-input.component';
+import { SelectComponent } from '../../../shared/components/select/select.component';
 
 
 var moment = require('moment');
@@ -67,6 +68,8 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         filterFunction: (cell: any, search?: string) => {
           return true;
         },
+        sort: true,
+        sortDirection: 'desc'
       },
       code: {
         title: 'Code',
@@ -129,9 +132,17 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
       confirmDelete: true
     },
     columns: {
-      name: {
-        title: 'Name',
-        type:'text'
+      material: {
+        title: 'Material',
+        filter: {
+          type: 'custom',
+          component: SelectComponent
+        },
+        editor: {
+          type: 'custom',
+          component: SelectComponent
+        },
+        valuePrepareFunction: (value) => value.name,
       },
       quantity: {
         title: 'Quantity',
@@ -302,10 +313,12 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   handleCreate(form: any): void {
     const temp: PaintMix = {
       code: this.newPaintMix.code,
-      components: this.newPaintMix.components,
+      components: this.newPaintMix.components
+      .map((component: any) => ({ ...component, material: component.material._id })),
       type: this.newPaintMix.type,
       glize: this.newPaintMix.glize
     };
+
     this.paintMixesService.createPaintMix(temp)
         .subscribe((result) => {
           console.log(result);
@@ -320,10 +333,12 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   handleEdit(form: any): void {
     const temp: PaintMix = {
       code: this.newPaintMix.code,
-      components: this.newPaintMix.components,
+      components: this.newPaintMix.components
+      .map((component: any) => ({ ...component, material: component.material._id })),
       type: this.newPaintMix.type,
       glize: this.newPaintMix.glize
     };
+
     this.paintMixesService.updatePaintMix(this.newPaintMix._id, temp)
         .subscribe((result) => {
           this.resetForm(form);
@@ -332,6 +347,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
           this.paintMixes[index] = result;
           this.loadTableData(this.paintMixes);
           this.totalQuantity = 0;
+          this.isEdit = false;
           this.isFlipped = false;
         });
   }
@@ -392,8 +408,9 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   }
 
   validateComponent(newComponent: any, oldComponent?: any): boolean {
+    const quantity = (newComponent.quantity instanceof String) ? +newComponent.quantity : newComponent.quantity;
     // require validation
-    if (!newComponent.quantity.length || !newComponent.name.length) {
+    if (quantity == undefined || !newComponent.material) {
       this.commonService.showToast('bottom-end', 'danger', this.requiredTableMessage, 3000);
       return true;
     }
@@ -475,9 +492,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         createdAt: {
           title: await this.trans.get('PAGES.PaintMixes.date').toPromise(),
           valuePrepareFunction: (value) => {
-            const newVal = moment.utc(value).format('YYYY-MM-DD hh:mm a');
-            return newVal;
-            // return value;
+            return this.commonService.convertFromUTCtoLocalDate(value);
           },
           filter: {
             type: 'custom',
@@ -498,7 +513,9 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
             } else {
               return true;
             }
-          }
+          },
+          sort: true,
+          sortDirection: 'desc'
         },
         code: {
           title: await this.trans.get('PAGES.PaintMixes.code').toPromise(),
@@ -562,9 +579,17 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
         confirmDelete: true
       },
       columns: {
-        name: {
-          title: await this.trans.get('PAGES.PaintMixes.name').toPromise(),
-          type:'text'
+        material: {
+          title: await this.trans.get('PAGES.Common.material').toPromise(),
+          filter: {
+            type: 'custom',
+            component: SelectComponent
+          },
+          editor: {
+            type: 'custom',
+            component: SelectComponent
+          },
+          valuePrepareFunction: (value) => value.name,
         },
         quantity: {
           title: await this.trans.get('PAGES.PaintMixes.quantity').toPromise(),

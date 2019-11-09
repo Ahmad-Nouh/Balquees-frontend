@@ -1,3 +1,5 @@
+import { SelectComponent } from './../../../shared/components/select/select.component';
+import { MaterialsService } from './../../../services/materials.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Glize } from '../../../models/enums/glize';
 import { MixType } from '../../../models/enums/mixType';
@@ -5,7 +7,7 @@ import { FilterDaterangeInputComponent } from '../../../shared/components/filter
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { FilterInputComponent } from '../../../shared/components/filter-input/filter-input.component';
 import { EditorInputNumberComponent } from '../../../shared/components/editor-input-number/editor-input-number.component';
-import { BodyMixComponent } from '../../../models/BodyMixComponent';
+import { BodyMixComponent } from '../../../models/bodyMixComponent';
 import { BodyMixesService } from '../../../services/body-mixes.service';
 import { NbDialogService } from '@nebular/theme';
 import { TranslateServiceOur } from '../../../services/our-translate.service';
@@ -13,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CommonService } from '../../../services/common.service';
 import { LocalDataSource } from 'ee-ng-smart-table';
 import { BodyMix } from '../../../models/bodyMix';
+import { Material } from '../../../models/material';
 
 var moment = require('moment');
 var momentRange = require('moment-range');
@@ -53,7 +56,9 @@ export class BodyMixesComponent implements OnInit {
         },
         filterFunction: (cell: any, search?: string) => {
           return true;
-        }
+        },
+        sort: true,
+        sortDirection: 'desc'
       },
       code: {
         title: 'Code',
@@ -69,11 +74,11 @@ export class BodyMixesComponent implements OnInit {
     //   columnTitle: ''
     // },
     pager: {
-      display : true,
+      display: true,
       perPage: 5
     },
     mode: 'external',
-    
+
   };
 
   settings1 = {
@@ -96,20 +101,17 @@ export class BodyMixesComponent implements OnInit {
       confirmDelete: true
     },
     columns: {
-      name: {
-        title: 'Name',
+      material: {
+        title: 'Material',
         filter: {
-          type: 'list',
-          config: {
-            list: []
-          }
+          type: 'custom',
+          component: SelectComponent
         },
         editor: {
-          type: 'list',
-          config: {
-            list: []
-          }
+          type: 'custom',
+          component: SelectComponent
         },
+        valuePrepareFunction: (value) => value.name,
       },
       quantity: {
         title: 'Quantity',
@@ -171,11 +173,11 @@ export class BodyMixesComponent implements OnInit {
       },
     },
     pager: {
-      display : true,
+      display: true,
       perPage: 4
     },
     mode: 'inline',
-    
+
   };
 
   isFlipped = false;
@@ -211,10 +213,19 @@ export class BodyMixesComponent implements OnInit {
     private dialogService: NbDialogService,
     private translate: TranslateServiceOur,
     private trans: TranslateService,
-    private commonService: CommonService) { }
+    private commonService: CommonService,
+    private materialService: MaterialsService) { }
 
   async ngOnInit() {
-    this.bodyMixes = await this.bodyMixesService.getBodyMixes();
+    const data: Array<any> = await this.bodyMixesService.getBodyMixes();
+    // this.bodyMixes = data.map((mix: any) => ({
+    //   ...mix,
+    //   components: mix.components.map((component: any) => ({
+    //     ...component,
+    //     material: this.materialService.materials.find((mat: Material) => mat._id === component.material)
+    //   }))
+    // }));
+    this.bodyMixes = data;  
     this.commonService.bodyMixes = this.bodyMixes;
     // moment(bodyMix.createdAt).format('llll')
     console.log('bodyMixes ', this.bodyMixes);
@@ -224,12 +235,8 @@ export class BodyMixesComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    const h = document.getElementsByClassName('createdAt');
-    const input = h[1].children[0].children[0].children[0].children[0];
-
-    console.log('input ', input);
     this.translate.changeLang
-      .subscribe(async(currentLang: string) => {
+      .subscribe(async (currentLang: string) => {
         this.trans.use(currentLang);
         await this.initSettingTranslation();
       });
@@ -243,12 +250,12 @@ export class BodyMixesComponent implements OnInit {
 
   onEditBodyMix(event: any): void {
     console.log('edit', event);
-    this.newBodyMix = {...event.data};
+    this.newBodyMix = { ...event.data };
     this.formTitle = 'PAGES.BodyMixes.editBodyMix';
     this.isEdit = true;
     this.totalQuantity = this.newBodyMix.components
-    .map((component: BodyMixComponent) => +component.quantity)
-    .reduce((sum, num) => sum + num);
+      .map((component: any) => +component.quantity)
+      .reduce((sum, num) => sum + num);
     console.log('totalQuantity ', this.totalQuantity);
     this.isFlipped = true;
 
@@ -256,6 +263,7 @@ export class BodyMixesComponent implements OnInit {
 
   onAddComponent(event: any): void {
     const newComponent = event.newData;
+    console.log('newComponent ', newComponent);
     // validate component
     if (this.validateComponent(newComponent)) {
       return;
@@ -285,7 +293,7 @@ export class BodyMixesComponent implements OnInit {
     const index = this.newBodyMix.components.indexOf(event.data);
     console.log('ind ', index);
     if (index >= 0) {
-      this.newBodyMix[index] = event.data;
+      this.newBodyMix.components[index] = event.data;
     }
   }
 
@@ -327,38 +335,41 @@ export class BodyMixesComponent implements OnInit {
     const temp: BodyMix = {
       code: this.newBodyMix.code,
       components: this.newBodyMix.components
+        .map((component: any) => ({ ...component, material: component.material._id }))
     };
     this.bodyMixesService.createBodyMix(temp)
-        .subscribe((result) => {
-          console.log(result);
-          this.resetForm(form);
-          this.bodyMixes.push(result);
-          this.loadTableData(this.bodyMixes);
-          this.totalQuantity = 0;
-          this.isFlipped = false;
-        });
+      .subscribe((result) => {
+        console.log(result);
+        this.resetForm(form);
+        this.bodyMixes.push(result);
+        this.loadTableData(this.bodyMixes);
+        this.totalQuantity = 0;
+        this.isFlipped = false;
+      });
   }
 
   handleEdit(form: any): void {
     const temp: BodyMix = {
       code: this.newBodyMix.code,
       components: this.newBodyMix.components
+      .map((component: any) => ({ ...component, material: component.material._id }))
     };
     this.bodyMixesService.updateBodyMix(this.newBodyMix._id, temp)
-        .subscribe((result) => {
-          this.resetForm(form);
-          const index = this.bodyMixes.findIndex((bodyMix: BodyMix) => bodyMix._id == result._id);
-          console.log('index ', index);
-          this.bodyMixes[index] = result;
-          this.loadTableData(this.bodyMixes);
-          this.totalQuantity = 0;
-          this.isFlipped = false;
-        });
+      .subscribe((result) => {
+        this.resetForm(form);
+        const index = this.bodyMixes.findIndex((bodyMix: BodyMix) => bodyMix._id == result._id);
+        console.log('index ', index);
+        this.bodyMixes[index] = result;
+        this.loadTableData(this.bodyMixes);
+        this.totalQuantity = 0;
+        this.isEdit = false;
+        this.isFlipped = false;
+      });
   }
 
   openAskModal(dialog: TemplateRef<any>, event: any): void {
     this.dialogService.open(dialog, {
-      context:  {
+      context: {
         info: event.data,
         message: this.AskMessage
       }
@@ -410,8 +421,10 @@ export class BodyMixesComponent implements OnInit {
   }
 
   validateComponent(newComponent: any, oldComponent?: any): boolean {
+    console.log('newComponent ', newComponent);
+    const quantity = (newComponent.quantity instanceof String) ? +newComponent.quantity : newComponent.quantity;
     // require validation
-    if (!newComponent.quantity.length || !newComponent.name.length) {
+    if (quantity == undefined || !newComponent.material) {
       this.commonService.showToast('bottom-end', 'danger', this.requiredTableMessage, 3000);
       return true;
     }
@@ -452,6 +465,9 @@ export class BodyMixesComponent implements OnInit {
   async initSettingTranslation() {
     moment.locale(this.translate.currentLanguage);
 
+    const materials = this.materialService.materials.map((mat: Material) => mat.name);
+    console.log('materials ', materials);
+
     this.settings = {
       add: {
         addButtonContent: '<i class="fa fa-plus"></i>',
@@ -472,9 +488,7 @@ export class BodyMixesComponent implements OnInit {
         createdAt: {
           title: await this.trans.get('PAGES.BodyMixes.date').toPromise(),
           valuePrepareFunction: (value) => {
-            const newVal = moment.utc(value).format('YYYY-MM-DD hh:mm a');
-            return newVal;
-            // return value;
+            return this.commonService.convertFromUTCtoLocalDate(value);
           },
           filter: {
             type: 'custom',
@@ -495,7 +509,9 @@ export class BodyMixesComponent implements OnInit {
             } else {
               return true;
             }
-          }
+          },
+          sort: true,
+          sortDirection: 'desc'
         },
         code: {
           title: await this.trans.get('PAGES.BodyMixes.code').toPromise(),
@@ -511,11 +527,11 @@ export class BodyMixesComponent implements OnInit {
       //   columnTitle: ''
       // },
       pager: {
-        display : true,
+        display: true,
         perPage: 5
       },
       mode: 'external',
-      
+
     };
 
 
@@ -539,20 +555,17 @@ export class BodyMixesComponent implements OnInit {
         confirmDelete: true
       },
       columns: {
-        name: {
-          title: await this.trans.get('PAGES.BodyMixes.name').toPromise(),
+        material: {
+          title:  await this.trans.get('PAGES.Common.material').toPromise(),
           filter: {
-            type: 'list',
-            config: {
-              list: []
-            }
+            type: 'custom',
+            component: SelectComponent
           },
           editor: {
-            type: 'list',
-            config: {
-              list: []
-            }
+            type: 'custom',
+            component: SelectComponent
           },
+          valuePrepareFunction: (value) => value.name,
         },
         quantity: {
           title: await this.trans.get('PAGES.BodyMixes.quantity').toPromise(),
@@ -614,13 +627,13 @@ export class BodyMixesComponent implements OnInit {
         },
       },
       pager: {
-        display : true,
+        display: true,
         perPage: 4
       },
       mode: 'inline',
-      
+
     };
-    
+
     this.loadTableData(this.bodyMixes);
   }
 

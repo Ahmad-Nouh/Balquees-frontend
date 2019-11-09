@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './components/';
 import { WebviewDirective } from './directives/';
 import { CustomButtonComponent } from './components/custom-button/custom-button.component';
-import { NbButtonModule, NbIconModule, NbDialogModule, NbCardModule, NbDialogService, NbListModule, NbInputModule, NbDatepickerModule } from '@nebular/theme';
+import { NbButtonModule, NbIconModule, NbDialogModule, NbCardModule, NbDialogService, NbListModule, NbInputModule, NbDatepickerModule, NbSelectModule } from '@nebular/theme';
 import { TranslateServiceOur } from '../services/our-translate.service';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -14,6 +14,7 @@ import { FilterInputComponent } from './components/filter-input/filter-input.com
 import { EditorInputNumberComponent } from './components/editor-input-number/editor-input-number.component';
 import { FilterDaterangeInputComponent } from './components/filter-daterange-input/filter-daterange-input.component';
 import { TableFilterComponent } from './components/table-filter/table-filter.component';
+import { SelectComponent } from './components/select/select.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -28,7 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterInputComponent,
     EditorInputNumberComponent,
     FilterDaterangeInputComponent,
-    TableFilterComponent
+    TableFilterComponent,
+    SelectComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbListModule,
     NbInputModule,
     NbDatepickerModule,
+    NbSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -55,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterInputComponent,
     EditorInputNumberComponent,
     FilterDaterangeInputComponent,
-    TableFilterComponent
+    TableFilterComponent,
+    SelectComponent
   ],
   providers: [NbDialogService],
   entryComponents: [
@@ -63,7 +67,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterInputComponent,
     EditorInputNumberComponent,
     FilterDaterangeInputComponent,
-    TableFilterComponent
+    TableFilterComponent,
+    SelectComponent
   ]
 })
 export class SharedModule {

@@ -53,7 +53,7 @@
         "enterMixCode": "Enter Mix Code",
         "walls": "Walls",
         "floors": "Floors",
-        "name": "Material",
+        "material": "Material",
         "quantity": "Quantity",
         "moisture": "Moisture",
         "dryRM": "DryRM",
@@ -123,7 +123,9 @@
         "requiredMessage": "This Field is required.",
         "componentsValidation": "You should enter one component at least.",
         "close": "Close",
-        "danger": "Alert"
+        "danger": "Alert",
+        "material": "Material",
+        "quantity": "Quantity"
       }
   }
 }

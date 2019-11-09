@@ -1,0 +1,11 @@
+<select
+    id="my-select"
+    #material
+    [disabled]="false"
+    class="form-control"
+    (change)="updateValue($event)">
+
+    <option *ngFor="let mat of materials" [value]="mat">
+        {{ getTitle(mat) }}
+    </option>
+</select>

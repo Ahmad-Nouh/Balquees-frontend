@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateServiceOur } from './our-translate.service';
 import { PaintMix } from '../models/paintMix';
 import { BodyMix } from '../models/bodyMix';
 import { EngobMix } from '../models/engobMix';
+
+var moment = require('moment');
+var momentRange = require('moment-range');
+momentRange.extendMoment(moment);
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +41,30 @@ export class CommonService {
   isNum(text: string): boolean {
     const isnum = /^\d+$/.test(text);
     return isnum;
+  }
+
+  parseString(json: string): any {
+    let res;
+    try {
+      const data = JSON.parse(json);
+      res = data;
+    } catch (error) {
+      res = undefined;
+    }
+
+    return res;
+  }
+
+  convertFromUTCtoLocalDate(value): string {
+    const utc = moment.utc(value).toDate();
+    const local = moment(utc).local().format('YYYY-MM-DD hh:mm a')
+    return local;
+  }
+
+  sortArrayByDate(dataSource: Array<any>): Array<any> {
+    // sort the data by date using moment.js
+    return dataSource.sort(function (left, right) {
+      return moment.utc(left.createdAt).diff(moment.utc(right.createdAt))
+    });
   }
 }

@@ -27,4 +27,16 @@ export class MaterialsService {
   updateMaterial(id: string, newMaterial): Observable<any> {
     return this.http.put(`${environment.backend}/api/material/${id}`, newMaterial);
   }
+
+
+  removeFromArray(item: any): void {
+    const index = this.materials.findIndex((mat: Material) => mat._id === item._id);
+    if (index >= 0) {
+      this.materials.splice(index, 1);
+    }
+  }
+
+  addToArray(item: any): void {
+    this.materials.push(item);
+  }
 }

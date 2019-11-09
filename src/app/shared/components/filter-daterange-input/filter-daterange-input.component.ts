@@ -1,7 +1,7 @@
 import { PaintMix } from './../../../models/paintMix';
 import { CommonService } from './../../../services/common.service';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { Component, OnInit, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges, ViewChild, EventEmitter } from '@angular/core';
 import { DefaultFilter } from 'ee-ng-smart-table';
 import { FormControl } from '@angular/forms';
 import { of } from 'rxjs';
