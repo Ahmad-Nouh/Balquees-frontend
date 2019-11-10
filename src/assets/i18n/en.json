@@ -9,6 +9,9 @@
         "quantity": "Quantity",
         "date": "Date"
       },
+      "Warehouses": {
+        "warehouses": "Warehouses"
+      },
       "PaintMixes": {
         "paintMixes": "Paint Mixes",
         "createPaintMix": "Create Paint Mix",

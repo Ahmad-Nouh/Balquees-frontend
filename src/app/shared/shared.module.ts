@@ -15,6 +15,7 @@ import { EditorInputNumberComponent } from './components/editor-input-number/edi
 import { FilterDaterangeInputComponent } from './components/filter-daterange-input/filter-daterange-input.component';
 import { TableFilterComponent } from './components/table-filter/table-filter.component';
 import { SelectComponent } from './components/select/select.component';
+import { Select1Component } from './components/select1/select1.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -30,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorInputNumberComponent,
     FilterDaterangeInputComponent,
     TableFilterComponent,
-    SelectComponent
+    SelectComponent,
+    Select1Component
   ],
   imports: [
     CommonModule,
@@ -59,7 +61,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorInputNumberComponent,
     FilterDaterangeInputComponent,
     TableFilterComponent,
-    SelectComponent
+    SelectComponent,
+    Select1Component
   ],
   providers: [NbDialogService],
   entryComponents: [
@@ -68,7 +71,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorInputNumberComponent,
     FilterDaterangeInputComponent,
     TableFilterComponent,
-    SelectComponent
+    SelectComponent,
+    Select1Component
   ]
 })
 export class SharedModule {

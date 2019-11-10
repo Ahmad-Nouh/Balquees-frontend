@@ -1,4 +1,3 @@
-import { SelectComponent } from './../../../shared/components/select/select.component';
 import { MaterialsService } from './../../../services/materials.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Glize } from '../../../models/enums/glize';
@@ -16,6 +15,7 @@ import { CommonService } from '../../../services/common.service';
 import { LocalDataSource } from 'ee-ng-smart-table';
 import { BodyMix } from '../../../models/bodyMix';
 import { Material } from '../../../models/material';
+import { Select1Component } from '../../../shared/components/select1/select1.component';
 
 var moment = require('moment');
 var momentRange = require('moment-range');
@@ -105,11 +105,11 @@ export class BodyMixesComponent implements OnInit {
         title: 'Material',
         filter: {
           type: 'custom',
-          component: SelectComponent
+          component: Select1Component
         },
         editor: {
           type: 'custom',
-          component: SelectComponent
+          component: Select1Component
         },
         valuePrepareFunction: (value) => value.name,
       },
@@ -559,11 +559,11 @@ export class BodyMixesComponent implements OnInit {
           title:  await this.trans.get('PAGES.Common.material').toPromise(),
           filter: {
             type: 'custom',
-            component: SelectComponent
+            component: Select1Component
           },
           editor: {
             type: 'custom',
-            component: SelectComponent
+            component: Select1Component
           },
           valuePrepareFunction: (value) => value.name,
         },

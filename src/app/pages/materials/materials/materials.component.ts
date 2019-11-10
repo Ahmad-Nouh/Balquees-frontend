@@ -1,14 +1,15 @@
+import { WarehouseService } from './../../../services/warehouse.service';
 import { CommonService } from './../../../services/common.service';
 import { Material } from './../../../models/material';
 import { MaterialsService } from './../../../services/materials.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FilterDaterangeInputComponent } from '../../../shared/components/filter-daterange-input/filter-daterange-input.component';
-import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { FilterInputComponent } from '../../../shared/components/filter-input/filter-input.component';
 import { EditorInputNumberComponent } from '../../../shared/components/editor-input-number/editor-input-number.component';
 import { TranslateServiceOur } from '../../../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalDataSource } from 'ee-ng-smart-table';
+import { Warehouse } from '../../../models/Warehouse';
 
 var moment = require('moment');
 var momentRange = require('moment-range');
@@ -16,7 +17,7 @@ momentRange.extendMoment(moment);
 
 
 @Component({
-  selector: 'app-materials',
+  selector: 'app-warehouses',
   templateUrl: './materials.component.html',
   styleUrls: ['./materials.component.scss']
 })
@@ -90,18 +91,26 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
     },
   };
 
-  data: any = [];
+  clayData: LocalDataSource;
+  paintData: LocalDataSource;
 
-  constructor(private materialService: MaterialsService,
-    private translate: TranslateServiceOur,
+  constructor(public materialService: MaterialsService,
+    public translate: TranslateServiceOur,
     private trans: TranslateService,
+    public warehouseService: WarehouseService,
     private commonService: CommonService) { }
 
   async ngOnInit() {
-    this.loadTableData(this.materialService.materials.slice());
-    console.log('materials ', this.data);
+    // load data tables (clay & paint)
+    this.loadDataTables();
+
+    // translate tables
     this.trans.use(this.translate.currentLanguage);
     await this.initSettingTranslation();
+
+    // load data tables (clay & paint)
+    this.loadDataTables();
+    
   }
 
   ngAfterViewInit(): void {
@@ -109,18 +118,34 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
       .subscribe(async(currentLang: string) => {
         this.trans.use(currentLang);
         await this.initSettingTranslation();
+        this.loadDataTables()
       }); 
   }
 
-  loadTableData(data: Array<Material>): void {
-    this.data = new LocalDataSource(data);
+  loadDataTables(): void {
+    // load clay data table
+    this.loadClayData();
+
+    // load paint data table
+    this.loadPaintData();
   }
+
+  loadTableData(data: Array<any>, isClay: boolean): void {
+    if (isClay) {
+      this.clayData = new LocalDataSource(data);
+    } else {
+      this.paintData = new LocalDataSource(data);
+    }
+  }
+
   onDeleteConfirm(event) {
     if (window.confirm('Are you sure you want to delete?')) {
       this.materialService.deleteMaterial(event.data._id)
         .subscribe((result) => {
           // remove from materials array
           this.materialService.removeFromArray(result);
+          // remove from warehouse map
+          this.materialService.removeFromMap(event.data.warehouse._id, event.data);
           // remove from ui
           event.confirm.resolve();
         });
@@ -129,25 +154,53 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onCreateConfirm(event) {
+  onCreateConfirm(event, warehouse: Warehouse) {
     console.log("Create Event In Console")
-    const newMaterial = {
+    const newMaterial: Material = {
       name: event.newData.name,
-      quantity: event.newData.quantity
+      quantity: event.newData.quantity,
+      warehouse: warehouse._id
     };
     this.materialService.createMaterial(newMaterial)
       .subscribe((result: any) => {
         event.confirm.resolve(result);
         this.materialService.addToArray(result);
-        this.loadTableData(this.materialService.materials.slice());
+        this.materialService.addToWarehouseMap(warehouse._id, result);
+        this.loadDataTables();
       });
   }
 
-  onSaveConfirm(event) {
-    console.log("Edit Event In Console")
+  onSaveConfirm(event, isClay: boolean) {
     console.log(event);
+    console.log(event.data._id);
+
+    const temp: Material = {
+      name: event.newData.name,
+      quantity: event.newData.quantity,
+      warehouse: event.data.warehouse._id,
+    };
+
+    this.materialService.updateMaterial(event.data._id, temp)
+        .subscribe((result) => {
+          event.confirm.resolve();
+          const index = this.materialService.materials
+          .findIndex((mat: Material) => mat._id == result._id);
+          console.log('index ', index);
+          this.materialService.materials[index] = result;
+          if (isClay) {
+            this.materialService.updateInMap(0, result);
+            this.loadClayData();
+          } else {
+            this.materialService.updateInMap(1, result);
+            this.loadPaintData();
+          }
+        });
   }
 
+
+  handleChangeTab(event): void {
+    console.log('event ', event);
+  }
 
   async initSettingTranslation() {
     moment.locale(this.translate.currentLanguage);
@@ -219,7 +272,16 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
         perPage: 5
       },
     }
-    this.loadTableData(this.materialService.materials.slice());
+  }
+
+  loadClayData(): void {
+    const clayData = this.materialService.getClayMaterials();
+    this.loadTableData(clayData, true);
+  }
+
+  loadPaintData(): void {
+    const paintData = this.materialService.getPaintMaterials();
+    this.loadTableData(paintData, false);
   }
 
 }

@@ -1,3 +1,4 @@
+import { WarehouseService } from './warehouse.service';
 import { Material } from './../models/material';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -9,8 +10,10 @@ import { Observable } from 'rxjs';
 })
 export class MaterialsService {
   materials: Array<Material> = [];
+  warehouseMaterials: any = {};
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private warehouseService: WarehouseService) { }
 
   getMaterials(): Promise<any> {
     return this.http.get(`${environment.backend}/api/material`).toPromise();
@@ -36,7 +39,56 @@ export class MaterialsService {
     }
   }
 
+  removeFromMap(id ,item: any): void {
+    const index = this.warehouseMaterials[id].findIndex((mat: Material) => mat._id === item._id);
+    if (index >= 0) {
+      this.warehouseMaterials[id].splice(index, 1);
+    }
+  }
+
+  updateInMap(id ,item: any): void {
+    const index = this.warehouseMaterials[id].findIndex((mat: Material) => mat._id === item._id);
+    if (index >= 0) {
+      this.warehouseMaterials[id][index] = item;
+    }
+  }
+
   addToArray(item: any): void {
     this.materials.push(item);
+  }
+
+  addToWarehouseMap(warehouseID: string, item: any): void {
+    if (this.warehouseMaterials[warehouseID]) {
+      this.warehouseMaterials[warehouseID].push(item);
+    } else {
+      this.warehouseMaterials[warehouseID] = [item];
+    }
+  }
+
+  splitMaterials(): any {
+    const data = {};
+    this.materials.forEach((mat: Material) => {
+      // if key exist
+      if (data[mat.warehouse._id]) {
+        data[mat.warehouse._id].push(mat);
+      } else {
+        // if key not exist
+        data[mat.warehouse._id] = [mat];
+      }
+    });
+
+    return data;
+  }
+
+  getPaintMaterials(): Array<Material> {
+    const paintID = this.warehouseService.warehouses[0]._id;
+    const paintData = this.warehouseMaterials[paintID].slice();
+    return paintData;
+  }
+
+  getClayMaterials(): Array<Material> {
+    const clayID = this.warehouseService.warehouses[1]._id;
+    const clayData = this.warehouseMaterials[clayID].slice();
+    return clayData;
   }
 }

@@ -1,13 +1,31 @@
 <nb-card class="main-card col-md-12">
     <nb-card-header class="text-heading text-primary card-title">
-        {{ 'PAGES.Materials.materials' | translate }}
+        {{ 'PAGES.Warehouses.warehouses' | translate }}
     </nb-card-header>
     <nb-card-body>
-            <ng2-smart-table [settings]="settings"
-            class="material-table"
-            [source]="data"
-            (deleteConfirm)="onDeleteConfirm($event)"
-            (editConfirm)="onSaveConfirm($event)"
-            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+        <nb-tabset fullWidth>
+            <nb-tab class="pt-5"
+            [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[0].name_en : warehouseService.warehouses[0].name_ar">
+            
+                <ng2-smart-table [settings]="settings"
+                class="material-table"
+                [source]="paintData"
+                (deleteConfirm)="onDeleteConfirm($event)"
+                (editConfirm)="onSaveConfirm($event, false)"
+                (createConfirm)="onCreateConfirm($event, warehouseService.warehouses[0])"></ng2-smart-table>
+            </nb-tab>
+
+            <nb-tab class="pt-5"
+            [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[1].name_en : warehouseService.warehouses[1].name_ar">
+            
+                <ng2-smart-table [settings]="settings"
+                class="material-table"
+                [source]="clayData"
+                (deleteConfirm)="onDeleteConfirm($event)"
+                (editConfirm)="onSaveConfirm($event, true)"
+                (createConfirm)="onCreateConfirm($event, warehouseService.warehouses[1])"></ng2-smart-table>
+            </nb-tab>
+        </nb-tabset>
+
     </nb-card-body>
 </nb-card>

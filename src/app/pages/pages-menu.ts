@@ -8,8 +8,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   home: true,
   // },
   {
-    title: 'PAGES.Materials.materials',
-    icon: 'droplet-outline',
+    title: 'PAGES.Warehouses.warehouses',
+    icon: 'inbox-outline',
     link: '/pages/materials',
     home: true,
   },

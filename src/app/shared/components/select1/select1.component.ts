@@ -1,14 +1,14 @@
-import { MaterialsService } from './../../../services/materials.service';
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
-import { DefaultEditor } from 'ee-ng-smart-table';
+import { Component, OnInit, ViewChild, ElementRef, SimpleChanges, AfterViewInit, OnChanges } from '@angular/core';
+import { MaterialsService } from '../../../services/materials.service';
 import { CommonService } from '../../../services/common.service';
+import { DefaultEditor } from 'ee-ng-smart-table';
 
 @Component({
-  selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+  selector: 'app-select1',
+  templateUrl: './select1.component.html',
+  styleUrls: ['./select1.component.scss']
 })
-export class SelectComponent extends DefaultEditor implements AfterViewInit, OnInit, OnChanges {
+export class Select1Component extends DefaultEditor implements AfterViewInit, OnInit, OnChanges {
   @ViewChild('material', { static: false }) material: ElementRef;
   @ViewChild('htmlValue', { static: false }) htmlValue: ElementRef;
 
@@ -22,7 +22,7 @@ export class SelectComponent extends DefaultEditor implements AfterViewInit, OnI
 
   ngOnInit(): void {
     this.materials = [undefined]
-    .concat(this.materialService.getPaintMaterials()
+    .concat(this.materialService.getClayMaterials()
       .map(item => JSON.stringify(item)));
   }
 
@@ -52,5 +52,4 @@ export class SelectComponent extends DefaultEditor implements AfterViewInit, OnI
 
     return data ? data.name : '';
   }
-
 }

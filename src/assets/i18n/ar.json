@@ -9,6 +9,9 @@
             "quantity": "الكمية",
             "date": "التاريخ"
         },
+        "Warehouses": {
+            "warehouses": "المستودعات"
+        },
         "PaintMixes": {
             "paintMixes": "خلطات الطلاء",
             "createPaintMix": "إضافة خلطة طلاء",

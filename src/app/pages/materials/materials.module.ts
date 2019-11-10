@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialsRoutingModule } from './materials-routing.module';
-import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule, NbTabsetModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ee-ng-smart-table';
 import { SharedModule } from '../../shared/shared.module';
@@ -28,6 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbInputModule,
     NbButtonModule,
     NbAlertModule,
+    NbTabsetModule,
     ThemeModule,
     Ng2SmartTableModule,
     SharedModule,

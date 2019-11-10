@@ -1,3 +1,4 @@
+import { WarehouseService } from './../services/warehouse.service';
 import { MaterialsService } from './../services/materials.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
@@ -5,6 +6,7 @@ import { MENU_ITEMS } from './pages-menu';
 import { TranslateServiceOur } from '../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NbMenuItem } from '@nebular/theme';
+import { Warehouse } from '../models/Warehouse';
 
 @Component({
   selector: 'ngx-pages',
@@ -22,15 +24,15 @@ export class PagesComponent implements OnInit , AfterViewInit{
 
   constructor(private translate: TranslateServiceOur,
     private trans: TranslateService,
-    private materialsService: MaterialsService) {}
+    private materialsService: MaterialsService,
+    private warehouseService: WarehouseService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.trans.use(this.translate.currentLanguage);
     this.translateMenu();
-    this.materialsService.getMaterials()
-      .then((result: any) => {
-        this.materialsService.materials = result;
-      });
+    this.warehouseService.warehouses = await this.warehouseService.getWarehouses();
+    this.materialsService.materials = await this.materialsService.getMaterials();
+    this.materialsService.warehouseMaterials = this.materialsService.splitMaterials();
   }
 
   ngAfterViewInit(): void {
