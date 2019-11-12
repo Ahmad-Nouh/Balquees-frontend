@@ -16,6 +16,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateServiceOur } from '../services/our-translate.service';
 import { EngobMixesModule } from './engob-mixes/engob-mixes.module';
 import { MaterialsService } from '../services/materials.service';
+import { InventoryModule } from './inventory/inventory.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EngobMixesModule,
     ProductsCardsModule,
     MaterialsModule,
+    InventoryModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {

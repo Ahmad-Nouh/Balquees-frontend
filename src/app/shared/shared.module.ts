@@ -62,7 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterDaterangeInputComponent,
     TableFilterComponent,
     SelectComponent,
-    Select1Component
+    Select1Component,
   ],
   providers: [NbDialogService],
   entryComponents: [

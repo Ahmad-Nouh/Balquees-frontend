@@ -1,0 +1,80 @@
+<nb-card class="main-card col-md-12">
+    <nb-card-header class="text-heading text-primary card-title">
+        {{ 'PAGES.Inventory.inventory' | translate }}
+    </nb-card-header>
+    <nb-card-body>
+        <nb-tabset fullWidth>
+            <nb-tab class="pt-5 overflow-hidden"
+                [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[0].name_en : warehouseService.warehouses[0].name_ar">
+                <div class="grid">
+                    <nb-card [status]="paintOptions.matWalls.checked ? 'success' : 'danger'">
+                        <nb-card-header>{{ paintOptions.matWalls.title }}</nb-card-header>
+                        <nb-card-body class="overflow-visible">
+                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
+                                [(ngModel)]="selectedMatWallsMix" [multiple]="false"
+                                (change)="onChange(selectedMatWallsMix)"></ngx-select-dropdown>
+
+                            <input id="meterWeight" type="number" placeholder="Meter Weight" class="form-control">
+                        </nb-card-body>
+                        <nb-card-footer class="footer">
+                            <mat-slide-toggle (change)="onChangeToggle('matWalls')"
+                                [checked]="paintOptions.matWalls.checked">Select</mat-slide-toggle>
+                        </nb-card-footer>
+                    </nb-card>
+
+                    <nb-card [status]="paintOptions.matFloors.checked ? 'success' : 'danger'">
+                        <nb-card-header>{{ paintOptions.matFloors.title }}</nb-card-header>
+                        <nb-card-body class="overflow-visible">
+                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
+                                [(ngModel)]="selectedMatFloorsMix" [multiple]="false"
+                                (change)="onChange(selectedMatFloorsMix)"></ngx-select-dropdown>
+                        </nb-card-body>
+                        <nb-card-footer class="footer">
+                            <mat-slide-toggle (change)="onChangeToggle('matFloors')"
+                                [checked]="paintOptions.matFloors.checked">Select</mat-slide-toggle>
+                        </nb-card-footer>
+                    </nb-card>
+
+                    <nb-card [status]="paintOptions.transparentWalls.checked ? 'success' : 'danger'">
+                        <nb-card-header>{{ paintOptions.transparentWalls.title }}</nb-card-header>
+                        <nb-card-body class="overflow-visible">
+                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
+                                [(ngModel)]="selectedTranspartentWallsMix" [multiple]="false"
+                                (change)="onChange(selectedTranspartentWallsMix)"></ngx-select-dropdown>
+                        </nb-card-body>
+                        <nb-card-footer class="footer">
+                            <mat-slide-toggle (change)="onChangeToggle('transparentWalls')"
+                                [checked]="paintOptions.transparentWalls.checked">Select</mat-slide-toggle>
+                        </nb-card-footer>
+                    </nb-card>
+
+                    <nb-card [status]="paintOptions.transparentFloors.checked ? 'success' : 'danger'">
+                        <nb-card-header>{{ paintOptions.transparentFloors.title }}</nb-card-header>
+                        <nb-card-body class="overflow-visible">
+                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
+                                [(ngModel)]="selectedTranspartentFloorsMix" [multiple]="false"
+                                (change)="onChange(selectedTranspartentFloorsMix)"></ngx-select-dropdown>
+                        </nb-card-body>
+                        <nb-card-footer class="footer">
+                            <mat-slide-toggle (change)="onChangeToggle('transparentFloors')"
+                                [checked]="paintOptions.transparentFloors.checked">Select</mat-slide-toggle>
+                        </nb-card-footer>
+                    </nb-card>
+
+                    <nb-card style="grid-column: 1/3;">
+                        <nb-card-body>
+                            <button class="d-block m-auto" nbButton outline status="info">Calculate</button>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+
+            </nb-tab>
+
+            <nb-tab class="pt-5 overflow-hidden"
+                [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[1].name_en : warehouseService.warehouses[1].name_ar">
+                test
+            </nb-tab>
+        </nb-tabset>
+
+    </nb-card-body>
+</nb-card>

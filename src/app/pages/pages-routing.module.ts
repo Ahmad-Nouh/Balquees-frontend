@@ -38,6 +38,11 @@ const routes: Routes = [{
       .then(m => m.EngobMixesModule),
     },
     {
+      path: 'inventory',
+      loadChildren: () => import('./inventory/inventory.module')
+      .then(m => m.InventoryModule),
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',

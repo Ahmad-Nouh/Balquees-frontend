@@ -36,6 +36,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'cube-outline',
     link: '/pages/engobMixes',
     home: true,
+  },
+  {
+    title: 'PAGES.Inventory.inventory',
+    icon: 'calendar-outline',
+    link: '/pages/inventory',
+    home: true,
   }
   // {
   //   title: 'FEATURES',

@@ -129,6 +129,10 @@
         "danger": "Alert",
         "material": "Material",
         "quantity": "Quantity"
+      },
+      "Inventory": {
+        "inventory": "Inventory",
+        "calculate": "Calculate"
       }
   }
 }

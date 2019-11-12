@@ -129,6 +129,10 @@
             "danger": "تنبيه",
             "material": "المادة",
             "quantity": "النسبة"
+        },
+        "Inventory": {
+            "inventory": "الجرد",
+            "calculate": "حساب"
         }
     }
 }
