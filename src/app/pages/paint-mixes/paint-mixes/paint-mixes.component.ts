@@ -440,7 +440,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
     }
 
     // validate components quantities
-    if (this.totalQuantity != 100) {
+    if (!this.commonService.areEqual(this.totalQuantity, 100)) {
       this.commonService.showToast('bottom-end', 'danger', this.validQuantityMessage, 3000);
       return true;
     }

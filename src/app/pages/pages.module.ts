@@ -17,6 +17,9 @@ import { TranslateServiceOur } from '../services/our-translate.service';
 import { EngobMixesModule } from './engob-mixes/engob-mixes.module';
 import { MaterialsService } from '../services/materials.service';
 import { InventoryModule } from './inventory/inventory.module';
+import { PaintMixesService } from '../services/paint-mixes.service';
+import { BodyMixesService } from '../services/body-mixes.service';
+import { EngobMixesService } from '../services/engob-mixes.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -48,7 +51,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     PagesComponent,
   ],
   providers: [
-    MaterialsService
+    MaterialsService,
+    PaintMixesService,
+    BodyMixesService,
+    EngobMixesService
   ]
 })
 export class PagesModule {

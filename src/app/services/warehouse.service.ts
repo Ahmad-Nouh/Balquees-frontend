@@ -19,4 +19,14 @@ export class WarehouseService {
   updateWarehouse(id: string, newWarehouse): Observable<any> {
     return this.http.put(`${environment.backend}/api/warehouse/${id}`, newWarehouse);
   }
+
+  sortWareHouses(): void {
+    if (this.warehouses[0].order > 0) {
+      const temp = {...this.warehouses[0]};
+      this.warehouses[0] = {...this.warehouses[1]};
+      this.warehouses[1] = temp
+    }
+
+    console.log('after sort ', this.warehouses);
+  }
 }

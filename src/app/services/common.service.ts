@@ -67,4 +67,17 @@ export class CommonService {
       return moment.utc(left.createdAt).diff(moment.utc(right.createdAt))
     });
   }
+
+  areEqual(n1, n2): boolean {
+    const precision = 0.001;
+
+    if (Math.abs(n1 - n2) <= precision) {
+      // equal
+      return true;
+    }
+    else {
+      // not equal
+      return false;
+    }
+  }
 }

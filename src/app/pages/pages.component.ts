@@ -31,8 +31,10 @@ export class PagesComponent implements OnInit , AfterViewInit{
     this.trans.use(this.translate.currentLanguage);
     this.translateMenu();
     this.warehouseService.warehouses = await this.warehouseService.getWarehouses();
+    this.warehouseService.sortWareHouses();
     this.materialsService.materials = await this.materialsService.getMaterials();
     this.materialsService.warehouseMaterials = this.materialsService.splitMaterials();
+    console.log('splite ', this.materialsService.warehouseMaterials);
   }
 
   ngAfterViewInit(): void {

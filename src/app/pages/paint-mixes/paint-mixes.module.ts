@@ -8,7 +8,6 @@ import { PaintMixesComponent } from './paint-mixes/paint-mixes.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule, NbToastrModule, NbToastrService } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ee-ng-smart-table';
-import { PaintMixesService } from '../../services/paint-mixes.service';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateServiceOur } from '../../services/our-translate.service';
@@ -43,7 +42,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   })
   ],
   providers: [
-    PaintMixesService,
     TranslateService,
   ]
 })

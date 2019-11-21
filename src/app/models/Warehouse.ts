@@ -5,4 +5,5 @@ export interface Warehouse {
     name_en: string;
     name_ar: string;
     materials: Array<Material>;
+    order?: number;
 }

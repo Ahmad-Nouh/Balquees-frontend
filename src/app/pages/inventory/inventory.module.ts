@@ -13,13 +13,14 @@ import { TranslateServiceOur } from '../../services/our-translate.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { InventoryTableComponent } from './inventory-table/inventory-table.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [InventoryComponent],
+  declarations: [InventoryComponent, InventoryTableComponent],
   imports: [
     CommonModule,
     InventoryRoutingModule,

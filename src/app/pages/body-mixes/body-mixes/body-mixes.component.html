@@ -40,6 +40,16 @@
                         <nb-alert class="form-alert" *ngIf="bodyForm.getControl(code)?.invalid && isSubmited" status="danger">
                             {{ (bodyForm.getControl(code).hasError('required') ? requiredMessage : '') | translate }}
                         </nb-alert>
+
+                        <nb-select class="block" [placeholder]="'PAGES.EngobMixes.selectType' | translate"
+                        required
+                        id="type" name="type" #type="ngModel" [(ngModel)]="newBodyMix.type">
+                            <nb-option *ngFor="let type of TYPE_OPTIONS" [value]="type.value">{{ type.title | translate }}
+                            </nb-option>
+                        </nb-select>
+                        <nb-alert class="form-alert" *ngIf="bodyForm.getControl(type)?.invalid && isSubmited" status="danger">
+                            {{ (bodyForm.getControl(type).hasError('required') ? requiredMessage : '') | translate }}
+                        </nb-alert>
                     </form>
                     <div class="col-8">
                         <nb-alert *ngIf="!newBodyMix.components.length && isSubmited" status="danger">

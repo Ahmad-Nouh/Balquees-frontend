@@ -8,6 +8,7 @@
 
 .our-card {
     min-height: fit-content;
+    max-height: 700px;
 }
 
 .our-card nb-card-header {
@@ -27,6 +28,10 @@
 .our-list {
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.our-list nb-list-item {
+    padding: 1%;
 }
 
 .center {

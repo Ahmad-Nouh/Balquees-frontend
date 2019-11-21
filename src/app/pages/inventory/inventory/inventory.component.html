@@ -1,80 +1,463 @@
-<nb-card class="main-card col-md-12">
-    <nb-card-header class="text-heading text-primary card-title">
-        {{ 'PAGES.Inventory.inventory' | translate }}
-    </nb-card-header>
-    <nb-card-body>
-        <nb-tabset fullWidth>
-            <nb-tab class="pt-5 overflow-hidden"
-                [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[0].name_en : warehouseService.warehouses[0].name_ar">
-                <div class="grid">
-                    <nb-card [status]="paintOptions.matWalls.checked ? 'success' : 'danger'">
-                        <nb-card-header>{{ paintOptions.matWalls.title }}</nb-card-header>
-                        <nb-card-body class="overflow-visible">
-                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
-                                [(ngModel)]="selectedMatWallsMix" [multiple]="false"
-                                (change)="onChange(selectedMatWallsMix)"></ngx-select-dropdown>
+<nb-flip-card [showToggleButton]="false" [flipped]="isFlipped" class="our-flip-card">
+    <nb-card-front class="row">
+        <nb-card class="main-card col-md-12">
+            <nb-card-header class="text-heading text-primary card-title">
+                {{ 'PAGES.Inventory.inventory' | translate }}
+            </nb-card-header>
+            <nb-card-body>
+                <nb-tabset fullWidth>
+                    <nb-tab class="pt-5 overflow-hidden"
+                        [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[0].name_en : warehouseService.warehouses[0].name_ar">
+                        <div class="grid">
+                            <nb-card [status]="paintOptions.matWalls.checked ? 'success' : 'danger'">
+                                <nb-card-header>{{ paintOptions.matWalls.title | translate }}</nb-card-header>
+                                <nb-card-body class="overflow-visible">
+                                    <div class="row select-controls">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">{{ 'PAGES.Inventory.selectPaintMix' | translate }}</label>
+                                            <ngx-select-dropdown [config]="paintConfig" [options]="matWallsPaintMixes"
+                                                [(ngModel)]="paintOptions.matWalls.selectedPaintMix" [multiple]="false"
+                                                (change)="onChange(paintOptions.matWalls.selectedPaintMix)"
+                                                [ngClass]="paintOptions.matWalls.checked && (!paintOptions.matWalls.selectedPaintMix || paintOptions.matWalls.selectedPaintMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matWalls.checked && (!paintOptions.matWalls.selectedPaintMix || paintOptions.matWalls.selectedPaintMix?.length == 0) ? 'PAGES.Common.requiredMessage' : '' | translate }}
+                                            </div>
+                                        </div>
 
-                            <input id="meterWeight" type="number" placeholder="Meter Weight" class="form-control">
-                        </nb-card-body>
-                        <nb-card-footer class="footer">
-                            <mat-slide-toggle (change)="onChangeToggle('matWalls')"
-                                [checked]="paintOptions.matWalls.checked">Select</mat-slide-toggle>
-                        </nb-card-footer>
-                    </nb-card>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">{{ 'PAGES.Inventory.selectEngobMix' | translate }}</label>
+                                            <ngx-select-dropdown [config]="engobConfig" [options]="matWallsEngobMixes"
+                                                [(ngModel)]="paintOptions.matWalls.selectedEngobMix" [multiple]="false"
+                                                (change)="onChange(paintOptions.matWalls.selectedEngobMix)"
+                                                [ngClass]="paintOptions.matWalls.checked && (!paintOptions.matWalls.selectedEngobMix || paintOptions.matWalls.selectedEngobMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
 
-                    <nb-card [status]="paintOptions.matFloors.checked ? 'success' : 'danger'">
-                        <nb-card-header>{{ paintOptions.matFloors.title }}</nb-card-header>
-                        <nb-card-body class="overflow-visible">
-                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
-                                [(ngModel)]="selectedMatFloorsMix" [multiple]="false"
-                                (change)="onChange(selectedMatFloorsMix)"></ngx-select-dropdown>
-                        </nb-card-body>
-                        <nb-card-footer class="footer">
-                            <mat-slide-toggle (change)="onChangeToggle('matFloors')"
-                                [checked]="paintOptions.matFloors.checked">Select</mat-slide-toggle>
-                        </nb-card-footer>
-                    </nb-card>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matWalls.checked && (!paintOptions.matWalls.selectedEngobMix || paintOptions.matWalls.selectedEngobMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterPaintWeight1">Paint per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.matWalls.meterPaintWeight" name="meterPaintWeight1"
+                                                #meterPaintWeight1="ngModel" required min="1" id="meterPaintWeight1" type="number"
+                                                placeholder="Meter weight"
+                                                [ngClass]="paintOptions.matWalls.checked && (meterPaintWeight1.invalid || meterPaintWeight1.value < 0) ? 'form-control is-invalid' : 'form-control'">
+                                            <div class="text-danger">
+                                                {{ paintOptions.matWalls.checked ? meterPaintWeight1.value < 0  ? 'enter value greater than or equal 0' : meterPaintWeight1.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterEngobWeight1">Engob per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.matWalls.meterEngobWeight" name="meterEngobWeight1"
+                                                #meterEngobWeight1="ngModel" required min="1" id="meterEngobWeight1" type="number"
+                                                placeholder="Meter weight"
+                                                [ngClass]="paintOptions.matWalls.checked && (meterEngobWeight1.invalid || meterEngobWeight1.value < 0) ? 'form-control is-invalid' : 'form-control'">
+                                            <div class="text-danger">
+                                                {{ paintOptions.matWalls.checked ? meterEngobWeight1.value < 0  ? 'enter value greater than or equal 0' : meterEngobWeight1.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterNumber1">Meter number per day</label>
+                                            <input [(ngModel)]="paintOptions.matWalls.meterNumber" name="meterNumber1"
+                                                #meterNumber1="ngModel" required min="1" id="meterNumber1" type="number"
+                                                placeholder="Meter per day"
+                                                [ngClass]="paintOptions.matWalls.checked && (meterNumber1.invalid || meterNumber1.value < 0) ? 'form-control is-invalid' : 'form-control'">
+                                            <div class="text-danger">
+                                                {{ paintOptions.matWalls.checked ? meterNumber1.value < 0  ? 'enter value greater than or equal 0' : meterNumber1.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nb-card-body>
+                                <nb-card-footer class="footer">
+                                    <mat-slide-toggle (change)="onChangeToggle('matWalls', true)"
+                                        [checked]="paintOptions.matWalls.checked">Select</mat-slide-toggle>
+                                </nb-card-footer>
+                            </nb-card>
 
-                    <nb-card [status]="paintOptions.transparentWalls.checked ? 'success' : 'danger'">
-                        <nb-card-header>{{ paintOptions.transparentWalls.title }}</nb-card-header>
-                        <nb-card-body class="overflow-visible">
-                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
-                                [(ngModel)]="selectedTranspartentWallsMix" [multiple]="false"
-                                (change)="onChange(selectedTranspartentWallsMix)"></ngx-select-dropdown>
-                        </nb-card-body>
-                        <nb-card-footer class="footer">
-                            <mat-slide-toggle (change)="onChangeToggle('transparentWalls')"
-                                [checked]="paintOptions.transparentWalls.checked">Select</mat-slide-toggle>
-                        </nb-card-footer>
-                    </nb-card>
+                            <nb-card [status]="paintOptions.matFloors.checked ? 'success' : 'danger'">
+                                <nb-card-header>{{ paintOptions.matFloors.title }}</nb-card-header>
+                                <nb-card-body class="overflow-visible">
+                                    <div class="row select-controls">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select paint mix</label>
+                                            <ngx-select-dropdown [config]="paintConfig" [options]="matFloorsPaintMixes"
+                                                [(ngModel)]="paintOptions.matFloors.selectedPaintMix" [multiple]="false"
+                                                (change)="onChange(paintOptions.matFloors.selectedPaintMix)"
+                                                [ngClass]="paintOptions.matFloors.checked && (!paintOptions.matFloors.selectedPaintMix || paintOptions.matFloors.selectedPaintMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matFloors.checked && (!paintOptions.matFloors.selectedPaintMix || paintOptions.matFloors.selectedPaintMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
 
-                    <nb-card [status]="paintOptions.transparentFloors.checked ? 'success' : 'danger'">
-                        <nb-card-header>{{ paintOptions.transparentFloors.title }}</nb-card-header>
-                        <nb-card-body class="overflow-visible">
-                            <ngx-select-dropdown [config]="config" [options]="dropdownOptions"
-                                [(ngModel)]="selectedTranspartentFloorsMix" [multiple]="false"
-                                (change)="onChange(selectedTranspartentFloorsMix)"></ngx-select-dropdown>
-                        </nb-card-body>
-                        <nb-card-footer class="footer">
-                            <mat-slide-toggle (change)="onChangeToggle('transparentFloors')"
-                                [checked]="paintOptions.transparentFloors.checked">Select</mat-slide-toggle>
-                        </nb-card-footer>
-                    </nb-card>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select engob mix</label>
+                                            <ngx-select-dropdown [config]="engobConfig" [options]="matFloorsEngobMixes"
+                                                [(ngModel)]="paintOptions.matFloors.selectedEngobMix" [multiple]="false"
+                                                (change)="onChange(paintOptions.matFloors.selectedEngobMix)"
+                                                [ngClass]="paintOptions.matFloors.checked && (!paintOptions.matFloors.selectedEngobMix || paintOptions.matFloors.selectedEngobMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matFloors.checked && (!paintOptions.matFloors.selectedEngobMix || paintOptions.matFloors.selectedEngobMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                                <label class="text-hint" for="meterPaintWeight2">Paint per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.matFloors.meterPaintWeight" name="meterPaintWeight2"
+                                                #meterPaintWeight2="ngModel" required min="1" id="meterPaintWeight2" type="number"
+                                                placeholder="Meter weight" class="form-control">
 
-                    <nb-card style="grid-column: 1/3;">
-                        <nb-card-body>
-                            <button class="d-block m-auto" nbButton outline status="info">Calculate</button>
-                        </nb-card-body>
-                    </nb-card>
-                </div>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matFloors.checked ? meterPaintWeight2.value < 0  ? 'enter value greater than or equal 0' : meterPaintWeight2.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
 
-            </nb-tab>
+                                        <div class="col-md-6 col-sm-12">
+                                                <label class="text-hint" for="meterEngobWeight2">Engob per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.matFloors.meterEngobWeight" name="meterEngobWeight2"
+                                                #meterEngobWeight2="ngModel" required min="1" id="meterEngobWeight2" type="number"
+                                                placeholder="Meter weight" class="form-control">
 
-            <nb-tab class="pt-5 overflow-hidden"
-                [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[1].name_en : warehouseService.warehouses[1].name_ar">
-                test
-            </nb-tab>
-        </nb-tabset>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matFloors.checked ? meterEngobWeight2.value < 0  ? 'enter value greater than or equal 0' : meterEngobWeight2.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterNumber2">Meter number per day</label>
+                                            <input [(ngModel)]="paintOptions.matFloors.meterNumber" name="meterNumber2"
+                                                #meterNumber2="ngModel" required min="1" id="meterNumber2" type="number"
+                                                placeholder="Meter per day" class="form-control">
 
-    </nb-card-body>
-</nb-card>
+                                            <div class="text-danger">
+                                                {{ paintOptions.matFloors.checked ? meterNumber2.value < 0  ? 'enter value greater than or equal 0' : meterNumber2.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nb-card-body>
+                                <nb-card-footer class="footer">
+                                    <mat-slide-toggle (change)="onChangeToggle('matFloors', true)"
+                                        [checked]="paintOptions.matFloors.checked">Select</mat-slide-toggle>
+                                </nb-card-footer>
+                            </nb-card>
+
+                            <nb-card [status]="paintOptions.transparentWalls.checked ? 'success' : 'danger'">
+                                <nb-card-header>{{ paintOptions.transparentWalls.title }}</nb-card-header>
+                                <nb-card-body class="overflow-visible">
+                                    <div class="row select-controls">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select paint mix</label>
+                                            <ngx-select-dropdown [config]="paintConfig"
+                                                [options]="transparentWallsPaintMixes"
+                                                [(ngModel)]="paintOptions.transparentWalls.selectedPaintMix"
+                                                [multiple]="false"
+                                                (change)="onChange(paintOptions.transparentWalls.selectedPaintMix)"
+                                                [ngClass]="paintOptions.transparentWalls.checked && (!paintOptions.transparentWalls.selectedPaintMix || paintOptions.transparentWalls.selectedPaintMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentWalls.checked && (!paintOptions.transparentWalls.selectedPaintMix || paintOptions.transparentWalls.selectedPaintMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select engob mix</label>
+                                            <ngx-select-dropdown [config]="engobConfig"
+                                                [options]="transparentWallsEngobMixes"
+                                                [(ngModel)]="paintOptions.transparentWalls.selectedEngobMix"
+                                                [multiple]="false"
+                                                (change)="onChange(paintOptions.transparentWalls.selectedEngobMix)"
+                                                [ngClass]="paintOptions.transparentWalls.checked && (!paintOptions.transparentWalls.selectedEngobMix || paintOptions.transparentWalls.selectedEngobMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentWalls.checked && (!paintOptions.transparentWalls.selectedEngobMix || paintOptions.transparentWalls.selectedEngobMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterPaintWeight3">Paint per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.transparentWalls.meterPaintWeight"
+                                                #meterPaintWeight3="ngModel" required min="1" name="meterPaintWeight3"
+                                                id="meterPaintWeight3" type="number" placeholder="Meter weight"
+                                                class="form-control">
+
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentWalls.checked ? meterPaintWeight3.value < 0  ? 'enter value greater than or equal 0' : meterPaintWeight3.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterEngobWeight3">Engob per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.transparentWalls.meterEngobWeight"
+                                                #meterEngobWeight3="ngModel" required min="1" name="meterEngobWeight3"
+                                                id="meterEngobWeight3" type="number" placeholder="Meter weight"
+                                                class="form-control">
+
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentWalls.checked ? meterEngobWeight3.value < 0  ? 'enter value greater than or equal 0' : meterEngobWeight3.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterNumber3">Meter number per day</label>
+                                            <input [(ngModel)]="paintOptions.transparentWalls.meterNumber"
+                                                #meterNumber3="ngModel" required min="1" name="meterNumber3"
+                                                id="meterNumber3" type="number" placeholder="Meter per day"
+                                                class="form-control">
+
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentWalls.checked ? meterNumber3.value < 0  ? 'enter value greater than or equal 0' : meterNumber3.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nb-card-body>
+                                <nb-card-footer class="footer">
+                                    <mat-slide-toggle (change)="onChangeToggle('transparentWalls', true)"
+                                        [checked]="paintOptions.transparentWalls.checked">Select</mat-slide-toggle>
+                                </nb-card-footer>
+                            </nb-card>
+
+                            <nb-card [status]="paintOptions.transparentFloors.checked ? 'success' : 'danger'">
+                                <nb-card-header>{{ paintOptions.transparentFloors.title }}</nb-card-header>
+                                <nb-card-body class="overflow-visible">
+                                    <div class="row select-controls">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select paint mix</label>
+                                            <ngx-select-dropdown [config]="paintConfig"
+                                                [options]="transparentFloorsPaintMixes"
+                                                [(ngModel)]="paintOptions.transparentFloors.selectedPaintMix"
+                                                [multiple]="false"
+                                                (change)="onChange(paintOptions.transparentFloors.selectedPaintMix)"
+                                                [ngClass]="paintOptions.transparentFloors.checked && (!paintOptions.transparentFloors.selectedPaintMix || paintOptions.transparentFloors.selectedPaintMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentFloors.checked && (!paintOptions.transparentFloors.selectedPaintMix || paintOptions.transparentFloors.selectedPaintMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select engob mix</label>
+                                            <ngx-select-dropdown [config]="engobConfig"
+                                                [options]="transparentFloorsEngobMixes"
+                                                [(ngModel)]="paintOptions.transparentFloors.selectedEngobMix"
+                                                [multiple]="false"
+                                                (change)="onChange(paintOptions.transparentFloors.selectedEngobMix)"
+                                                [ngClass]="paintOptions.transparentFloors.checked && (!paintOptions.transparentFloors.selectedEngobMix || paintOptions.transparentFloors.selectedEngobMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentFloors.checked && (!paintOptions.transparentFloors.selectedEngobMix || paintOptions.transparentFloors.selectedEngobMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterPaintWeight4">Paint per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.transparentFloors.meterPaintWeight"
+                                                #meterPaintWeight4="ngModel" required min="1" name="meterPaintWeight4"
+                                                id="meterPaintWeight4" type="number" placeholder="Meter weight"
+                                                class="form-control">
+
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentFloors.checked ? meterPaintWeight4.value < 0  ? 'enter value greater than or equal 0' : meterPaintWeight4.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterEngobWeight4">Engob per meter weight</label>
+                                            <input [(ngModel)]="paintOptions.transparentFloors.meterEngobWeight"
+                                                #meterEngobWeight4="ngModel" required min="1" name="meterEngobWeight4"
+                                                id="meterEngobWeight4" type="number" placeholder="Meter weight"
+                                                class="form-control">
+
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentFloors.checked ? meterEngobWeight4.value < 0  ? 'enter value greater than or equal 0' : meterEngobWeight4.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterNumber4">Meter number per day</label>
+                                            <input [(ngModel)]="paintOptions.transparentFloors.meterNumber"
+                                                #meterNumber4="ngModel" required min="1" name="meterNumber4"
+                                                id="meterNumber4" type="number" placeholder="Meter per day"
+                                                class="form-control">
+
+                                            <div class="text-danger">
+                                                {{ paintOptions.transparentFloors.checked ? meterNumber4.value < 0  ? 'enter value greater than or equal 0' : meterNumber4.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nb-card-body>
+                                <nb-card-footer class="footer">
+                                    <mat-slide-toggle (change)="onChangeToggle('transparentFloors', true)"
+                                        [checked]="paintOptions.transparentFloors.checked">Select</mat-slide-toggle>
+                                </nb-card-footer>
+                            </nb-card>
+
+                            <nb-card style="grid-column: 1/3; height: fit-content;">
+                                <nb-card-body>
+                                    <button class="d-block m-auto" nbButton outline status="info"
+                                        (click)="calculatePaintInventory()">Calculate</button>
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+
+                    </nb-tab>
+
+                    <nb-tab class="pt-5 overflow-hidden"
+                        [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[1].name_en : warehouseService.warehouses[1].name_ar">
+                        <div class="grid">
+                            <nb-card [status]="bodyOptions.walls.checked ? 'success' : 'danger'">
+                                <nb-card-header>{{ bodyOptions.walls.title }}</nb-card-header>
+                                <nb-card-body class="overflow-visible">
+                                    <div class="row select-controls">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select body mix</label>
+                                            <ngx-select-dropdown [config]="bodyConfig" [options]="wallsBodyMixes"
+                                                [(ngModel)]="bodyOptions.walls.selectedBodyMix" [multiple]="false"
+                                                (change)="onChange(bodyOptions.walls.selectedBodyMix)"
+                                                [ngClass]="bodyOptions.walls.checked && (!bodyOptions.walls.selectedBodyMix || bodyOptions.walls.selectedBodyMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+
+                                            <div class="text-danger">
+                                                {{ bodyOptions.walls.checked && (!bodyOptions.walls.selectedBodyMix || bodyOptions.walls.selectedBodyMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterWeight5">Per meter weight</label>
+                                            <input [(ngModel)]="bodyOptions.walls.meterWeight" name="meterWeight5"
+                                                #meterWeight5="ngModel" required min="1" id="meterWeight5" type="number"
+                                                placeholder="Meter weight"
+                                                [ngClass]="bodyOptions.walls.checked && (meterWeight5.invalid || meterWeight5.value < 0) ? 'form-control is-invalid' : 'form-control'">
+
+                                            <div class="text-danger">
+                                                {{ bodyOptions.walls.checked ? meterWeight5.value < 0  ? 'enter value greater than or equal 0' : meterWeight5.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterNumber5">Meter number per day</label>
+                                            <input [(ngModel)]="bodyOptions.walls.meterNumber" name="meterNumber5"
+                                                #meterNumber5="ngModel" required min="1" id="meterNumber5" type="number"
+                                                placeholder="Meter per day"
+                                                [ngClass]="bodyOptions.walls.checked && (meterNumber5.invalid || meterNumber5.value < 0) ? 'form-control is-invalid' : 'form-control'">
+
+                                            <div class="text-danger">
+                                                {{ bodyOptions.walls.checked ? meterNumber5.value < 0  ? 'enter value greater than or equal 0' : meterNumber5.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nb-card-body>
+                                <nb-card-footer class="footer">
+                                    <mat-slide-toggle (change)="onChangeToggle('walls', false)"
+                                        [checked]="bodyOptions.walls.checked">Select</mat-slide-toggle>
+                                </nb-card-footer>
+                            </nb-card>
+
+                            <nb-card [status]="bodyOptions.floors.checked ? 'success' : 'danger'">
+                                <nb-card-header>{{ bodyOptions.floors.title }}</nb-card-header>
+                                <nb-card-body class="overflow-visible">
+                                    <div class="row select-controls">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint">Select body mix</label>
+                                            <ngx-select-dropdown [config]="bodyConfig" [options]="floorsBodyMixes"
+                                                [(ngModel)]="bodyOptions.floors.selectedBodyMix" [multiple]="false"
+                                                (change)="onChange(bodyOptions.floors.selectedBodyMix)"
+                                                [ngClass]="bodyOptions.floors.checked && (!bodyOptions.floors.selectedBodyMix || bodyOptions.floors.selectedBodyMix?.length == 0) ? 'invalid-select' : ''">
+                                            </ngx-select-dropdown>
+
+                                            <div class="text-danger">
+                                                {{ bodyOptions.floors.checked && (!bodyOptions.floors.selectedBodyMix || bodyOptions.floors.selectedBodyMix?.length == 0) ? 'this field is required' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="text-hint" for="meterWeight6">Per meter weight</label>
+                                            <input [(ngModel)]="bodyOptions.floors.meterWeight" name="meterWeight6"
+                                                #meterWeight6="ngModel" required min="1" id="meterWeight6" type="number"
+                                                placeholder="Meter weight"
+                                                [ngClass]="bodyOptions.floors.checked && (meterWeight6.invalid || meterWeight6.value < 0) ? 'form-control is-invalid' : 'form-control'">
+
+                                            <div class="text-danger">
+                                                {{ bodyOptions.floors.checked ? meterWeight6.value < 0  ? 'enter value greater than or equal 0' : meterWeight6.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                                <label class="text-hint" for="meterNumber6">Meter number per day</label>
+                                            <input [(ngModel)]="bodyOptions.floors.meterNumber" name="meterNumber6"
+                                                #meterNumber6="ngModel" required min="1" id="meterNumber6" type="number"
+                                                placeholder="Meter per day"
+                                                [ngClass]="bodyOptions.floors.checked && (meterNumber6.invalid || meterNumber6.value < 0) ? 'form-control is-invalid' : 'form-control'">
+
+                                            <div class="text-danger">
+                                                {{ bodyOptions.floors.checked ? meterNumber6.value < 0  ? 'enter value greater than or equal 0' : meterNumber6.getError('required') ? 
+                                                'this field is required' : '' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nb-card-body>
+                                <nb-card-footer class="footer">
+                                    <mat-slide-toggle (change)="onChangeToggle('floors', false)"
+                                        [checked]="bodyOptions.floors.checked">Select</mat-slide-toggle>
+                                </nb-card-footer>
+                            </nb-card>
+
+                            <div style="height: 8rem;">&nbsp;</div>
+                            <div style="height: 8rem;">&nbsp;</div>
+                            <nb-card style="grid-column: 1/3; height: fit-content;">
+                                <nb-card-body>
+                                    <button class="d-block m-auto" nbButton outline status="info"
+                                        (click)="calculateClayInventory()">Calculate</button>
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+                    </nb-tab>
+                </nb-tabset>
+
+            </nb-card-body>
+        </nb-card>
+    </nb-card-front>
+
+    <nb-card-back>
+        <nb-card class="main-card">
+            <nb-card-header class="text-heading text-primary card-title">
+                {{ 'PAGES.Inventory.inventoryDetails' | translate }}</nb-card-header>
+            <nb-card-body class="card-body">
+
+                <app-inventory-table [source]="sourceData"></app-inventory-table>
+
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton status="primary" (click)="onClickBack()">{{ 'PAGES.Inventory.back' | translate }}
+                    <nb-icon icon="arrow-left"></nb-icon></button>
+            </nb-card-footer>
+        </nb-card>
+    </nb-card-back>
+</nb-flip-card>

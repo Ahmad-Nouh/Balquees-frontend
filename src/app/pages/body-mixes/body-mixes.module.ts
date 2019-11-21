@@ -6,7 +6,6 @@ import { BodyMixesComponent } from './body-mixes/body-mixes.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { BodyMixesService } from '../../services/body-mixes.service';
 import { NbCardModule, NbIconModule, NbDialogModule, NbSelectModule, NbInputModule, NbButtonModule, NbAlertModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ee-ng-smart-table';
@@ -43,8 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-    TranslateService,
-    BodyMixesService
+    TranslateService
   ]
 })
 export class BodyMixesModule {

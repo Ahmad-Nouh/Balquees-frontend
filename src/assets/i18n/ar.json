@@ -132,7 +132,26 @@
         },
         "Inventory": {
             "inventory": "الجرد",
-            "calculate": "حساب"
+            "inventoryDetails": "تفاصيل الجرد",
+            "calculate": "حساب",
+            "back": "رجوع",
+            "walls": "جدران",
+            "floors": "أرضيات",
+            "matWalls": "مت جدران",
+            "matFloors": "مت أرضيات",
+            "transparentWalls": "شفاف جدران",
+            "transparentFloors": "شفاف أرضيات",
+            "code": "الكود",
+            "selectPaintMix": "اختر خلطة الطلاء",
+            "selectEngobMix": "اختر خلطة الإنغوب",
+            "selectBodyMix": "اختر خلطة الجسم",
+            "more": "مشاهدة المزيد",
+            "noResultFound": "ليس هناك نتائج",
+            "search": "بحث",
+            "paintPerMeterWeight": "وزن متر الطلاء",
+            "engobPerMeterWeight": "وزن متر الإنغوب",
+            "clayPerMeterWeight": "وزن متر الغضار",
+            "select": "تحديد"
         }
     }
 }

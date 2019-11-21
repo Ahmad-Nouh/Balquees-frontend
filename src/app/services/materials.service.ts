@@ -81,14 +81,28 @@ export class MaterialsService {
   }
 
   getPaintMaterials(): Array<Material> {
-    const paintID = this.warehouseService.warehouses[0]._id;
-    const paintData = this.warehouseMaterials[paintID].slice();
+    let index = 0;
+    for (const item of this.warehouseService.warehouses) {
+      if (item.order === 0) {
+        break;
+      }
+      index++;
+    }
+    const paintID = this.warehouseService.warehouses[index]._id;
+    const paintData = this.warehouseMaterials[paintID] ? this.warehouseMaterials[paintID].slice() : [];
     return paintData;
   }
 
   getClayMaterials(): Array<Material> {
-    const clayID = this.warehouseService.warehouses[1]._id;
-    const clayData = this.warehouseMaterials[clayID].slice();
+    let index = 0;
+    for (const item of this.warehouseService.warehouses) {
+      if (item.order === 1) {
+        break;
+      }
+      index++;
+    }
+    const clayID = this.warehouseService.warehouses[index]._id;
+    const clayData = this.warehouseMaterials[clayID] ? this.warehouseMaterials[clayID].slice() : [];
     return clayData;
   }
 }

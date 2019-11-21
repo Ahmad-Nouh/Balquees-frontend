@@ -132,7 +132,26 @@
       },
       "Inventory": {
         "inventory": "Inventory",
-        "calculate": "Calculate"
+        "inventoryDetails": "Inventory Details",
+        "calculate": "Calculate",
+        "back": "Back",
+        "walls": "Walls",
+        "floors": "Floors",
+        "matWalls": "Mat Walls",
+        "matFloors": "Mat Floors",
+        "transparentWalls": "Transparent Walls",
+        "transparentFloors": "Transparent Floors",
+        "code": "Code",
+        "selectPaintMix": "Select paint mix",
+        "selectEngobMix": "Select engob mix",
+        "selectBodyMix": "Select body mix",
+        "more": "More",
+        "noResultsFound": "No results found",
+        "search": "Search",
+        "paintPerMeterWeight": "Paint Per Meter Weight",
+        "engobPerMeterWeight": "Engob Per Meter Weight",
+        "clayPerMeterWeight": "Clay Per Meter Weight",
+        "select": "Select"
       }
   }
 }

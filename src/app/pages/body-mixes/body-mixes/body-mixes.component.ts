@@ -28,6 +28,11 @@ momentRange.extendMoment(moment);
 })
 export class BodyMixesComponent implements OnInit {
 
+  TYPE_OPTIONS = [
+    { value: MixType.WALLS, title: 'PAGES.EngobMixes.walls' },
+    { value: MixType.FLOORS, title: 'PAGES.EngobMixes.floors' },
+  ];
+
   settings = {
     add: {
       addButtonContent: '<i class="fa fa-plus"></i>',
@@ -62,6 +67,16 @@ export class BodyMixesComponent implements OnInit {
       },
       code: {
         title: 'Code',
+      },
+      type: {
+        title: 'Type',
+        filter: {
+          type: 'list',
+          config: {
+            list: this.TYPE_OPTIONS
+          }
+        },
+        valuePrepareFunction: (value) => value,
       },
       components: {
         filter: false,
@@ -189,6 +204,7 @@ export class BodyMixesComponent implements OnInit {
 
   newBodyMix: BodyMix = {
     code: '',
+    type: '',
     components: []
   };
 
@@ -334,6 +350,7 @@ export class BodyMixesComponent implements OnInit {
   handleCreate(form: any): void {
     const temp: BodyMix = {
       code: this.newBodyMix.code,
+      type: this.newBodyMix.type,
       components: this.newBodyMix.components
         .map((component: any) => ({ ...component, material: component.material._id }))
     };
@@ -351,6 +368,7 @@ export class BodyMixesComponent implements OnInit {
   handleEdit(form: any): void {
     const temp: BodyMix = {
       code: this.newBodyMix.code,
+      type: this.newBodyMix.type,
       components: this.newBodyMix.components
       .map((component: any) => ({ ...component, material: component.material._id }))
     };
@@ -393,6 +411,7 @@ export class BodyMixesComponent implements OnInit {
     this.isSubmited = false;
     this.newBodyMix = {
       code: '',
+      type: '',
       components: []
     };
   }
@@ -454,7 +473,7 @@ export class BodyMixesComponent implements OnInit {
     }
 
     // validate components quantities
-    if (this.totalQuantity != 100) {
+    if (!this.commonService.areEqual(this.totalQuantity, 100)) {
       this.commonService.showToast('bottom-end', 'danger', this.validQuantityMessage, 3000);
       return true;
     }
@@ -464,6 +483,15 @@ export class BodyMixesComponent implements OnInit {
 
   async initSettingTranslation() {
     moment.locale(this.translate.currentLanguage);
+
+    const typeOptions = [];
+    for(const item of this.TYPE_OPTIONS.slice()) {
+      const temp = {
+        ...item,
+        title: await this.trans.get(item.title).toPromise()
+      };
+      typeOptions.push(temp);
+    }
 
     const materials = this.materialService.materials.map((mat: Material) => mat.name);
     console.log('materials ', materials);
@@ -515,6 +543,16 @@ export class BodyMixesComponent implements OnInit {
         },
         code: {
           title: await this.trans.get('PAGES.BodyMixes.code').toPromise(),
+        },
+        type: {
+          title: await this.trans.get('PAGES.EngobMixes.type').toPromise(),
+          filter: {
+            type: 'list',
+            config: {
+              list: typeOptions
+            }
+          },
+          valuePrepareFunction: (value) => this.handleTranslateCells(value, true),
         },
         components: {
           filter: false,
