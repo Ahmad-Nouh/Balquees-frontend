@@ -1,6 +1,7 @@
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { ProductsCardsService } from '../../../services/products-cards.service';
 
 @Component({
   selector: 'app-products-cards',
@@ -15,9 +16,14 @@ export class ProductsCardsComponent implements OnInit {
   formTitle = 'PAGES.ProductsCards.productsCards';
   AskMessage = 'PAGES.Common.askDeleteMessage';
 
-  constructor(private dialogService: NbDialogService) { }
+  constructor(private dialogService: NbDialogService,
+              public productsCardsService: ProductsCardsService) { }
 
   ngOnInit() {
+    this.productsCardsService.getProductCards()
+      .subscribe((data) => {
+        this.productsCardsService.productCards = data;
+      });
   }
 
   onClickBack(result: boolean, isAdd): void {

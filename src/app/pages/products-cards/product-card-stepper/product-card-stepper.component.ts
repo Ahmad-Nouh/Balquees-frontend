@@ -1,3 +1,5 @@
+import { CommonService } from './../../../services/common.service';
+import { ProductsCardsService } from './../../../services/products-cards.service';
 import { ProductType } from './../../../models/enums/productType';
 import { ProductCard } from './../../../models/productCard';
 import { TranslateService } from '@ngx-translate/core';
@@ -73,15 +75,17 @@ export class ProductCardStepperComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public translate: TranslateServiceOur,
     private trans: TranslateService,
+    private commonService: CommonService,
     private bodyMixesService: BodyMixesService,
     private paintMixesService: PaintMixesService,
-    private engobMixesService: EngobMixesService) { }
+    private engobMixesService: EngobMixesService,
+    private productsCardsService: ProductsCardsService) { }
 
   async ngOnInit() {
     // initialize forms with required validation
     this.initForms();
     // initialize translation 
-
+    await this.initSettingTranslation();
     // init product cards types
     this.productCardTypes = [
       ProductType.matWalls,
@@ -130,10 +134,6 @@ export class ProductCardStepperComponent implements OnInit {
         this.onFifthSubmit();
         stepper.next();
         break;
-
-
-      default:
-          console.log('submit');
 
     }
   }
@@ -252,12 +252,17 @@ export class ProductCardStepperComponent implements OnInit {
       this.fifthForm.controls[control].markAsDirty();
     }
 
+    this.onSubmit();
+  }
+
+  onSubmit() {
+    const dataToSend = new FormData();
     this.productCard = {
       productName: this.productName.value,
       code: this.code.value,
       type: this.getType(this.type.value),
       glize: this.getGlize(this.type.value),
-      productionDate: this.productionDate.value,
+      productionDate: this.commonService.convertFromUTCtoLocalDate(this.productionDate.value),
       dimensions: {
         width: this.width.value,
         height: this.height.value
@@ -291,8 +296,23 @@ export class ProductCardStepperComponent implements OnInit {
       }
     };
 
+    for (const key in this.productCard) {
+      if (typeof this.productCard[key] !== 'string') {
+        dataToSend.append(key, JSON.stringify(this.productCard[key]));
+      } else {
+        dataToSend.append(key, this.productCard[key]);
+      }
+    }
 
-    console.log('submitted ', this.productCard);
+    console.log('dataToSend ', dataToSend);
+    this.productsCardsService.createProductCard(dataToSend)
+      .subscribe((res) => {
+        console.log('res ', res);
+        this.productsCardsService.productCards.unshift(res);
+        console.log('productCards ', this.productsCardsService.productCards);
+        this.onBack.emit(false);
+      });
+
   }
 
   async initSelect() {

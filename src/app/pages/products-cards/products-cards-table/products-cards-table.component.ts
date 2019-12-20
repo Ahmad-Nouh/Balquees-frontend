@@ -1,10 +1,10 @@
-import { Router } from '@angular/router';
 import { CommonService } from './../../../services/common.service';
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductsCardsService } from '../../../services/products-cards.service';
 
 @Component({
   selector: 'app-products-cards-table',
@@ -18,11 +18,12 @@ import { MatTableDataSource } from '@angular/material/table';
     ]),
   ],
 })
-export class ProductsCardsTableComponent implements OnInit {
+export class ProductsCardsTableComponent implements OnInit, OnChanges {
  
   @Output('onCreate') onCreate = new EventEmitter();
   @Output('onEdit') onEdit = new EventEmitter();
   @Output('onDelete') onDelete = new EventEmitter();
+  @Input('datasource') datasource = [];
  
   displayedColumns = [];
   allColumns = [
@@ -58,64 +59,15 @@ export class ProductsCardsTableComponent implements OnInit {
 
   columnsValues = {};
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,
+              public productsCardsService: ProductsCardsService) { }
 
   ngOnInit() {
     // initilize table columns 
     this.initTableColumns();
-    this.productsCards = [
-      {
-        productionDate : '2-2-2019', 
-        name: 'product1', 
-        code: 'eqeq1' ,
-        dimensions: '200x800', 
-        paintMix: '1code1', 
-        engobMix: '1code2',
-        bodyMix: '1code3',
-        paintType: '1type1',
-        engobType: '1type2',
-        bodyType: '1type3'
-      },
-      {
-        productionDate : '2-2-2019', 
-        name: 'product2', 
-        code: 'eqeq2' ,
-        dimensions: '200x800', 
-        paintMix: '2code1', 
-        engobMix: '2code2',
-        bodyMix: '2code3',
-        paintType: '2type1',
-        engobType: '2type2',
-        bodyType: '2type3'
-      },
-      {
-        productionDate : '2-2-2019', 
-        name: 'product3', 
-        code: 'eqeq3' ,
-        dimensions: '200x800', 
-        paintMix: '3code1', 
-        engobMix: '3code2',
-        bodyMix: '3code3',
-        paintType: '3type1',
-        engobType: '3type2',
-        bodyType: '3type3'
-      },
-      {
-        productionDate : '2-2-2019', 
-        name: 'product4', 
-        code: 'eqeq4' ,
-        dimensions: '200x800', 
-        paintMix: '4code1', 
-        engobMix: '4code2',
-        bodyMix: '4code3',
-        paintType: '4type1',
-        engobType: '4type2',
-        bodyType: '4type3'
-      }
-    ];
 
-    this.filteredData = this.productsCards.slice();
-    this.dataSource = new MatTableDataSource(this.productsCards);
+    this.filteredData = this.productsCardsService.productCards.slice();
+    this.dataSource = new MatTableDataSource(this.productsCardsService.productCards);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -167,7 +119,7 @@ export class ProductsCardsTableComponent implements OnInit {
 
   filterTable(data: {column: string, value: any}): void {
     this.columnsValues[data.column] = data.value;
-    this.filteredData = this.productsCards.slice()
+    this.filteredData = this.productsCardsService.productCards.slice()
     .filter((item: any) => {
       let counter = 0;
       for (const col of this.columnsToDisplay) {
@@ -208,6 +160,13 @@ export class ProductsCardsTableComponent implements OnInit {
 
   onClickDelete(element): void {
     this.onDelete.emit(element);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes ', changes);
+    if (changes.datasource) {
+      this.dataSource = new MatTableDataSource(this.productsCardsService.productCards.slice());
+    }
   }
 
 }
