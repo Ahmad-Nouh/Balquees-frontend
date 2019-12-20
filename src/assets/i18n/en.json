@@ -93,7 +93,17 @@
       },
       "ProductsCards": {
         "productsCards": "Products Cards",
-        "back": "Back"
+        "back": "Back",
+        "wallsmat": "Walls Mat",
+        "floorsmat": "Floors Mat",
+        "wallstransparent": "Walls Transparent",
+        "floorstransparent": "Floors Transparent",
+        "selectPaintMix": "Select paint mix",
+        "selectEngobMix": "Select engob mix",
+        "selectBodyMix": "Select body mix",
+        "more": "More",
+        "noResultsFound": "No results found",
+        "search": "Search"
       },
       "ProductsCardsDetails": {
         "productCardDetails": "Product Card Details",

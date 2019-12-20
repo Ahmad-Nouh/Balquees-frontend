@@ -93,7 +93,17 @@
         },
         "ProductsCards": {
             "productsCards": "بطاقات المنتجات ",
-            "back": "رجوع"
+            "back": "رجوع",
+            "wallsmat": "جدران مت",
+            "floorsmat": "أرضيات مت",
+            "wallstransparent": "جدران شفاف",
+            "floorstransparent": "أرضيات شفاف",
+            "selectPaintMix": "اختر خلطة الطلاء",
+            "selectEngobMix": "اختر خلطة الإنغوب",
+            "selectBodyMix": "اختر خلطة الجسم",
+            "more": "مشاهدة المزيد",
+            "noResultFound": "ليس هناك نتائج",
+            "search": "بحث"
         },
         "ProductsCardsDetails": {
             "productCardDetails": "تفاصيل بطاقة المنتج",

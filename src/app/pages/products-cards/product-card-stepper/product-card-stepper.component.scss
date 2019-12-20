@@ -103,17 +103,17 @@ nb-alert {
     max-width: none !important;
 }
 
-#dimensions, #pOvenHeat, #bOvenHeat {
+#dimensions, #pOvenHeat, #bOvenHeat, .productCardInfo {
     display: block;
     overflow: hidden;
 }
 
-#width, #pOvenHeatLow, #bOvenHeatLow {
+#width, #pOvenHeatLow, #bOvenHeatLow, .firstSection {
     width: 48%;
     float: left;
 }
 
-#height, #pOvenHeatHigh, #bOvenHeatHigh {
+#height, #pOvenHeatHigh, #bOvenHeatHigh, .secondSection {
     width: 48%;
     float: right;
 }
@@ -121,4 +121,12 @@ nb-alert {
 .my-select {
     max-width: none !important;
     width: 100%;
+}
+
+.upload {
+    display: block;
+    border: 1px dashed #007BFF;
+    border-radius: 6px;
+    color: #007BFF;
+    cursor: pointer;
 }

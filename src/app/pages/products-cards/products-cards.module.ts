@@ -23,6 +23,7 @@ import { MainInfoComponent } from './product-card-details/main-info/main-info.co
 import { EngobMixComponent } from './product-card-details/engob-mix/engob-mix.component';
 import { BodyMixComponent } from './product-card-details/body-mix/body-mix.component';
 import { PaintMixComponent } from './product-card-details/paint-mix/paint-mix.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -53,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    SelectDropDownModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

@@ -6,17 +6,39 @@
 
             <nb-step [stepControl]="firstForm" label="Product Card Details">
                 <form class="myform" [formGroup]="firstForm" class="step-container">
-                    <div class="form-item">
-                        <label class="mylabel" for="productName">Enter Product Name </label>
-                        <input nbInput id="productName" type="text" placeholder="Product Name"
-                            class="form-control" formControlName="productName"
-                            [status]="(productName?.invalid && (productName.dirty || productName.touched)) ? 'danger' : ''">
+                    <div class="form-item productCardInfo">
+                        <div class="firstSection">
+                            <label class="mylabel" for="productName">Enter Product Name </label>
+                            <input nbInput id="productName" type="text" placeholder="Product Name" class="form-control"
+                                formControlName="productName"
+                                [status]="(productName?.invalid && (productName.dirty || productName.touched)) ? 'danger' : ''">
+                        </div>
+
+                        <div class="secondSection">
+                            <label class="mylabel">Product Picture</label>
+                            <label class="upload p-2" for="productImage">Choose Picture </label>
+                            <input nbInput id="productImage" type="file" placeholder="Product Picture" class="form-control d-none"
+                                formControlName="productImage">
+                        </div>
                     </div>
-                    <div class="form-item">
-                        <label class="mylabel" for="code">Enter Product Code </label>
-                        <input nbInput id="code" type="text" placeholder="Code" class="form-control"
-                            formControlName="code"
-                            [status]="(code?.invalid && (code.dirty || code.touched)) ? 'danger' : ''">
+                    <div class="form-item productCardInfo">
+                        <div class="firstSection">
+                            <label class="mylabel" for="code">Enter Product Code </label>
+                            <input nbInput id="code" type="text" placeholder="Code" class="form-control"
+                                formControlName="code"
+                                [status]="(code?.invalid && (code.dirty || code.touched)) ? 'danger' : ''">
+                        </div>
+
+                        <div class="secondSection">
+                            <label class="mylabel" for="type">Select Type </label>
+                            <nb-select class="my-select" id="type" placeholder="Type" formControlName="type"
+                                [status]="(type?.invalid && (type.dirty || type.touched)) ? 'danger' : ''"
+                                [(selected)]="selectedType">
+                                <nb-option *ngFor="let type of productCardTypes" [value]="type">
+                                    {{ ('PAGES.ProductsCards.' + type) | translate }}
+                                </nb-option>
+                            </nb-select>
+                        </div>
                     </div>
                     <div class="form-item">
                         <label class="mylabel" for="productionDate">Select Production Date </label>
@@ -47,18 +69,16 @@
                 <form [formGroup]="secondForm" class="step-container">
                     <div class="form-item">
                         <label class="mylabel" for="paintMix">Select Paint Mix </label>
-                        <nb-select class="my-select" id="paintMix" placeholder="Paint Mix"
-                        formControlName="paintMix"
-                        [status]="(paintMix?.invalid && (paintMix.dirty || paintMix.touched)) ? 'danger' : ''"
-                        [(selected)]="selectedPaintMix">
-                            <nb-option value="">Option empty</nb-option>
-                            <nb-option value="0">Option 0</nb-option>
-                            <nb-option value="1">Option 1</nb-option>
-                            <nb-option value="2">Option 2</nb-option>
-                            <nb-option value="3">Option 3</nb-option>
-                            <nb-option value="4">Option 4</nb-option>
-                        </nb-select>
+                        
+                        <ngx-select-dropdown [config]="paintConfig"
+                            [options]="paintOptions"
+                            [(ngModel)]="selectedPaintMix"
+                            [ngModelOptions]="{standalone: true}"
+                            (change)="onChangeSelectedPaint()"
+                            [multiple]="false">
+                        </ngx-select-dropdown>
                     </div>
+
                     <div class="form-item">
                         <label class="mylabel" for="pWeight">Enter Weight </label>
                         <input nbInput id="pWeight" type="number" placeholder="Weight" class="form-control"
@@ -84,19 +104,15 @@
 
             <nb-step [stepControl]="thirdForm" label="Product Engob Mix">
                 <form [formGroup]="thirdForm" class="step-container">
+
                     <div class="form-item">
                         <label class="mylabel" for="engobMix">Select Engob Mix </label>
-                        <nb-select class="my-select" id="engobMix" placeholder="Engob Mix"
-                        formControlName="engobMix"
-                        [status]="(engobMix?.invalid && (engobMix.dirty || engobMix.touched)) ? 'danger' : ''"
-                        [(selected)]="selectedEngobMix">
-                            <nb-option value="">Option empty</nb-option>
-                            <nb-option value="0">Option 0</nb-option>
-                            <nb-option value="1">Option 1</nb-option>
-                            <nb-option value="2">Option 2</nb-option>
-                            <nb-option value="3">Option 3</nb-option>
-                            <nb-option value="4">Option 4</nb-option>
-                        </nb-select>
+                        <ngx-select-dropdown [config]="engobConfig"
+                            [options]="engobOptions"
+                            [(ngModel)]="selectedEngobMix"
+                            [ngModelOptions]="{standalone: true}"
+                            [multiple]="false">
+                        </ngx-select-dropdown>
                     </div>
                     <div class="form-item">
                         <label class="mylabel" for="eWeight">Enter Weight </label>
@@ -123,33 +139,39 @@
 
             <nb-step [stepControl]="fourthForm" label="Other Info">
                 <form [formGroup]="fourthForm" class="step-container">
+
                     <div class="form-item">
                         <label class="mylabel" for="paintMix">Select Body Mix </label>
-                        <nb-select class="my-select" id="bodyMix" placeholder="Body Mix"
-                        formControlName="bodyMix"
-                        [status]="(bodyMix?.invalid && (bodyMix.dirty || bodyMix.touched)) ? 'danger' : ''"
-                        [(selected)]="selectedBodyMix">
-                            <nb-option value="">Option empty</nb-option>
-                            <nb-option value="0">Option 0</nb-option>
-                            <nb-option value="1">Option 1</nb-option>
-                            <nb-option value="2">Option 2</nb-option>
-                            <nb-option value="3">Option 3</nb-option>
-                            <nb-option value="4">Option 4</nb-option>
-                        </nb-select>
+                        <ngx-select-dropdown [config]="bodyConfig"
+                            [options]="bodyOptions"
+                            [(ngModel)]="selectedBodyMix"
+                            [ngModelOptions]="{standalone: true}"
+                            [multiple]="false">
+                        </ngx-select-dropdown>
                     </div>
 
                     <div class="form-item">
-                        <label class="mylabel" for="pistonPressure">Enter Piston Pressure </label>
-                        <input nbInput id="pistonPressure" type="number" placeholder="Piston Pressure" class="form-control"
-                            formControlName="pistonPressure"
-                            [status]="(pistonPressure?.invalid && (pistonPressure.dirty || pistonPressure.touched)) ? 'danger' : ''">
+                        <label class="mylabel" for="thickness">Enter Thickness </label>
+                        <input nbInput id="thickness" type="number" placeholder="Thickness" class="form-control"
+                            formControlName="thickness"
+                            [status]="(thickness?.invalid && (thickness.dirty || thickness.touched)) ? 'danger' : ''">
                     </div>
 
-                    <div class="form-item">
-                        <label class="mylabel" for="breakingForce">Enter Breaking Force </label>
-                        <input nbInput id="breakingForce" type="number" placeholder="Breaking Force" class="form-control"
-                            formControlName="breakingForce"
-                            [status]="(breakingForce?.invalid && (breakingForce.dirty || breakingForce.touched)) ? 'danger' : ''">
+                    <div class="form-item productCardInfo">
+
+                        <div class="firstSection">
+                            <label class="mylabel" for="pistonPressure">Enter Piston Pressure </label>
+                            <input nbInput id="pistonPressure" type="number" placeholder="Piston Pressure"
+                                class="form-control" formControlName="pistonPressure"
+                                [status]="(pistonPressure?.invalid && (pistonPressure.dirty || pistonPressure.touched)) ? 'danger' : ''">
+                        </div>
+
+                        <div class="secondSection">
+                            <label class="mylabel" for="breakingForce">Enter Breaking Force </label>
+                            <input nbInput id="breakingForce" type="number" placeholder="Breaking Force"
+                                class="form-control" formControlName="breakingForce"
+                                [status]="(breakingForce?.invalid && (breakingForce.dirty || breakingForce.touched)) ? 'danger' : ''">
+                        </div>
                     </div>
 
                     <div class="form-item">
@@ -165,8 +187,8 @@
                 <form [formGroup]="fifthForm" class="step-container">
                     <div class="form-item">
                         <label class="mylabel" for="pOvenPeriod">Enter Paint Oven Period </label>
-                        <input nbInput id="pOvenPeriod" type="number" placeholder="Paint Oven Period" class="form-control"
-                            formControlName="pOvenPeriod"
+                        <input nbInput id="pOvenPeriod" type="number" placeholder="Paint Oven Period"
+                            class="form-control" formControlName="pOvenPeriod"
                             [status]="(pOvenPeriod?.invalid && (pOvenPeriod.dirty || pOvenPeriod.touched)) ? 'danger' : ''">
                     </div>
 
@@ -185,8 +207,8 @@
 
                     <div class="form-item">
                         <label class="mylabel" for="bOvenPeriod">Enter Bascuit Oven Period </label>
-                        <input nbInput id="bOvenPeriod" type="number" placeholder="Bascuit Oven Period" class="form-control"
-                            formControlName="bOvenPeriod"
+                        <input nbInput id="bOvenPeriod" type="number" placeholder="Bascuit Oven Period"
+                            class="form-control" formControlName="bOvenPeriod"
                             [status]="(bOvenPeriod?.invalid && (bOvenPeriod.dirty || bOvenPeriod.touched)) ? 'danger' : ''">
                     </div>
 
@@ -209,8 +231,7 @@
 
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton status="danger"
-            (click)="onClickBack(stepper)">{{ 'PAGES.ProductsCards.back' | translate }}
+        <button nbButton status="danger" (click)="onClickBack(stepper)">{{ 'PAGES.ProductsCards.back' | translate }}
             <nb-icon icon="close-outline"></nb-icon>
         </button>
         <button nbButton status="success" type="submit" (click)="onNext(stepper)" style="float: right;">
