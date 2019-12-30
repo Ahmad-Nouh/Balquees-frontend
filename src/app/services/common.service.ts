@@ -55,9 +55,14 @@ export class CommonService {
     return res;
   }
 
-  convertFromUTCtoLocalDate(value): string {
+  convertFromUTCtoLocalDate(value, hours = true): string {
     const utc = moment.utc(value).toDate();
-    const local = moment(utc).local().format('YYYY-MM-DD hh:mm a')
+    let local;
+    if (hours) {
+      local = moment(utc).local().format('YYYY-MM-DD hh:mm a')
+    } else {
+      local = moment(utc).local().format('YYYY-MM-DD')
+    }
     return local;
   }
 

@@ -121,7 +121,8 @@
             "components": "العناصر",
             "density": "الكثافة",
             "viscosity": "اللزوجة",
-            "weight": "الوزن"
+            "weight": "الوزن",
+            "material": "المادة"
           },
         "Common": {
             "yes": "نعم",

@@ -29,15 +29,14 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
   allColumns = [
     { name: 'actions', title: 'Actions', filterTitle: 'filterTitle', index: 1},
     { name: 'productionDate', title: 'Production Date', filterTitle: 'productionDateFilter', index: 2 },
-    { name: 'name', title: 'Name', filterTitle: 'nameFilter', index: 3 },
+    { name: 'productName', title: 'Name', filterTitle: 'productNameFilter', index: 3 },
     { name: 'code', title: 'Code', filterTitle: 'codeFilter', index: 4 },
     { name: 'dimensions', title: 'Dimensions', filterTitle: 'dimensionsFilter', index: 5 },
     { name: 'paintMix', title: 'Paint Mix', filterTitle: 'paintMixFilter', index: 6 },
     { name: 'engobMix', title: 'Engob Mix', filterTitle: 'engobMixFilter', index: 7 },
     { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter', index: 8 },
-    { name: 'paintType', title: 'Paint Type', filterTitle: 'paintTypeFilter', index: 9 },
-    { name: 'engobType', title: 'Engob Type', filterTitle: 'engobTypeFilter', index: 10 },
-    { name: 'bodyType', title: 'Body Type', filterTitle: 'bodyTypeFilter', index: 11 }
+    { name: 'type', title: 'Type', filterTitle: 'typeFilter', index: 9 },
+    { name: 'glize', title: 'Glize', filterTitle: 'glizeFilter', index: 10 }
   ];
 
   dataSource: MatTableDataSource<any>;
@@ -63,6 +62,12 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
               public productsCardsService: ProductsCardsService) { }
 
   ngOnInit() {
+
+    this.productsCardsService.onProductCardsChange
+      .subscribe(() => {
+        this.refreshTable(this.productsCardsService.productCards);
+      });
+
     // initilize table columns 
     this.initTableColumns();
 
@@ -76,16 +81,15 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
   initTableColumns(): void {
     this.displayedColumns = [
       { name: 'productionDate', title: 'Production Date', filterTitle: 'productionDateFilter' },
-      { name: 'name', title: 'Name', filterTitle: 'nameFilter' },
+      { name: 'productName', title: 'Name', filterTitle: 'productNameFilter' },
       { name: 'code', title: 'Code', filterTitle: 'codeFilter' },
       { name: 'dimensions', title: 'Dimensions', filterTitle: 'dimensionsFilter' },
       { name: 'paintMix', title: 'Paint Mix', filterTitle: 'paintMixFilter' },
       { name: 'engobMix', title: 'Engob Mix', filterTitle: 'engobMixFilter' },
       { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter' },
       // { name: 'actions', title: 'Actions', filterTitle: 'filterTitle'}
-      { name: 'paintType', title: 'Paint Type', filterTitle: 'paintTypeFilter' },
-      { name: 'engobType', title: 'Engob Type', filterTitle: 'engobTypeFilter' },
-      { name: 'bodyType', title: 'Body Type', filterTitle: 'bodyTypeFilter' }
+      { name: 'type', title: 'Type', filterTitle: 'typeFilter' },
+      { name: 'glize', title: 'Glize', filterTitle: 'glizeFilter' }
     ];
 
     this.columnsToDisplay = this.displayedColumns.map(col => col.name).slice(0, 7);
@@ -160,6 +164,30 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
 
   onClickDelete(element): void {
     this.onDelete.emit(element);
+  }
+
+  getValueOfColumn(element: any, column): string {
+    let value = '';
+    switch(column) {
+      case 'dimensions':
+        value = `${element.width} x ${element.height}`;
+        break;
+      case 'paintMix':
+      case 'engobMix':
+      case 'bodyMix':
+        value = element.code;
+        break;
+
+      case 'productionDate':
+        console.log('date ', element);
+        value = this.commonService.convertFromUTCtoLocalDate(element.toString(), false);
+        break;
+      
+      default:
+        value = element
+    }
+
+    return value;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

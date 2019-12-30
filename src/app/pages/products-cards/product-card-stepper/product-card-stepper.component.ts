@@ -307,9 +307,8 @@ export class ProductCardStepperComponent implements OnInit {
     console.log('dataToSend ', dataToSend);
     this.productsCardsService.createProductCard(dataToSend)
       .subscribe((res) => {
-        console.log('res ', res);
         this.productsCardsService.productCards.unshift(res);
-        console.log('productCards ', this.productsCardsService.productCards);
+        this.productsCardsService.onProductCardsChange.next(this.productsCardsService.productCards);
         this.onBack.emit(false);
       });
 

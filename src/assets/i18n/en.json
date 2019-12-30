@@ -121,7 +121,8 @@
         "components": "Components",
         "density": "Density",
         "viscosity": "Viscosity",
-        "weight": "Weight"
+        "weight": "Weight",
+        "material": "Material"
       },
       "Common": {
         "yes": "Yes",

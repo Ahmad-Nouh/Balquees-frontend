@@ -21,3 +21,7 @@
 .paint-table ::ng-deep input-filter input {
     height: 45px;
 }
+
+.paint-table ::ng-deep .ng2-smart-actions {
+    display: none;
+}

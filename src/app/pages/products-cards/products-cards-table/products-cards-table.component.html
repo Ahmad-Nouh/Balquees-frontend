@@ -28,7 +28,9 @@
     <!-- ID Column -->
     <ng-container [matColumnDef]="column.name" *ngFor="let column of displayedColumns">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.title }} </th>
-      <td mat-cell *matCellDef="let element"> {{element[column.name]}} </td>
+      <td mat-cell *matCellDef="let element">
+        {{ getValueOfColumn(element[column.name], column.name) }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="actionsFilter">

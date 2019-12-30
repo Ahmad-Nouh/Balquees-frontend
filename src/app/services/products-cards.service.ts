@@ -1,7 +1,7 @@
 import { ProductCard } from './../models/productCard';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,6 +9,10 @@ import { environment } from '../../environments/environment';
 })
 export class ProductsCardsService {
   public productCards: Array<ProductCard> = [];
+
+  public onProductCardsChange = new BehaviorSubject<any>([]);
+
+  public selectedProduct: ProductCard;
 
   constructor(private http: HttpClient) { }
 
@@ -22,5 +26,10 @@ export class ProductsCardsService {
 
   getProductCards(): Observable<any> {
     return this.http.get(`${environment.backend}/api/productCard`);
+  }
+
+
+  removeProductCard(productId): Observable<any> {
+    return this.http.delete(`${environment.backend}/api/productCard/${productId}`);
   }
 }

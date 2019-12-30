@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsCardsService } from '../../../../services/products-cards.service';
 
 @Component({
   selector: 'app-main-info',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(public productsCardsService: ProductsCardsService) { }
 
   ngOnInit() {
   }

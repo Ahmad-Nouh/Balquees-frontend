@@ -3,6 +3,7 @@ import { FilterInputComponent } from '../../../../shared/components/filter-input
 import { EditorInputNumberComponent } from '../../../../shared/components/editor-input-number/editor-input-number.component';
 import { TranslateServiceOur } from '../../../../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ProductsCardsService } from '../../../../services/products-cards.service';
 
 @Component({
   selector: 'app-body-mix',
@@ -12,9 +13,10 @@ import { TranslateService } from '@ngx-translate/core';
 export class BodyMixComponent implements OnInit, AfterViewInit {
   settings = {
     columns: {
-      name: {
-        title: 'Name',
-        type:'text'
+      material: {
+        title: 'Material',
+        type:'text',
+        valuePrepareFunction: (value) => value.name
       },
       quantity: {
         title: 'Quantity',
@@ -42,7 +44,8 @@ export class BodyMixComponent implements OnInit, AfterViewInit {
   };
 
   constructor(private translate: TranslateServiceOur,
-    private trans: TranslateService) { }
+    private trans: TranslateService,
+    public productsCardsService: ProductsCardsService) { }
 
   async ngOnInit() {
     // init table translation
@@ -61,9 +64,10 @@ export class BodyMixComponent implements OnInit, AfterViewInit {
     this.trans.use(this.translate.currentLanguage);
     this.settings = {
       columns: {
-        name: {
-          title: await this.trans.get('PAGES.ProductsCardsDetails.name').toPromise(),
-          type:'text'
+        material: {
+          title: await this.trans.get('PAGES.ProductsCardsDetails.material').toPromise(),
+          type:'text',
+          valuePrepareFunction: (value) => value.name
         },
         quantity: {
           title: await this.trans.get('PAGES.ProductsCardsDetails.quantity').toPromise(),

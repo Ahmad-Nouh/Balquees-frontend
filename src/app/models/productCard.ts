@@ -1,5 +1,8 @@
+import { BodyMix } from './bodyMix';
 import { MixType } from "./enums/mixType";
 import { Glize } from "./enums/glize";
+import { PaintMix } from './paintMix';
+import { EngobMix } from './engobMix';
 
 export interface ProductCard {
     _id?: string;
@@ -21,8 +24,8 @@ export interface ProductCard {
     breakingForce: number,
     radiation: number,
     imageUrl?: string,
-    paintMix: string,
-    engobMix: string,
-    bodyMix: string,
+    paintMix: any,
+    engobMix: any,
+    bodyMix: any,
     createdAt?: string
 }

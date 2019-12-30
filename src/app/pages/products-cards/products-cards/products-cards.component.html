@@ -17,7 +17,7 @@
                         </nb-card-body>
                         <nb-card-footer>
                             <button nbButton status="success"
-                                (click)="ref.close()">{{ 'PAGES.Common.yes' | translate }}</button>
+                                (click)="onConfirmDelete(data.id, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
                             <button nbButton (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
                         </nb-card-footer>
                     </nb-card>
