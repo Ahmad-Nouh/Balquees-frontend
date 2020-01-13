@@ -1,3 +1,4 @@
+import { ProductsCardsService } from './../../../services/products-cards.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -9,7 +10,7 @@ export class ProductCardDetailsComponent implements OnInit {
   @Input('formTitle') formTitle;
   @Output('onBack') onBack = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(public productsCardsService: ProductsCardsService) { }
 
   ngOnInit() {
   }

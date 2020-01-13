@@ -2,18 +2,23 @@
     <div class="col-md-5 col-sm-12">
         <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.info' | translate }}</h5>
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="weight">{{ 'PAGES.ProductsCardsDetails.weight' | translate }}</label>
-            <p class="d-flex text-capitalize text-hint flex-grow-1" id="weight">11</p>
+            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="thickness">{{ 'PAGES.ProductsCardsDetails.thickness' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint flex-grow-1" id="thickness">{{ productsCardsService.selectedProduct.thickness }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="density">{{ 'PAGES.ProductsCardsDetails.density' | translate }}</label>
-            <p class="d-flex text-capitalize text-hint flex-grow-1" id="density">32</p>
+            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="pistonPressure">{{ 'PAGES.ProductsCardsDetails.pistonPressure' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint flex-grow-1" id="pistonPressure">{{ productsCardsService.selectedProduct.pistonPressure }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="viscosity">{{ 'PAGES.ProductsCardsDetails.viscosity' | translate }}</label>
-            <p class="d-flex text-capitalize text-hint flex-grow-1" id="viscosity">22</p>
+            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="breakingForce">{{ 'PAGES.ProductsCardsDetails.breakingForce' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint flex-grow-1" id="breakingForce">{{ productsCardsService.selectedProduct.breakingForce }}</p>
+        </div>
+
+        <div class="d-flex m-3">
+            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="radiation">{{ 'PAGES.ProductsCardsDetails.radiation' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint flex-grow-1" id="radiation">{{ productsCardsService.selectedProduct.radiation }}</p>
         </div>
 
     </div>

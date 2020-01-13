@@ -103,7 +103,14 @@
         "selectBodyMix": "Select body mix",
         "more": "More",
         "noResultsFound": "No results found",
-        "search": "Search"
+        "search": "Search",
+        "editProductCard": "Edit Product Card",
+        "mainInfo": "Main Info",
+        "paintMix": "Paint Mix",
+        "engobMix": "Engob Mix",
+        "bodyMix": "Body Mix",
+        "otherInfo": "Other Info",
+        "ovens": "Ovens"
       },
       "ProductsCardsDetails": {
         "productCardDetails": "Product Card Details",
@@ -122,7 +129,17 @@
         "density": "Density",
         "viscosity": "Viscosity",
         "weight": "Weight",
-        "material": "Material"
+        "material": "Material",
+        "thickness": "Thickness",
+        "pistonPressure": "Piston Pressure",
+        "breakingForce": "Breaking Force",
+        "radiation": "Radiation",
+        "pOven": "Paint Oven",
+        "bOven": "Bascuit Oven",
+        "low": "Low",
+        "high": "High",
+        "pOvenPeriod": "Paint Period",
+        "bOvenPeriod": "Bascuit Period"
       },
       "Common": {
         "yes": "Yes",

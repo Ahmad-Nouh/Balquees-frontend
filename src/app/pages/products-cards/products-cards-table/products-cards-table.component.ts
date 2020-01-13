@@ -21,8 +21,9 @@ import { ProductsCardsService } from '../../../services/products-cards.service';
 export class ProductsCardsTableComponent implements OnInit, OnChanges {
  
   @Output('onCreate') onCreate = new EventEmitter();
-  @Output('onEdit') onEdit = new EventEmitter();
+  @Output('onView') onView = new EventEmitter();
   @Output('onDelete') onDelete = new EventEmitter();
+  @Output('onEdit') onEdit = new EventEmitter();
   @Input('datasource') datasource = [];
  
   displayedColumns = [];
@@ -162,6 +163,10 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
     this.onEdit.emit(element);
   }
 
+  onClickView(element): void {
+    this.onView.emit(element);
+  }
+
   onClickDelete(element): void {
     this.onDelete.emit(element);
   }
@@ -179,7 +184,6 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
         break;
 
       case 'productionDate':
-        console.log('date ', element);
         value = this.commonService.convertFromUTCtoLocalDate(element.toString(), false);
         break;
       

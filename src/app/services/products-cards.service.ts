@@ -32,4 +32,8 @@ export class ProductsCardsService {
   removeProductCard(productId): Observable<any> {
     return this.http.delete(`${environment.backend}/api/productCard/${productId}`);
   }
+
+  editProductCard(productId, newVal): Observable<any> {
+    return this.http.put(`${environment.backend}/api/productCard/${productId}`, newVal);
+  }
 }

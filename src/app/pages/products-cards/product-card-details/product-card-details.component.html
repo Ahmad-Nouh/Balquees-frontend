@@ -16,6 +16,46 @@
             <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCardsDetails.bodyMix' | translate" tabIcon="archive-outline" responsive>
                 <app-body-mix></app-body-mix>
             </nb-tab>
+            <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCards.ovens' | translate" tabIcon="flash-outline" responsive>
+                <div class="row ml-5 mr-5">
+                    <div class="offset-md-2 col-md-5 col-sm-12">
+                        <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.pOven' | translate }}</h5>
+
+                        <div class="d-flex m-3">
+                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="plow">{{ 'PAGES.ProductsCardsDetails.low' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="plow">{{ productsCardsService.selectedProduct.pOvenHeat.low }}</p>
+                        </div>
+
+                        <div class="d-flex m-3">
+                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="phigh">{{ 'PAGES.ProductsCardsDetails.high' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="phigh">{{ productsCardsService.selectedProduct.pOvenHeat.high }}</p>
+                        </div>
+
+                        <div class="d-flex m-3">
+                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="pOvenPeriod">{{ 'PAGES.ProductsCardsDetails.pOvenPeriod' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="pOvenPeriod">{{ productsCardsService.selectedProduct.pOvenPeriod }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                        <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.bOven' | translate }}</h5>
+
+                        <div class="d-flex m-3">
+                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="blow">{{ 'PAGES.ProductsCardsDetails.low' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="blow">{{ productsCardsService.selectedProduct.bOvenHeat.low }}</p>
+                        </div>
+
+                        <div class="d-flex m-3">
+                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="bhigh">{{ 'PAGES.ProductsCardsDetails.high' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="bhigh">{{ productsCardsService.selectedProduct.bOvenHeat.high }}</p>
+                        </div>
+
+                        <div class="d-flex m-3">
+                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="bOvenPeriod">{{ 'PAGES.ProductsCardsDetails.bOvenPeriod' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="bOvenPeriod">{{ productsCardsService.selectedProduct.bOvenPeriod }}</p>
+                        </div>
+                    </div>
+                </div>
+            </nb-tab>
         </nb-tabset>
     </nb-card-body>
     <nb-card-footer>

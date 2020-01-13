@@ -103,7 +103,14 @@
             "selectBodyMix": "اختر خلطة الجسم",
             "more": "مشاهدة المزيد",
             "noResultFound": "ليس هناك نتائج",
-            "search": "بحث"
+            "search": "بحث",
+            "editProductCard": "تعديل بطاقة المنتج",
+            "mainInfo": "المعلومات الأساسية",
+            "paintMix": "خلطة الطلاء",
+            "engobMix": "خلطة الإنغوب",
+            "bodyMix": "خلطة الجسم",
+            "otherInfo": "معلومات أخرى",
+            "ovens": "الأفران"
         },
         "ProductsCardsDetails": {
             "productCardDetails": "تفاصيل بطاقة المنتج",
@@ -122,7 +129,17 @@
             "density": "الكثافة",
             "viscosity": "اللزوجة",
             "weight": "الوزن",
-            "material": "المادة"
+            "material": "المادة",
+            "thickness": "الثخونة",
+            "pistonPressure": "ضغط المكبس",
+            "breakingForce": "قوة الكسر",
+            "radiation": "الإشعاع",
+            "pOven": "فرن الطلاء",
+            "bOven": "فرن البسكوت",
+            "low": "أدنى درجة",
+            "high": "أعلى درجة",
+            "pOvenPeriod": "دورة فرن الطلاء",
+            "bOvenPeriod": "دورة فرن البسكوت"
           },
         "Common": {
             "yes": "نعم",

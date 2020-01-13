@@ -34,3 +34,54 @@
 .our-flip-card ::ng-deep div.row {
     height: fit-content;
 }
+
+::ng-deep .cdk-overlay-pane {
+    width: 50%;
+}
+
+::ng-deep .cdk-overlay-pane nb-dialog-container {
+    width: 100%;
+}
+
+.myform {
+    display: block;
+    overflow: hidden;
+}
+.form-item {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 1% auto;
+}
+
+.form-item input {
+    max-width: none !important;
+}
+
+#dimensions, #pOvenHeat, #bOvenHeat, .productCardInfo {
+    display: block;
+    overflow: hidden;
+}
+
+#width, #pOvenHeatLow, #bOvenHeatLow, .firstSection {
+    width: 48%;
+    float: left;
+}
+
+#height, #pOvenHeatHigh, #bOvenHeatHigh, .secondSection {
+    width: 48%;
+    float: right;
+}
+
+.my-select {
+    max-width: none !important;
+    width: 100%;
+}
+
+.upload {
+    display: block;
+    border: 1px dashed #007BFF;
+    border-radius: 6px;
+    color: #007BFF;
+    cursor: pointer;
+}

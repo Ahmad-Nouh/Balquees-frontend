@@ -37,7 +37,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductsCardsRoutingModule,
     NbCardModule,
     NbIconModule,
-    NbDialogModule,
+    NbDialogModule.forRoot({
+      dialogClass: 'dialog-style'
+    } as any),
     NbSelectModule,
     NbInputModule,
     NbButtonModule,

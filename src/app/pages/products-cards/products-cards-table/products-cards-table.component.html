@@ -16,8 +16,11 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
       <td mat-cell *matCellDef="let element">
-          <button class="actions-btn" (click)="onClickEdit(element);" nbButton ghost status="info">
+          <button class="actions-btn" (click)="onClickView(element);" nbButton ghost status="success">
               <i class="fa fa-eye"></i>
+          </button>
+          <button class="actions-btn" (click)="onClickEdit(element);" nbButton ghost status="info">
+            <i class="fa fa-pencil"></i>
           </button>
           <button class="actions-btn" (click)="onClickDelete(element);" nbButton ghost status="danger">
               <i class="fa fa-trash"></i>
