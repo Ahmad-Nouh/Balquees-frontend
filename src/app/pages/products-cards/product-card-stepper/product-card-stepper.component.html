@@ -7,19 +7,19 @@
             <nb-step [stepControl]="firstForm" label="Product Card Details">
                 <form class="myform" [formGroup]="firstForm" class="step-container">
                     <div class="form-item productCardInfo">
-                        <div class="firstSection">
+                        <div>
                             <label class="mylabel" for="productName">Enter Product Name </label>
                             <input nbInput id="productName" type="text" placeholder="Product Name" class="form-control"
                                 formControlName="productName"
                                 [status]="(productName?.invalid && (productName.dirty || productName.touched)) ? 'danger' : ''">
                         </div>
 
-                        <div class="secondSection">
+                        <!-- <div class="secondSection">
                             <label class="mylabel">Product Picture</label>
                             <label class="upload p-2" for="productImage">Choose Picture </label>
                             <input nbInput id="productImage" type="file" placeholder="Product Picture" class="form-control d-none"
                                 formControlName="productImage">
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-item productCardInfo">
                         <div class="firstSection">
@@ -226,6 +226,23 @@
                     </div>
                 </form>
             </nb-step>
+
+            <nb-step [stepControl]="sixthForm" label="Product Image">
+                <form [formGroup]="sixthForm" class="step-container">
+                    
+                    <div class="wrapper">
+                        <div class="box">
+                          <div #imagePreview class="js--image-preview"></div>
+                          <div class="upload-options">
+                            <label>
+                              <input type="file" class="image-upload" accept="image/*" (change)="showPreview($event)" />
+                            </label>
+                          </div>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-step>
         </nb-stepper>
 
 
@@ -235,7 +252,7 @@
             <nb-icon icon="close-outline"></nb-icon>
         </button>
         <button nbButton status="success" type="submit" (click)="onNext(stepper)" style="float: right;">
-            {{ stepper.selectedIndex === 4 ? 'Submit' : 'Next' }}
+            {{ stepper.selectedIndex === 5 ? 'Submit' : 'Next' }}
             <nb-icon *ngIf="stepper.selectedIndex === 4" icon="save"></nb-icon>
             <nb-icon *ngIf="stepper.selectedIndex < 4" icon="arrow-right"></nb-icon>
         </button>

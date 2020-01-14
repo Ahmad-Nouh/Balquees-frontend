@@ -1,9 +1,9 @@
 <div class="row ml-5 mr-5">
-    <div class="col-md-4 col-sm-12">
-        <img src="https://picsum.photos/seed/picsum/300/200" alt="product image" class="my-image img-thumbnail">
+    <div class="col-md-3 col-sm-12">
+        <img [src]="productsCardsService.selectedProduct.imageUrl ? backendUrl + productsCardsService.selectedProduct.imageUrl : 'http://localhost:4200/assets/images/tile1.png'" alt="product image" class="my-image img-thumbnail">
     </div>
 
-    <div class="col-md-8 col-sm-12 text-center">
+    <div class="offset-md-1 col-md-8 col-sm-12 text-center">
         <div class="d-flex m-3">
             <label class="d-flex w-50 font-weight-bold text-secondary" for="productName"> {{ 'PAGES.ProductsCardsDetails.productName' | translate }}</label>
             <p class="d-flex flex-grow-1 text-capitalize text-hint" id="productName">{{ productsCardsService.selectedProduct.productName }}</p>

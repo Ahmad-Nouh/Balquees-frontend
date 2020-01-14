@@ -36,4 +36,8 @@ export class ProductsCardsService {
   editProductCard(productId, newVal): Observable<any> {
     return this.http.put(`${environment.backend}/api/productCard/${productId}`, newVal);
   }
+
+  attachImage(productId, newVal): Observable<any> {
+    return this.http.patch(`${environment.backend}/api/productCard/${productId}`, newVal);
+  }
 }

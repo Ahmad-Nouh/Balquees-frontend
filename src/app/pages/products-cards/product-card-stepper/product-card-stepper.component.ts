@@ -3,7 +3,7 @@ import { ProductsCardsService } from './../../../services/products-cards.service
 import { ProductType } from './../../../models/enums/productType';
 import { ProductCard } from './../../../models/productCard';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaintMix } from '../../../models/paintMix';
 import { EngobMix } from '../../../models/engobMix';
@@ -27,12 +27,14 @@ momentRange.extendMoment(moment);
 export class ProductCardStepperComponent implements OnInit {
   @Input('formTitle') formTitle;
   @Output('onBack') onBack = new EventEmitter<boolean>();
+  @ViewChild('imagePreview', { static: true }) imagePreview;
 
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
   fourthForm: FormGroup;
   fifthForm: FormGroup;
+  sixthForm: FormGroup;
 
 
   selectedPaintMix: PaintMix;
@@ -71,6 +73,9 @@ export class ProductCardStepperComponent implements OnInit {
   paintOptions = [];
   engobOptions = [];
   bodyOptions = [];
+
+  imageURL: string;
+  imageFile: any;
 
   constructor(private fb: FormBuilder,
     public translate: TranslateServiceOur,
@@ -134,6 +139,11 @@ export class ProductCardStepperComponent implements OnInit {
         this.onFifthSubmit();
         stepper.next();
         break;
+      
+      case 5:
+        this.onSixthSubmit();
+        stepper.next();
+        break;
 
     }
   }
@@ -184,6 +194,10 @@ export class ProductCardStepperComponent implements OnInit {
       pOvenHeatHigh: ['', Validators.required],
       bOvenPeriod: ['', Validators.required],
       pOvenPeriod: ['', Validators.required]
+    });
+
+    this.sixthForm = this.fb.group({
+      productImage: [null]
     });
 
   }
@@ -251,12 +265,15 @@ export class ProductCardStepperComponent implements OnInit {
     for (const control in this.fifthForm.controls) {
       this.fifthForm.controls[control].markAsDirty();
     }
+  }
 
+  onSixthSubmit() {
     this.onSubmit();
   }
 
   onSubmit() {
     const dataToSend = new FormData();
+    dataToSend.append('productImage', this.imageFile);
     this.productCard = {
       productName: this.productName.value,
       code: this.code.value,
@@ -296,18 +313,19 @@ export class ProductCardStepperComponent implements OnInit {
       }
     };
 
-    for (const key in this.productCard) {
-      if (typeof this.productCard[key] !== 'string') {
-        dataToSend.append(key, JSON.stringify(this.productCard[key]));
-      } else {
-        dataToSend.append(key, this.productCard[key]);
-      }
-    }
+    // for (const key in this.productCard) {
+    //   if (typeof this.productCard[key] !== 'string') {
+    //     dataToSend.append(key, JSON.stringify(this.productCard[key]));
+    //   } else {
+    //     dataToSend.append(key, this.productCard[key]);
+    //   }
+    // }
 
     console.log('dataToSend ', dataToSend);
-    this.productsCardsService.createProductCard(dataToSend)
-      .subscribe((res) => {
-        this.productsCardsService.productCards.unshift(res);
+    this.productsCardsService.createProductCard(this.productCard)
+      .subscribe(async (res) => {
+        const result = await this.productsCardsService.attachImage(res._id, dataToSend).toPromise();
+        this.productsCardsService.productCards.unshift(result);
         this.productsCardsService.onProductCardsChange.next(this.productsCardsService.productCards);
         this.onBack.emit(false);
       });
@@ -393,6 +411,27 @@ export class ProductCardStepperComponent implements OnInit {
   onChangeSelectedPaint() {
     console.log('selected ', this.selectedPaintMix);
   }
+
+  showPreview(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.sixthForm.patchValue({
+      productImage: file
+    });
+    this.sixthForm.get('productImage').updateValueAndValidity()
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+      this.imageFile = file;
+
+      this.imagePreview.nativeElement.style.backgroundImage = "url('" + this.imageURL + "')";
+      this.imagePreview.nativeElement.style.backgroundSize = "cover";
+
+    }
+    reader.readAsDataURL(file)
+  }
+
   get productName() {
     return this.firstForm.controls['productName'];
   }
@@ -493,5 +532,9 @@ export class ProductCardStepperComponent implements OnInit {
 
   get bOvenPeriod() {
     return this.fifthForm.controls['bOvenPeriod'];
+  }
+
+  get productImage() {
+    return this.sixthForm.controls['productImage'];
   }
 }
