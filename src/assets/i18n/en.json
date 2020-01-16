@@ -110,7 +110,8 @@
         "engobMix": "Engob Mix",
         "bodyMix": "Body Mix",
         "otherInfo": "Other Info",
-        "ovens": "Ovens"
+        "ovens": "Ovens",
+        "productImage": "Product Image"
       },
       "ProductsCardsDetails": {
         "productCardDetails": "Product Card Details",

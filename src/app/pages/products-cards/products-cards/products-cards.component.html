@@ -240,6 +240,20 @@
                                         </div>
                                     </form>
                                 </nb-tab>
+                                <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCards.productImage' | translate" tabIcon="image-outline" responsive>
+                                    <form [formGroup]="sixthForm" class="step-container">
+                                        <div class="wrapper">
+                                            <div class="box">
+                                              <div #imagePreview class="js--image-preview"></div>
+                                              <div class="upload-options">
+                                                <label>
+                                                  <input type="file" class="image-upload" accept="image/*" (change)="showPreview($event)" />
+                                                </label>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </nb-tab>
                             </nb-tabset>
                         </nb-card-body>
                         <nb-card-footer>

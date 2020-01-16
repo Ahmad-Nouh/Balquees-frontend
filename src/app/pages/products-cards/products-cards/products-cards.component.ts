@@ -1,6 +1,7 @@
+import { async } from '@angular/core/testing';
 import { ProductCard } from './../../../models/productCard';
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { ProductsCardsService } from '../../../services/products-cards.service';
 import { MaterialsService } from '../../../services/materials.service';
@@ -17,6 +18,7 @@ import { EngobMixesService } from '../../../services/engob-mixes.service';
 import { MixType } from '../../../models/enums/mixType';
 import { Glize } from '../../../models/enums/glize';
 import { CommonService } from '../../../services/common.service';
+import { environment } from '../../../../environments/environment';
 var moment = require('moment');
 var momentRange = require('moment-range');
 momentRange.extendMoment(moment);
@@ -26,7 +28,8 @@ momentRange.extendMoment(moment);
   templateUrl: './products-cards.component.html',
   styleUrls: ['./products-cards.component.scss']
 })
-export class ProductsCardsComponent implements OnInit {
+export class ProductsCardsComponent implements OnInit, AfterViewInit {
+  @ViewChild('imagePreview', { static: false }) imagePreview;
   isFlipped = false;
   isAdd = true;
   data = [];
@@ -39,6 +42,7 @@ export class ProductsCardsComponent implements OnInit {
   thirdForm: FormGroup;
   fourthForm: FormGroup;
   fifthForm: FormGroup;
+  sixthForm: FormGroup;
 
   productCardTypes = [];
   selectedPaintMix: PaintMix;
@@ -70,6 +74,11 @@ export class ProductsCardsComponent implements OnInit {
   paintConfig = {};
   engobConfig = {};
   bodyConfig = {};
+
+  imageURL: string;
+  imageFile: any;
+
+  backendUrl = environment.backend;
 
   constructor(private dialogService: NbDialogService,
               public productsCardsService: ProductsCardsService,
@@ -111,6 +120,9 @@ export class ProductsCardsComponent implements OnInit {
       });
   }
 
+  ngAfterViewInit(): void {
+  }
+
   onClickBack(result: boolean, isAdd): void {
     this.isFlipped = result;
   }
@@ -140,6 +152,14 @@ export class ProductsCardsComponent implements OnInit {
         id: product._id
       }
     });
+
+    if (product.imageUrl) {
+      setTimeout(() => {
+        this.imageURL = this.backendUrl + product.imageUrl;
+        this.imagePreview.nativeElement.style.backgroundImage = "url('" + this.imageURL + "')";
+        this.imagePreview.nativeElement.style.backgroundSize = "cover";
+      }, 100);
+    }
   }
 
   onConfirmDelete(id, ref): void {
@@ -157,6 +177,9 @@ export class ProductsCardsComponent implements OnInit {
 
   onConfirmEdit(productId, ref): void {
     console.log('confirm');
+    const dataToSend = new FormData();
+    dataToSend.append('productImage', this.imageFile);
+
     const productCard = {
       _id: productId,
       productName: this.productName.value,
@@ -198,10 +221,11 @@ export class ProductsCardsComponent implements OnInit {
     };
 
     this.productsCardsService.editProductCard(productId, productCard)
-      .subscribe((res: any) => {
-        const index = this.productsCardsService.productCards.findIndex((pCard: ProductCard) => pCard._id == productId);
+      .subscribe(async (res: any) => {
+        const result = await this.productsCardsService.attachImage(res._id, dataToSend).toPromise();
+        const index = this.productsCardsService.productCards.findIndex((pCard: ProductCard) => pCard._id == res._id);
         if (index >= 0) {
-          this.productsCardsService.productCards[index] = res;
+          this.productsCardsService.productCards[index] = result;
           this.productsCardsService.onProductCardsChange.next(this.productsCardsService.productCards);
         }
         ref.close();
@@ -306,10 +330,15 @@ export class ProductsCardsComponent implements OnInit {
         pOvenPeriod: [product.pOvenPeriod, Validators.required]
       });
 
+      this.sixthForm = this.fb.group({
+        productImage: [null]
+      });
+
       this.selectedType = product.type+product.glize;
       this.selectedPaintMix = product.paintMix;
       this.selectedEngobMix = product.engobMix;
       this.selectedBodyMix = product.bodyMix;
+
       this.initMixesOptions();
     } else {
       this.firstForm = this.fb.group({
@@ -351,6 +380,10 @@ export class ProductsCardsComponent implements OnInit {
         pOvenHeatHigh: ['', Validators.required],
         bOvenPeriod: ['', Validators.required],
         pOvenPeriod: ['', Validators.required]
+      });
+
+      this.sixthForm = this.fb.group({
+        productImage: [null]
       });
     }
     
@@ -446,6 +479,26 @@ export class ProductsCardsComponent implements OnInit {
     } else {
       return Glize.TRANSPARENT
     }
+  }
+
+  showPreview(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.sixthForm.patchValue({
+      productImage: file
+    });
+    this.sixthForm.get('productImage').updateValueAndValidity()
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+      this.imageFile = file;
+
+      this.imagePreview.nativeElement.style.backgroundImage = "url('" + this.imageURL + "')";
+      this.imagePreview.nativeElement.style.backgroundSize = "cover";
+
+    }
+    reader.readAsDataURL(file)
   }
 
   get productName() {
@@ -548,5 +601,9 @@ export class ProductsCardsComponent implements OnInit {
 
   get bOvenPeriod() {
     return this.fifthForm.controls['bOvenPeriod'];
+  }
+
+  get productImage() {
+    return this.sixthForm.controls['productImage'];
   }
 }

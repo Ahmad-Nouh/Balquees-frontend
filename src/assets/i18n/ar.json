@@ -110,7 +110,8 @@
             "engobMix": "خلطة الإنغوب",
             "bodyMix": "خلطة الجسم",
             "otherInfo": "معلومات أخرى",
-            "ovens": "الأفران"
+            "ovens": "الأفران",
+            "productImage": "صورة المنتج"
         },
         "ProductsCardsDetails": {
             "productCardDetails": "تفاصيل بطاقة المنتج",
