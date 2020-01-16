@@ -95,6 +95,7 @@ export class MaterialsService {
 
   getClayMaterials(): Array<Material> {
     let index = 0;
+    console.log('warehouses ', this.warehouseService.warehouses);
     for (const item of this.warehouseService.warehouses) {
       if (item.order === 1) {
         break;
@@ -105,4 +106,5 @@ export class MaterialsService {
     const clayData = this.warehouseMaterials[clayID] ? this.warehouseMaterials[clayID].slice() : [];
     return clayData;
   }
+  
 }
