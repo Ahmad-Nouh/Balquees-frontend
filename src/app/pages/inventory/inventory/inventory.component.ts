@@ -1,5 +1,5 @@
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateServiceOur } from '../../../services/our-translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonService } from '../../../services/common.service';
@@ -25,7 +25,7 @@ momentRange.extendMoment(moment);
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss']
 })
-export class InventoryComponent implements OnInit {
+export class InventoryComponent implements OnInit, AfterViewInit {
 
   paintConfig = {};
   engobConfig = {};
@@ -136,6 +136,18 @@ export class InventoryComponent implements OnInit {
     this.trans.use(this.translate.currentLanguage);
     // initialize translation
     await this.initSettingTranslation();
+    // init select ui
+    await this.initSelect();
+  }
+
+  ngAfterViewInit(): void {
+    this.translate.changeLang
+      .subscribe(async(currentLang: string) => {
+        this.trans.use(currentLang);
+        moment.locale(this.translate.currentLanguage);
+        // init select ui
+        await this.initSelect();
+      });
   }
 
   async initSelect() {
@@ -180,9 +192,7 @@ export class InventoryComponent implements OnInit {
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
-    // init select ui
-    await this.initSelect(); 
+    moment.locale(this.translate.currentLanguage); 
   }
 
   onChangeToggle(key: string, isPaint: boolean): void {

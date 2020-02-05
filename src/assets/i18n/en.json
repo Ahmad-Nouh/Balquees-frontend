@@ -247,7 +247,17 @@
         "paintPerMeterWeight": "Paint Per Meter Weight",
         "engobPerMeterWeight": "Engob Per Meter Weight",
         "clayPerMeterWeight": "Clay Per Meter Weight",
-        "select": "Select"
+        "select": "Select",
+        "meterWeight": "Meter weight",
+        "thisFieldIsRequired": "this field is required",
+        "enterValueGreaterThanOrEqualZero": "Enter value greater than or equal zero",
+        "meterNumberPerDay": "Meter number per day",
+        "meterPerDay": "Meter per day",
+        "name": "Name",
+        "quantity": "Quantity",
+        "consumptionPerDay": "Consumption Per Day",
+        "consumptionPerMonth": "Consumption Per Month",
+        "remainingTime": "Remaining Time"
       }
   }
 }

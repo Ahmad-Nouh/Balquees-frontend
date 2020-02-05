@@ -242,12 +242,22 @@
             "selectEngobMix": "اختر خلطة الإنغوب",
             "selectBodyMix": "اختر خلطة الجسم",
             "more": "مشاهدة المزيد",
-            "noResultFound": "ليس هناك نتائج",
+            "noResultsFound": "لا يوجد نتائج",
             "search": "بحث",
             "paintPerMeterWeight": "وزن متر الطلاء",
             "engobPerMeterWeight": "وزن متر الإنغوب",
             "clayPerMeterWeight": "وزن متر الغضار",
-            "select": "تحديد"
+            "select": "تحديد",
+            "meterWeight": "وزن المتر",
+            "thisFieldIsRequired": "يجب تعبئة هذا الحقل",
+            "enterValueGreaterThanOrEqualZero": "أدخل قيمة أكبر أو تساوي الصفر",
+            "meterNumberPerDay": "عدد الأمتار في اليوم",
+            "meterPerDay": "متر في اليوم",
+            "name": "اسم المادة",
+            "quantity": "الكمية",
+            "consumptionPerDay": "الاستهلاك في اليوم",
+            "consumptionPerMonth": "الاستهلاك في الشهر",
+            "remainingTime": "الوقت المتبقي"
         }
     }
 }
