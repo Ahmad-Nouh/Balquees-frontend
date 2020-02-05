@@ -3,7 +3,7 @@ import { ProductsCardsService } from './../../../services/products-cards.service
 import { ProductType } from './../../../models/enums/productType';
 import { ProductCard } from './../../../models/productCard';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaintMix } from '../../../models/paintMix';
 import { EngobMix } from '../../../models/engobMix';
@@ -24,7 +24,7 @@ momentRange.extendMoment(moment);
   templateUrl: './product-card-stepper.component.html',
   styleUrls: ['./product-card-stepper.component.scss']
 })
-export class ProductCardStepperComponent implements OnInit {
+export class ProductCardStepperComponent implements OnInit, AfterViewInit {
   @Input('formTitle') formTitle;
   @Output('onBack') onBack = new EventEmitter<boolean>();
   @ViewChild('imagePreview', { static: true }) imagePreview;
@@ -91,6 +91,8 @@ export class ProductCardStepperComponent implements OnInit {
     this.initForms();
     // initialize translation 
     await this.initSettingTranslation();
+    // init select ui
+    await this.initSelect();
     // init product cards types
     this.productCardTypes = [
       ProductType.matWalls,
@@ -107,10 +109,18 @@ export class ProductCardStepperComponent implements OnInit {
     this.filterMixes();
   }
 
+  ngAfterViewInit(): void {
+    this.translate.changeLang
+      .subscribe(async(currentLang: string) => {
+        this.trans.use(currentLang);
+        moment.locale(this.translate.currentLanguage);
+        // init select ui
+        await this.initSelect();
+      });
+  }
+
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
-    // init select ui
-    await this.initSelect(); 
+    moment.locale(this.translate.currentLanguage); 
   }
 
   onNext(stepper: NbStepperComponent): void {
@@ -337,12 +347,12 @@ export class ProductCardStepperComponent implements OnInit {
       displayKey:"code", //if objects array passed which key to be displayed defaults to description
       search:true, //true/false for the search functionlity defaults to false,
       height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
-      placeholder: await this.trans.get('PAGES.ProductCards.selectPaintMix').toPromise(), // text to be displayed when no item is selected defaults to Select,
+      placeholder: await this.trans.get('PAGES.ProductsCardsStepper.selectPaintMix').toPromise(), // text to be displayed when no item is selected defaults to Select,
       customComparator: ()=>{}, // a custom function using which user wants to sort the items. default is undefined and Array.sort() will be used in that case,
       limitTo: this.paintMixes.length, // a number thats limits the no of options displayed in the UI similar to angular's limitTo pipe
-      moreText: await this.trans.get('PAGES.ProductCards.more').toPromise(), // text to be displayed whenmore than one items are selected like Option 1 + 5 more
-      noResultsFound: await this.trans.get('PAGES.ProductCards.noResultsFound').toPromise(), // text to be displayed when no items are found while searching
-      searchPlaceholder:await this.trans.get('PAGES.ProductCards.search').toPromise(), // label thats displayed in search input,
+      moreText: await this.trans.get('PAGES.ProductsCardsStepper.more').toPromise(), // text to be displayed whenmore than one items are selected like Option 1 + 5 more
+      noResultsFound: await this.trans.get('PAGES.ProductsCardsStepper.noResultsFound').toPromise(), // text to be displayed when no items are found while searching
+      searchPlaceholder:await this.trans.get('PAGES.ProductsCardsStepper.search').toPromise(), // label thats displayed in search input,
       searchOnKey: 'code' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
     };
 
@@ -350,12 +360,12 @@ export class ProductCardStepperComponent implements OnInit {
       displayKey:"code",
       search:true,
       height: 'auto',
-      placeholder: await this.trans.get('PAGES.ProductCards.selectEngobMix').toPromise(),
+      placeholder: await this.trans.get('PAGES.ProductsCardsStepper.selectEngobMix').toPromise(),
       customComparator: ()=>{},
       limitTo: this.engobMixes.length,
-      moreText: await this.trans.get('PAGES.ProductCards.more').toPromise(),
-      noResultsFound: await this.trans.get('PAGES.ProductCards.noResultsFound').toPromise(),
-      searchPlaceholder:await this.trans.get('PAGES.ProductCards.search').toPromise(),
+      moreText: await this.trans.get('PAGES.ProductsCardsStepper.more').toPromise(),
+      noResultsFound: await this.trans.get('PAGES.ProductsCardsStepper.noResultsFound').toPromise(),
+      searchPlaceholder:await this.trans.get('PAGES.ProductsCardsStepper.search').toPromise(),
       searchOnKey: 'code'
     };
 
@@ -363,12 +373,12 @@ export class ProductCardStepperComponent implements OnInit {
       displayKey:"code",
       search:true,
       height: 'auto',
-      placeholder: await this.trans.get('PAGES.ProductCards.selectBodyMix').toPromise(),
+      placeholder: await this.trans.get('PAGES.ProductsCardsStepper.selectBodyMix').toPromise(),
       customComparator: () => {},
       limitTo: this.bodyMixes.length,
-      moreText: await this.trans.get('PAGES.ProductCards.more').toPromise(),
-      noResultsFound: await this.trans.get('PAGES.ProductCards.noResultsFound').toPromise(),
-      searchPlaceholder: await this.trans.get('PAGES.ProductCards.search').toPromise(),
+      moreText: await this.trans.get('PAGES.ProductsCardsStepper.more').toPromise(),
+      noResultsFound: await this.trans.get('PAGES.ProductsCardsStepper.noResultsFound').toPromise(),
+      searchPlaceholder: await this.trans.get('PAGES.ProductsCardsStepper.search').toPromise(),
       searchOnKey: 'code'
     };
   }

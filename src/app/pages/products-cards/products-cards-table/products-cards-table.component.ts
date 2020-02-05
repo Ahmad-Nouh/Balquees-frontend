@@ -1,10 +1,16 @@
 import { CommonService } from './../../../services/common.service';
-import { Component, OnInit, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges, Input, AfterViewInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsCardsService } from '../../../services/products-cards.service';
+import { TranslateServiceOur } from '../../../services/our-translate.service';
+import { TranslateService } from '@ngx-translate/core';
+var moment = require('moment');
+var momentRange = require('moment-range');
+momentRange.extendMoment(moment);
+
 
 @Component({
   selector: 'app-products-cards-table',
@@ -18,7 +24,7 @@ import { ProductsCardsService } from '../../../services/products-cards.service';
     ]),
   ],
 })
-export class ProductsCardsTableComponent implements OnInit, OnChanges {
+export class ProductsCardsTableComponent implements OnInit, OnChanges, AfterViewInit {
  
   @Output('onCreate') onCreate = new EventEmitter();
   @Output('onView') onView = new EventEmitter();
@@ -28,16 +34,16 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
  
   displayedColumns = [];
   allColumns = [
-    { name: 'actions', title: 'Actions', filterTitle: 'filterTitle', index: 1},
-    { name: 'productionDate', title: 'Production Date', filterTitle: 'productionDateFilter', index: 2 },
-    { name: 'productName', title: 'Name', filterTitle: 'productNameFilter', index: 3 },
-    { name: 'code', title: 'Code', filterTitle: 'codeFilter', index: 4 },
-    { name: 'dimensions', title: 'Dimensions', filterTitle: 'dimensionsFilter', index: 5 },
-    { name: 'paintMix', title: 'Paint Mix', filterTitle: 'paintMixFilter', index: 6 },
-    { name: 'engobMix', title: 'Engob Mix', filterTitle: 'engobMixFilter', index: 7 },
-    { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter', index: 8 },
-    { name: 'type', title: 'Type', filterTitle: 'typeFilter', index: 9 },
-    { name: 'glize', title: 'Glize', filterTitle: 'glizeFilter', index: 10 }
+    { name: 'actions', title: 'PAGES.Common.actions', filterTitle: 'filterTitle', index: 1},
+    { name: 'productionDate', title: 'PAGES.Common.productionDate', filterTitle: 'productionDateFilter', index: 2 },
+    { name: 'productName', title: 'PAGES.Common.name', filterTitle: 'productNameFilter', index: 3 },
+    { name: 'code', title: 'PAGES.Common.code', filterTitle: 'codeFilter', index: 4 },
+    { name: 'type', title: 'PAGES.Common.type', filterTitle: 'typeFilter', index: 5 },
+    { name: 'glize', title: 'PAGES.Common.glize', filterTitle: 'glizeFilter', index: 6 },
+    { name: 'dimensions', title: 'PAGES.Common.dimensions', filterTitle: 'dimensionsFilter', index: 7 },
+    { name: 'paintMix', title: 'PAGES.Common.paintMix', filterTitle: 'paintMixFilter', index: 8 },
+    { name: 'engobMix', title: 'PAGES.Common.engobMix', filterTitle: 'engobMixFilter', index: 9 },
+    { name: 'bodyMix', title: 'PAGES.Common.bodyMix', filterTitle: 'bodyMixFilter', index: 10 },
   ];
 
   dataSource: MatTableDataSource<any>;
@@ -60,10 +66,11 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
   columnsValues = {};
 
   constructor(private commonService: CommonService,
-              public productsCardsService: ProductsCardsService) { }
+              public productsCardsService: ProductsCardsService,
+              private translate: TranslateServiceOur,
+              private trans: TranslateService) { }
 
   ngOnInit() {
-
     this.productsCardsService.onProductCardsChange
       .subscribe(() => {
         this.refreshTable(this.productsCardsService.productCards);
@@ -73,28 +80,33 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
     this.initTableColumns();
 
     this.filteredData = this.productsCardsService.productCards.slice();
-    this.dataSource = new MatTableDataSource(this.productsCardsService.productCards);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.refreshTable(this.productsCardsService.productCards);
   }
 
+  ngAfterViewInit(): void {
+    this.translate.changeLang
+      .subscribe(async(currentLang: string) => {
+        this.trans.use(currentLang);
+        moment.locale(this.translate.currentLanguage);
+      });
+  }
 
   initTableColumns(): void {
     this.displayedColumns = [
-      { name: 'productionDate', title: 'Production Date', filterTitle: 'productionDateFilter' },
-      { name: 'productName', title: 'Name', filterTitle: 'productNameFilter' },
-      { name: 'code', title: 'Code', filterTitle: 'codeFilter' },
-      { name: 'dimensions', title: 'Dimensions', filterTitle: 'dimensionsFilter' },
-      { name: 'paintMix', title: 'Paint Mix', filterTitle: 'paintMixFilter' },
-      { name: 'engobMix', title: 'Engob Mix', filterTitle: 'engobMixFilter' },
-      { name: 'bodyMix', title: 'Body Mix', filterTitle: 'bodyMixFilter' },
+      { name: 'productionDate', title: 'PAGES.Common.productionDate', filterTitle: 'productionDateFilter' , type: 'datepicker'},
+      { name: 'productName', title: 'PAGES.Common.name', filterTitle: 'productNameFilter', type: 'text' },
+      { name: 'code', title: 'PAGES.Common.code', filterTitle: 'codeFilter', type: 'text' },
+      { name: 'type', title: 'PAGES.Common.type', filterTitle: 'typeFilter', type: 'selectType' },
+      { name: 'glize', title: 'PAGES.Common.glize', filterTitle: 'glizeFilter', type: 'selectGlize' },
+      { name: 'dimensions', title: 'PAGES.Common.dimensions', filterTitle: 'dimensionsFilter', type: 'text' },
+      { name: 'paintMix', title: 'PAGES.Common.paintMix', filterTitle: 'paintMixFilter', type: 'text' },
+      { name: 'engobMix', title: 'PAGES.Common.engobMix', filterTitle: 'engobMixFilter', type: 'text' },
+      { name: 'bodyMix', title: 'PAGES.Common.bodyMix', filterTitle: 'bodyMixFilter', type: 'text' },
       // { name: 'actions', title: 'Actions', filterTitle: 'filterTitle'}
-      { name: 'type', title: 'Type', filterTitle: 'typeFilter' },
-      { name: 'glize', title: 'Glize', filterTitle: 'glizeFilter' }
     ];
 
-    this.columnsToDisplay = this.displayedColumns.map(col => col.name).slice(0, 7);
-    this.filtersToDisplay = this.displayedColumns.map(col => col.filterTitle).slice(0, 7);
+    this.columnsToDisplay = this.displayedColumns.map(col => col.name);
+    this.filtersToDisplay = this.displayedColumns.map(col => col.filterTitle);
     this.columnsToDisplay.unshift('actions');
     this.filtersToDisplay.unshift('actionsFilter');
     this.prevColumns = this.columnsToDisplay.slice();
@@ -102,7 +114,7 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
 
   onSelectionColumn(): void {
     // validate number of columns
-    if (this.columnsToDisplay.length > 8) {
+    if (this.columnsToDisplay.length > 10) {
       this.columnsToDisplay = this.prevColumns.slice();
       this.showAlert = true;
       setTimeout(() => {
@@ -123,36 +135,79 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
   }
 
   filterTable(data: {column: string, value: any}): void {
+    console.log('change ', data);
     this.columnsValues[data.column] = data.value;
     this.filteredData = this.productsCardsService.productCards.slice()
-    .filter((item: any) => {
-      let counter = 0;
-      for (const col of this.columnsToDisplay) {
-        const val = this.columnsValues[col];
-        // if filter is not date => text
-        if (col !== 'productionDate') {
-          if (!val || val === '' || item[col].indexOf(val) >= 0) {
-            counter++;
-            console.log(col);
-          }
-        } else {
-          // todo handle date
-          counter++;
-          console.log(col);
-        }
-      }
-      console.log('counter ', counter);
-
+    .filter((row: any) => {
+      const counter = this.filterRow(row);
       return counter === this.columnsToDisplay.length;
     });
-
-    // console.log('filteredData ', this.filteredData);
+    console.log(this.columnsValues)
 
     this.refreshTable(this.filteredData);
   }
 
+  filterRow(row) {
+    let counter = 0;
+      for (const col of this.columnsToDisplay) {
+        const val = this.columnsValues[col];
+
+        switch(col) {
+          case 'productName':
+          case 'code':
+          case 'type':
+          case 'glize':
+            if (!val || val === '' || row[col].indexOf(val) >= 0) {
+              counter++;
+            }
+            break;
+          case 'paintMix':
+          case 'engobMix':
+          case 'bodyMix':
+            if (!val || val === '' || row[col].code.indexOf(val) >= 0) {
+              counter++;
+            }
+            break;
+          case 'dimensions':
+            if (!val || val === '') {
+              counter++;
+            } else {
+              const width = row[col].width;
+              const height = row[col].height;
+              const dimensions = `${width} x ${height}`;
+              if (dimensions.indexOf(val) >= 0) {
+                counter++;
+              }
+            }
+            break;
+          case 'productionDate':
+            if (!val) {
+              console.log('fats');
+              counter++;
+            } else if (val.start && val.end) {
+              const cellDate = moment(row[col]);
+              const startDate = moment(val.start);
+              const endDate = moment(val.end);
+              const range = moment().range(startDate, endDate)
+              if (range.contains(cellDate)) {
+                counter++;
+              }
+            } else {
+              counter++;
+            }
+            break;
+
+          default:
+            counter++;
+        }
+      }
+      return counter;
+  }
+
   refreshTable(data: any): void {
     this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   onClickCreate(): void {
@@ -197,7 +252,7 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log('changes ', changes);
     if (changes.datasource) {
-      this.dataSource = new MatTableDataSource(this.productsCardsService.productCards.slice());
+      this.refreshTable(this.productsCardsService.productCards.slice())
     }
   }
 

@@ -40,7 +40,7 @@ $base-font: 'Raleway', sans-serif;
 }
 
 ::ng-deep .cdk-overlay-pane {
-    width: 50%;
+    width: 60% !important;
 }
 
 ::ng-deep .cdk-overlay-pane nb-dialog-container {
@@ -193,4 +193,9 @@ $base-font: 'Raleway', sans-serif;
     // &:nth-child(2) {
     //   background-image: url('http://bastianandre.at/giphy.gif');
     // }
+  }
+
+  .width-btn {
+      width: 85px;
+      text-align: center;
   }

@@ -1,5 +1,36 @@
-<input class="filter-input"
+
+
+<input *ngIf="type == 'text'" class="filter-input"
 (keyup)="onKeyUp($event);"
 [type]="type"
 nbInput
 [placeholder]="placeholder">
+
+
+<nb-select *ngIf="type == 'selectType'" class="w-100" [placeholder]="placeholder" (selectedChange)= "onChangeSelect($event)">
+    <nb-option value="">{{ 'PAGES.Common.both' | translate }}</nb-option>
+    <nb-option value="walls">{{ 'PAGES.Common.walls' | translate }}</nb-option>
+    <nb-option value="floors">{{ 'PAGES.Common.floors' | translate }}</nb-option>
+</nb-select>
+
+
+<nb-select
+    *ngIf="type == 'selectGlize'"
+    class="w-100"
+    [placeholder]="placeholder"
+    (selectedChange)= "onChangeSelect($event)">
+    <nb-option value="">{{ 'PAGES.Common.both' | translate }}</nb-option>
+    <nb-option value="mat">{{ 'PAGES.Common.mat' | translate }}</nb-option>
+    <nb-option value="transparent">{{ 'PAGES.Common.transparent' | translate }}</nb-option>
+</nb-select>
+
+
+<input
+    *ngIf="type == 'datepicker'"
+    nbInput 
+    class="form-control"
+    [placeholder]="placeholder"
+    [nbDatepicker]="datepicker"
+    (change)="onChangeInputDate($event)">
+
+<nb-rangepicker #datepicker (rangeChange)="onRangeChange($event)"></nb-rangepicker>

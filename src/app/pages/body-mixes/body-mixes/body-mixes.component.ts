@@ -530,7 +530,7 @@ export class BodyMixesComponent implements OnInit {
             const range1 = JSON.parse(search);
             if (range1.start && range1.end) {
               const cellDate = moment(cell);
-              const startDate = moment(range1.start).add(1, 'days');
+              const startDate = moment(range1.start);
               const endDate = moment(range1.end).add(1, 'days');
               const range = moment().range(startDate, endDate)
               return range.contains(cellDate);

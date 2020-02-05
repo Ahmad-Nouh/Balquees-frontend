@@ -28,9 +28,12 @@ table {
   border: 1px solid #DDD;
   font-size: 1rem;
   padding-left: 0.5% !important;
-  width: 12%;
+  width: 10%;
 }
 
+.our-table ::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
 // ::ng-deep .nb-theme-default [nbInput].size-medium:not(.input-full-width) {
 //   padding: 0.5rem !important;
 //   width: 90% !important;

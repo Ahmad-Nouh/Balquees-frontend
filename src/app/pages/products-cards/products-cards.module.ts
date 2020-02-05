@@ -24,6 +24,7 @@ import { EngobMixComponent } from './product-card-details/engob-mix/engob-mix.co
 import { BodyMixComponent } from './product-card-details/body-mix/body-mix.component';
 import { PaintMixComponent } from './product-card-details/paint-mix/paint-mix.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { MatSortModule } from '@angular/material/sort';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -53,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatSortModule,
     MatInputModule,
     MatPaginatorModule,
     MatFormFieldModule,

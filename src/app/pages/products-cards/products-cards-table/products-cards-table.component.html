@@ -1,9 +1,9 @@
 <div class="row">
-  <label id="mylabel" for="selectColumns">Select Columns To Display </label>
+  <label id="mylabel" for="selectColumns"> {{ 'PAGES.ProductsCards.selectColumnsToDisplay' | translate }} </label>
   <nb-select id="selectColumns" multiple style="width: 20rem;" (selectedChange)="onSelectionColumn()" placeholder="Multiple Select" 
   name="selectedColumns" [(ngModel)]="columnsToDisplay">
       <nb-option *ngFor="let column of allColumns"
-      [value]="column.name">{{ column.title }}</nb-option>
+      [value]="column.name">{{ column.title | translate }}</nb-option>
   </nb-select>
 
   <nb-alert class="form-alert" *ngIf="showAlert" status="danger">
@@ -30,7 +30,7 @@
 
     <!-- ID Column -->
     <ng-container [matColumnDef]="column.name" *ngFor="let column of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.title }} </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.title | translate }} </th>
       <td mat-cell *matCellDef="let element">
         {{ getValueOfColumn(element[column.name], column.name) }}
       </td>
@@ -46,8 +46,11 @@
       <th class="filter-header" mat-header-cell *matHeaderCellDef>
         <app-table-filter 
         [column]="column.name"
-        [placeholder]="column.title"
-        (onKeyup)="filterTable($event);">
+        [placeholder]="column.title | translate"
+        [type] = "column.type"
+        (onKeyup)="filterTable($event);"
+        (onChangeselect) = "filterTable($event);"
+        (onChangeDate) = "filterTable($event);">
       </app-table-filter>
       </th>
     </ng-container>
