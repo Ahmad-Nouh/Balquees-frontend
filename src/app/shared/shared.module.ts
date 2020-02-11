@@ -18,7 +18,7 @@ import { SelectComponent } from './components/select/select.component';
 import { Select1Component } from './components/select1/select1.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 

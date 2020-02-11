@@ -1,7 +1,7 @@
 <nb-flip-card class="our-flip-card" [showToggleButton]="false" [flipped]="isFlipped">
     <nb-card-front class="row">
         <nb-card class="main-card col-md-12">
-            <nb-card-header class="text-heading text-primary card-title">
+            <nb-card-header class="text-heading card-title">
                 {{ 'PAGES.ProductsCards.productsCards' | translate }}
             </nb-card-header>
             <nb-card-body>
@@ -19,10 +19,10 @@
                             <p>{{ data.message | translate }}</p>
                         </nb-card-body>
                         <nb-card-footer>
-                            <button nbButton status="success"
+                            <button nbButton status="primary"
                                 class="m-2 width-btn"
                                 (click)="onConfirmDelete(data.id, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
-                            <button nbButton  class="m-2 width-btn" (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
+                            <button nbButton status="secondary" class="m-2 width-btn" (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
                         </nb-card-footer>
                     </nb-card>
                 </ng-template>
@@ -260,9 +260,9 @@
                             </nb-tabset>
                         </nb-card-body>
                         <nb-card-footer>
-                            <button nbButton class="m-2 width-btn" status="success"
+                            <button nbButton class="m-2 width-btn" status="primary"
                                 (click)="onConfirmEdit(data.id, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
-                            <button nbButton class="m-2 width-btn" (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
+                            <button nbButton class="m-2 width-btn" status="secondary" (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
                         </nb-card-footer>
                     </nb-card>
                 </ng-template>

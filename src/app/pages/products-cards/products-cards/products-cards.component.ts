@@ -157,7 +157,8 @@ export class ProductsCardsComponent implements OnInit, AfterViewInit {
       context:  {
         info: product,
         id: product._id
-      }
+      },
+      dialogClass: 'w-75'
     });
 
     if (product.imageUrl) {

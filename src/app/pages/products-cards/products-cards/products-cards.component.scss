@@ -1,6 +1,6 @@
 @import '../../../../assets/css/toast.css';
 // variables
-$base-color: #3366FF;
+$base-color: rgb(34,184,82);
 $base-font: 'Raleway', sans-serif;
 
 .card-title {
@@ -39,11 +39,11 @@ $base-font: 'Raleway', sans-serif;
     height: fit-content;
 }
 
-::ng-deep .cdk-overlay-pane {
-    width: 60% !important;
-}
+// .main-card ::ng-deep .cdk-overlay-pane {
+//     width: 60% !important;
+// }
 
-::ng-deep .cdk-overlay-pane nb-dialog-container {
+.main-card ::ng-deep .cdk-overlay-pane nb-dialog-container {
     width: 100%;
 }
 

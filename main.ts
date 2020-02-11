@@ -19,6 +19,7 @@ function createWindow() {
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
+      zoomFactor: 1.0
     },
   });
 
@@ -35,9 +36,11 @@ function createWindow() {
     }));
   }
 
-  if (serve) {
-    win.webContents.openDevTools();
-  }
+  // if (serve) {
+  //   win.webContents.openDevTools();
+  // }
+
+  win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {

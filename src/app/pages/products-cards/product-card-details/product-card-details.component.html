@@ -1,5 +1,5 @@
 <nb-card class="main-card">
-    <nb-card-header class="text-heading text-primary card-title">
+    <nb-card-header class="text-heading card-title">
         {{ formTitle | translate }}
     </nb-card-header>
     <nb-card-body class="card-body">
@@ -19,39 +19,39 @@
             <nb-tab class="p-5" [tabTitle]="'PAGES.ProductsCards.ovens' | translate" tabIcon="flash-outline" responsive>
                 <div class="row ml-5 mr-5">
                     <div class="offset-md-2 col-md-5 col-sm-12">
-                        <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.pOven' | translate }}</h5>
+                        <h5 class="mb-5 ml-3">{{ 'PAGES.ProductsCardsDetails.pOven' | translate }}</h5>
 
                         <div class="d-flex m-3">
-                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="plow">{{ 'PAGES.ProductsCardsDetails.low' | translate }}</label>
-                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="plow">{{ productsCardsService.selectedProduct.pOvenHeat.low }}</p>
+                            <label class="d-flex font-weight-bold text-secondary w-50" for="plow">{{ 'PAGES.ProductsCardsDetails.low' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint w-50" id="plow">{{ productsCardsService.selectedProduct.pOvenHeat.low }}</p>
                         </div>
 
                         <div class="d-flex m-3">
-                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="phigh">{{ 'PAGES.ProductsCardsDetails.high' | translate }}</label>
-                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="phigh">{{ productsCardsService.selectedProduct.pOvenHeat.high }}</p>
+                            <label class="d-flex font-weight-bold text-secondary w-50" for="phigh">{{ 'PAGES.ProductsCardsDetails.high' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint w-50" id="phigh">{{ productsCardsService.selectedProduct.pOvenHeat.high }}</p>
                         </div>
 
                         <div class="d-flex m-3">
-                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="pOvenPeriod">{{ 'PAGES.ProductsCardsDetails.pOvenPeriod' | translate }}</label>
-                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="pOvenPeriod">{{ productsCardsService.selectedProduct.pOvenPeriod }}</p>
+                            <label class="d-flex font-weight-bold text-secondary w-50" for="pOvenPeriod">{{ 'PAGES.ProductsCardsDetails.pOvenPeriod' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint w-50" id="pOvenPeriod">{{ productsCardsService.selectedProduct.pOvenPeriod }}</p>
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-12">
-                        <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.bOven' | translate }}</h5>
+                        <h5 class="mb-5 ml-3">{{ 'PAGES.ProductsCardsDetails.bOven' | translate }}</h5>
 
                         <div class="d-flex m-3">
-                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="blow">{{ 'PAGES.ProductsCardsDetails.low' | translate }}</label>
-                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="blow">{{ productsCardsService.selectedProduct.bOvenHeat.low }}</p>
+                            <label class="d-flex font-weight-bold text-secondary w-50" for="blow">{{ 'PAGES.ProductsCardsDetails.low' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint w-50" id="blow">{{ productsCardsService.selectedProduct.bOvenHeat.low }}</p>
                         </div>
 
                         <div class="d-flex m-3">
-                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="bhigh">{{ 'PAGES.ProductsCardsDetails.high' | translate }}</label>
-                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="bhigh">{{ productsCardsService.selectedProduct.bOvenHeat.high }}</p>
+                            <label class="d-flex font-weight-bold text-secondary w-50" for="bhigh">{{ 'PAGES.ProductsCardsDetails.high' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint w-50" id="bhigh">{{ productsCardsService.selectedProduct.bOvenHeat.high }}</p>
                         </div>
 
                         <div class="d-flex m-3">
-                            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="bOvenPeriod">{{ 'PAGES.ProductsCardsDetails.bOvenPeriod' | translate }}</label>
-                            <p class="d-flex text-capitalize text-hint flex-grow-1" id="bOvenPeriod">{{ productsCardsService.selectedProduct.bOvenPeriod }}</p>
+                            <label class="d-flex font-weight-bold text-secondary w-50" for="bOvenPeriod">{{ 'PAGES.ProductsCardsDetails.bOvenPeriod' | translate }}</label>
+                            <p class="d-flex text-capitalize text-hint w-50" id="bOvenPeriod">{{ productsCardsService.selectedProduct.bOvenPeriod }}</p>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
         </nb-tabset>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton status="danger" (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}
+        <button nbButton status="secondary" (click)="onClickBack()">{{ 'PAGES.ProductsCards.back' | translate }}
             <nb-icon icon="close-outline"></nb-icon>
         </button>
     </nb-card-footer>

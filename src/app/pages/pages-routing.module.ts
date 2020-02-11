@@ -8,43 +8,44 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
-      path: 'dashboard',
-      loadChildren: () => import('./dashboard/dashboard.module')
-      .then(m => m.DashboardModule),
-    },
-    {
       path: 'materials',
+      // loadChildren: 'app/pages/materials/materials.module#MaterialsModule'
       loadChildren: () => import('./materials/materials.module')
       .then(m => m.MaterialsModule),
     },
     {
       path: 'productsCards',
+      // loadChildren: 'app/pages/products-cards/products-cards.module#ProductsCardsModule'
       loadChildren: () => import('./products-cards/products-cards.module')
       .then(m => m.ProductsCardsModule),
     },
     {
       path: 'paintMixes',
+      // loadChildren: 'app/pages/paint-mixes/paint-mixes.module#PaintMixesModule'
       loadChildren: () => import('./paint-mixes/paint-mixes.module')
       .then(m => m.PaintMixesModule),
     },
     {
       path: 'bodyMixes',
+      // loadChildren: 'app/pages/body-mixes/body-mixes.module#BodyMixesModule'
       loadChildren: () => import('./body-mixes/body-mixes.module')
       .then(m => m.BodyMixesModule),
     },
     {
       path: 'engobMixes',
+      // loadChildren: 'app/pages/engob-mixes/engob-mixes.module#EngobMixesModule'
       loadChildren: () => import('./engob-mixes/engob-mixes.module')
       .then(m => m.EngobMixesModule),
     },
     {
       path: 'inventory',
+      // loadChildren: 'app/pages/inventory/inventory.module#InventoryModule'
       loadChildren: () => import('./inventory/inventory.module')
       .then(m => m.InventoryModule),
     },
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'productsCards',
       pathMatch: 'full',
     },
   ],

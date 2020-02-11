@@ -1,30 +1,30 @@
 <div class="row ml-5 mr-5">
     <div class="col-md-5 col-sm-12">
-        <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.info' | translate }}</h5>
+        <h5 class="mb-5 ml-3">{{ 'PAGES.ProductsCardsDetails.info' | translate }}</h5>
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="thickness">{{ 'PAGES.ProductsCardsDetails.thickness' | translate }}</label>
-        <p class="d-flex text-capitalize text-hint flex-grow-1" id="thickness">{{ productsCardsService.selectedProduct.thickness }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="thickness">{{ 'PAGES.ProductsCardsDetails.thickness' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint w-50" id="thickness">{{ productsCardsService.selectedProduct.thickness }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="pistonPressure">{{ 'PAGES.ProductsCardsDetails.pistonPressure' | translate }}</label>
-        <p class="d-flex text-capitalize text-hint flex-grow-1" id="pistonPressure">{{ productsCardsService.selectedProduct.pistonPressure }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="pistonPressure">{{ 'PAGES.ProductsCardsDetails.pistonPressure' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint w-50" id="pistonPressure">{{ productsCardsService.selectedProduct.pistonPressure }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="breakingForce">{{ 'PAGES.ProductsCardsDetails.breakingForce' | translate }}</label>
-        <p class="d-flex text-capitalize text-hint flex-grow-1" id="breakingForce">{{ productsCardsService.selectedProduct.breakingForce }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="breakingForce">{{ 'PAGES.ProductsCardsDetails.breakingForce' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint w-50" id="breakingForce">{{ productsCardsService.selectedProduct.breakingForce }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="radiation">{{ 'PAGES.ProductsCardsDetails.radiation' | translate }}</label>
-        <p class="d-flex text-capitalize text-hint flex-grow-1" id="radiation">{{ productsCardsService.selectedProduct.radiation }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="radiation">{{ 'PAGES.ProductsCardsDetails.radiation' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint w-50" id="radiation">{{ productsCardsService.selectedProduct.radiation }}</p>
         </div>
 
     </div>
 
     <div class="col-md-7 col-sm-12">
-        <h5 class="ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.components' | translate }}</h5>
+        <h5 class="ml-3 ">{{ 'PAGES.ProductsCardsDetails.components' | translate }}</h5>
         <ng2-smart-table class="body-table components-table" [settings]="settings" [source]="productsCardsService?.selectedProduct?.bodyMix?.components"></ng2-smart-table>
     </div>
 </div>

@@ -91,3 +91,102 @@ $nb-themes: nb-register-theme((
   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
   font-family-primary: Tajawal_ar
 ), dark, dark);
+
+
+$nb-themes: nb-register-theme((
+  layout-padding-top: 2.25rem,
+
+  menu-item-icon-margin: 0 0.5rem 0 0,
+
+  card-height-tiny: 13.5rem,
+  card-height-small: 21.1875rem,
+  card-height-medium: 28.875rem,
+  card-height-large: 36.5625rem,
+  card-height-giant: 44.25rem,
+  card-margin-bottom: 1.875rem,
+  card-header-with-select-padding-top: 0.5rem,
+  card-header-with-select-padding-bottom: 0.5rem,
+
+  select-min-width: 6rem,
+
+  slide-out-background: #f7f9fc,
+  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+  font-family-primary: var(--font-family),
+
+  // color-primary-100: #FEF7DA,
+  // color-primary-200: #FEEEB5,
+  // color-primary-300: #FCE090,
+  // color-primary-400: #F9D374,
+  // color-primary-500: #F6BE47,
+  // color-primary-600: #D39B33,
+  // color-primary-700: #B17A23,
+  // color-primary-800: #8E5C16,
+  // color-primary-900: #76460D,
+
+  color-primary-100: #D6FBD2,
+  color-primary-200: #A7F8A8,
+  color-primary-300: #78EB84,
+  color-primary-400: #54D76F,
+  color-primary-500: #24BD52,
+  color-primary-600: #1AA250,
+  color-primary-700: #12884C,
+  color-primary-800: #0B6D45,
+  color-primary-900: #065A40,
+
+
+  color-info-100: #ECFDD6,
+  color-info-200: #D4FBAF,
+  color-info-300: #B4F485,
+  color-info-400: #94EA64,
+  color-info-500: #66DD35,
+  color-info-600: #48BE26,
+  color-info-700: #2F9F1A,
+  color-info-800: #1A8010,
+  color-info-900: #0C6A0A,
+
+
+  color-warning-100: #FEF9DF,
+  color-warning-200: #FEF1BF,
+  color-warning-300: #FDE79F,
+  color-warning-400: #FBDC87,
+  color-warning-500: #FACC60,
+  color-warning-600: #D7A746,
+  color-warning-700: #B38430,
+  color-warning-800: #90641E,
+  color-warning-900: #774D12,
+
+
+  color-danger-100: #FEF9DF,
+  color-danger-200: #FEF1BF,
+  color-danger-300: #FDE79F,
+  color-danger-400: #FBDC87,
+  color-danger-500: #FACC60,
+  color-danger-600: #D7A746,
+  color-danger-700: #B38430,
+  color-danger-800: #90641E,
+  color-danger-900: #774D12,
+
+  // color-danger-100: #FAE8DB,
+  // color-danger-200: #F5CEB9,
+  // color-danger-300: #E3A690,
+  // color-danger-400: #C87D6C,
+  // color-danger-500: #A44A40,
+  // color-danger-600: #8D302E,
+  // color-danger-700: #762025,
+  // color-danger-800: #5F141F,
+  // color-danger-900: #4E0C1B,
+
+  // background-basic-color-1: #FEFAE2,
+  // background-basic-color-2: #FEF3C5,
+  // background-basic-color-3: #FDEAA8,
+  // background-basic-color-4: #FBE192,
+
+  // border-basic-color-1: #FAE8DB,
+  // border-basic-color-2: #FAE8DB,
+  // border-basic-color-3: #FAE8DB,
+  // border-basic-color-4: #FAE8DB,
+
+
+
+), balkis, default);

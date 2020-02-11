@@ -1,7 +1,7 @@
 <nb-flip-card [showToggleButton]="false" [flipped]="isFlipped" class="our-flip-card">
     <nb-card-front class="row">
         <nb-card class="main-card col-md-12">
-            <nb-card-header class="text-heading text-primary card-title">
+            <nb-card-header class="text-heading card-title">
                 {{ 'PAGES.Inventory.inventory' | translate }}
             </nb-card-header>
             <nb-card-body>
@@ -9,7 +9,7 @@
                     <nb-tab class="pt-5 overflow-hidden"
                         [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[0].name_en : warehouseService.warehouses[0].name_ar">
                         <div class="grid">
-                            <nb-card [status]="paintOptions.matWalls.checked ? 'success' : 'danger'">
+                            <nb-card [status]="paintOptions.matWalls.checked ? 'primary' : 'warning'">
                                 <nb-card-header>{{ paintOptions.matWalls.title | translate }}</nb-card-header>
                                 <nb-card-body class="overflow-visible">
                                     <div class="row select-controls">
@@ -82,7 +82,7 @@
                                 </nb-card-footer>
                             </nb-card>
 
-                            <nb-card [status]="paintOptions.matFloors.checked ? 'success' : 'danger'">
+                            <nb-card [status]="paintOptions.matFloors.checked ? 'primary' : 'warning'">
                                 <nb-card-header>{{ paintOptions.matFloors.title | translate }}</nb-card-header>
                                 <nb-card-body class="overflow-visible">
                                     <div class="row select-controls">
@@ -155,7 +155,7 @@
                                 </nb-card-footer>
                             </nb-card>
 
-                            <nb-card [status]="paintOptions.transparentWalls.checked ? 'success' : 'danger'">
+                            <nb-card [status]="paintOptions.transparentWalls.checked ? 'primary' : 'warning'">
                                 <nb-card-header>{{ paintOptions.transparentWalls.title | translate }}</nb-card-header>
                                 <nb-card-body class="overflow-visible">
                                     <div class="row select-controls">
@@ -236,7 +236,7 @@
                                 </nb-card-footer>
                             </nb-card>
 
-                            <nb-card [status]="paintOptions.transparentFloors.checked ? 'success' : 'danger'">
+                            <nb-card [status]="paintOptions.transparentFloors.checked ? 'primary' : 'warning'">
                                 <nb-card-header>{{ paintOptions.transparentFloors.title | translate }}</nb-card-header>
                                 <nb-card-body class="overflow-visible">
                                     <div class="row select-controls">
@@ -330,7 +330,7 @@
                     <nb-tab class="pt-5 overflow-hidden"
                         [tabTitle]="translate.currentLanguage == 'en' ? warehouseService.warehouses[1].name_en : warehouseService.warehouses[1].name_ar">
                         <div class="grid">
-                            <nb-card [status]="bodyOptions.walls.checked ? 'success' : 'danger'">
+                            <nb-card [status]="bodyOptions.walls.checked ? 'primary' : 'warning'">
                                 <nb-card-header>{{ bodyOptions.walls.title | translate }}</nb-card-header>
                                 <nb-card-body class="overflow-visible">
                                     <div class="row select-controls">
@@ -380,7 +380,7 @@
                                 </nb-card-footer>
                             </nb-card>
 
-                            <nb-card [status]="bodyOptions.floors.checked ? 'success' : 'danger'">
+                            <nb-card [status]="bodyOptions.floors.checked ? 'primary' : 'warning'">
                                 <nb-card-header>{{ bodyOptions.floors.title | translate }}</nb-card-header>
                                 <nb-card-body class="overflow-visible">
                                     <div class="row select-controls">
@@ -448,7 +448,7 @@
 
     <nb-card-back>
         <nb-card class="main-card">
-            <nb-card-header class="text-heading text-primary card-title">
+            <nb-card-header class="text-heading card-title">
                 {{ 'PAGES.Inventory.inventoryDetails' | translate }}</nb-card-header>
             <nb-card-body class="card-body">
 
@@ -456,7 +456,7 @@
 
             </nb-card-body>
             <nb-card-footer>
-                <button nbButton status="primary" (click)="onClickBack()">{{ 'PAGES.Inventory.back' | translate }}
+                <button nbButton status="secondary" (click)="onClickBack()">{{ 'PAGES.Inventory.back' | translate }}
                     <nb-icon icon="arrow-left"></nb-icon></button>
             </nb-card-footer>
         </nb-card>

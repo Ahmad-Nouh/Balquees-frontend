@@ -1,5 +1,5 @@
 <nb-card class="main-card">
-    <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+    <nb-card-header class="text-heading card-title">{{ formTitle | translate }}</nb-card-header>
     <nb-card-body class="card-body">
 
         <nb-stepper #stepper [linear]="false" disableStepNavigation>
@@ -244,12 +244,12 @@
         <button nbButton status="danger" (click)="onClickBack(stepper)">{{ 'PAGES.ProductsCardsStepper.back' | translate }}
             <nb-icon icon="close-outline"></nb-icon>
         </button>
-        <button nbButton status="success" type="submit" (click)="onNext(stepper)" style="float: right;">
+        <button nbButton status="primary" type="submit" (click)="onNext(stepper)" style="float: right;">
             {{ (stepper.selectedIndex === 5 ? 'PAGES.ProductsCardsStepper.save' : 'PAGES.ProductsCardsStepper.next') | translate }}
             <nb-icon *ngIf="stepper.selectedIndex === 5" icon="save"></nb-icon>
             <nb-icon *ngIf="stepper.selectedIndex < 5" icon="arrow-right"></nb-icon>
         </button>
-        <button nbButton *ngIf="stepper.selectedIndex !== 0" status="primary" (click)="onPrevious(stepper)"
+        <button nbButton *ngIf="stepper.selectedIndex !== 0" status="secondary" (click)="onPrevious(stepper)"
             style="float: right;">{{ 'PAGES.ProductsCardsStepper.previous' | translate }}
             <nb-icon icon="arrow-left"></nb-icon>
         </button>

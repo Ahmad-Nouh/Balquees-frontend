@@ -1,7 +1,7 @@
 <nb-flip-card class="our-flip-card" [showToggleButton]="false" [flipped]="isFlipped">
     <nb-card-front class="row">
         <nb-card class="main-card col-md-12">
-            <nb-card-header class="text-heading text-primary card-title">
+            <nb-card-header class="text-heading card-title">
                 {{ 'PAGES.BodyMixes.bodyMixes' | translate }}
             </nb-card-header>
             <nb-card-body>
@@ -15,8 +15,8 @@
                             <p>{{ data.message | translate }}</p>
                         </nb-card-body>
                         <nb-card-footer>
-                            <button nbButton status="success" (click)="handleAccept(data.info, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
-                            <button nbButton (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
+                            <button nbButton (click)="handleAccept(data.info, ref)">{{ 'PAGES.Common.yes' | translate }}</button>
+                            <button nbButton status="secondary" (click)="ref.close()">{{ 'PAGES.Common.no' | translate }}</button>
                         </nb-card-footer>
                     </nb-card>
                 </ng-template>
@@ -25,7 +25,7 @@
     </nb-card-front>
     <nb-card-back>
         <nb-card class="main-card">
-            <nb-card-header class="text-heading text-primary card-title">{{ formTitle | translate }}</nb-card-header>
+            <nb-card-header class="text-heading card-title">{{ formTitle | translate }}</nb-card-header>
             <nb-card-body class="card-body">
                 <div class="row">
                     <p class="sub-title col-4 details"> {{ 'PAGES.BodyMixes.bodyMixDetails' | translate }} </p>
@@ -64,11 +64,11 @@
                 </div>
             </nb-card-body>
             <nb-card-footer>
-                <button nbButton status="success" type="submit" (click)="onSubmit(bodyForm)">
+                <button nbButton status="primary" type="submit" (click)="onSubmit(bodyForm)">
                     {{ (isEdit ? 'PAGES.BodyMixes.save' : 'PAGES.BodyMixes.create') | translate }}
                     <nb-icon icon="save"></nb-icon>
                 </button>
-                <button nbButton status="primary" (click)="onClickBack(bodyForm)">{{ 'PAGES.BodyMixes.back' | translate }}<nb-icon icon="arrow-left"></nb-icon></button>
+                <button nbButton status="secondary" (click)="onClickBack(bodyForm)">{{ 'PAGES.BodyMixes.back' | translate }}<nb-icon icon="arrow-left"></nb-icon></button>
             </nb-card-footer>
         </nb-card>
     </nb-card-back>

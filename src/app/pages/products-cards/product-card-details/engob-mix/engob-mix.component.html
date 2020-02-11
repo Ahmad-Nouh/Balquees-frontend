@@ -1,25 +1,25 @@
 <div class="row ml-5 mr-5">
     <div class="col-md-5 col-sm-12">
-        <h5 class="mb-5 ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.info' | translate }}</h5>
+        <h5 class="mb-5 ml-3">{{ 'PAGES.ProductsCardsDetails.info' | translate }}</h5>
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="weight">{{ 'PAGES.ProductsCardsDetails.weight' | translate }}</label>
-        <p class="d-flex text-capitalize text-hint flex-grow-1" id="weight">{{ productsCardsService.selectedProduct.engobFactors.weight }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="weight">{{ 'PAGES.ProductsCardsDetails.weight' | translate }}</label>
+        <p class="d-flex text-capitalize text-hint w-50" id="weight">{{ productsCardsService.selectedProduct.engobFactors.weight }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="density">{{ 'PAGES.ProductsCardsDetails.density' | translate }}</label>
-            <p class="d-flex text-capitalize text-hint flex-grow-1" id="density">{{ productsCardsService.selectedProduct.engobFactors.density }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="density">{{ 'PAGES.ProductsCardsDetails.density' | translate }}</label>
+            <p class="d-flex text-capitalize text-hint w-50" id="density">{{ productsCardsService.selectedProduct.engobFactors.density }}</p>
         </div>
 
         <div class="d-flex m-3">
-            <label class="d-flex font-weight-bold text-secondary flex-grow-1" for="viscosity">{{ 'PAGES.ProductsCardsDetails.viscosity' | translate }}</label>
-            <p class="d-flex text-capitalize text-hint flex-grow-1" id="viscosity">{{ productsCardsService.selectedProduct.engobFactors.viscosity }}</p>
+            <label class="d-flex font-weight-bold text-secondary w-50" for="viscosity">{{ 'PAGES.ProductsCardsDetails.viscosity' | translate }}</label>
+            <p class="d-flex text-capitalize text-hint w-50" id="viscosity">{{ productsCardsService.selectedProduct.engobFactors.viscosity }}</p>
         </div>
 
     </div>
 
     <div class="col-md-7 col-sm-12">
-        <h5 class="ml-3 text-primary">{{ 'PAGES.ProductsCardsDetails.components' | translate }}</h5>
+        <h5 class="ml-3">{{ 'PAGES.ProductsCardsDetails.components' | translate }}</h5>
         <ng2-smart-table class="engob-table components-table" [settings]="settings" [source]="productsCardsService?.selectedProduct?.engobMix?.components"></ng2-smart-table>
     </div>
 </div>

@@ -27,7 +27,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { MatSortModule } from '@angular/material/sort';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 

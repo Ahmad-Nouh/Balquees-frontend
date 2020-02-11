@@ -82,7 +82,7 @@ const PIPES = [
   NumberWithCommasPipe,
 ];
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -113,7 +113,7 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: 'balkis',
           },
           [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME ],
         ).providers,
