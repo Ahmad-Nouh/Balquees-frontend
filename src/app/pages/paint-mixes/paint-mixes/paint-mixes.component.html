@@ -36,6 +36,7 @@
                         <input class="block" nbInput 
                         [placeholder]="'PAGES.PaintMixes.enterMixCode' | translate"
                         required
+                        autocomplete="off"
                         type="text" id="code" name="code" #code="ngModel" [(ngModel)]="newPaintMix.code">
                         <nb-alert class="form-alert" *ngIf="paintForm.getControl(code)?.invalid && isSubmited" status="danger">
                             {{ (paintForm.getControl(code).hasError('required') ? requiredMessage : '') | translate }}

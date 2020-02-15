@@ -35,6 +35,7 @@
                     <form class="our-form col-4" #bodyForm="ngForm">
                         <input class="block" nbInput 
                         [placeholder]="'PAGES.BodyMixes.enterMixCode' | translate"
+                        autocomplete="off"
                         required
                         type="text" id="code" name="code" #code="ngModel" [(ngModel)]="newBodyMix.code">
                         <nb-alert class="form-alert" *ngIf="bodyForm.getControl(code)?.invalid && isSubmited" status="danger">

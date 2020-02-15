@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu, globalShortcut, webFrame } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -21,6 +21,7 @@ function createWindow() {
       nodeIntegration: true,
       zoomFactor: 1.0
     },
+    icon: __dirname + '/favicon.ico'
   });
 
   if (serve) {
@@ -40,7 +41,7 @@ function createWindow() {
   //   win.webContents.openDevTools();
   // }
 
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -49,6 +50,61 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+
+
+  // globalShortcut.register('CommandOrControl+Plus', () => {
+  //   zoom += 0.1;
+  //   webFrame.setZoomFactor(zoom);
+  // })
+
+  // globalShortcut.register('CommandOrControl+Minus', () => {
+  //   zoom -= 0.1;
+  //   webFrame.setZoomFactor(zoom);
+  // })
+
+  // hide menu bar
+  // Menu.setApplicationMenu(null);
+
+  const isMac = process.platform === 'darwin'
+
+  const template = [
+    // { role: 'appMenu' }
+    ...(isMac ? [{
+      label: app.getName(),
+      submenu: [
+        { role: 'about' },
+        { type: 'separator' },
+        { role: 'services' },
+        { type: 'separator' },
+        { role: 'hide' },
+        { role: 'hideothers' },
+        { role: 'unhide' },
+        { type: 'separator' },
+        { role: 'quit' }
+      ]
+    }] : []),
+    // { role: 'fileMenu' }
+    {
+      label: 'File',
+      submenu: [
+        isMac ? { role: 'close' } : { role: 'quit' }
+      ]
+    },
+    // { role: 'editMenu' }
+    // { role: 'viewMenu' }
+    {
+      label: 'View',
+      submenu: [
+        { role: 'resetzoom' },
+        { role: 'zoomin' },
+        { role: 'zoomout' },
+        { role: 'togglefullscreen' }
+      ]
+    },
+  ];
+
+const menu = Menu.buildFromTemplate(template as any);
+Menu.setApplicationMenu(menu);
 
 }
 

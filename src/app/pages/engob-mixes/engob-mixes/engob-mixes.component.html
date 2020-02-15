@@ -36,6 +36,7 @@
                         <input class="block" nbInput 
                         [placeholder]="'PAGES.EngobMixes.enterMixCode' | translate"
                         required
+                        autocomplete="off"
                         type="text" id="code" name="code" #code="ngModel" [(ngModel)]="newEngobMix.code">
                         <nb-alert class="form-alert" *ngIf="engobForm.getControl(code)?.invalid && isSubmited" status="danger">
                             {{ (engobForm.getControl(code).hasError('required') ? requiredMessage : '') | translate }}

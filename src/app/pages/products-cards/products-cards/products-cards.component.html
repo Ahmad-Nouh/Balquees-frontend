@@ -38,7 +38,7 @@
                                         <div class="form-item productCardInfo">
                                             <div>
                                                 <label class="mylabel" for="productName"> {{ 'PAGES.ProductsCardsStepper.enterProductName' | translate }} </label>
-                                                <input nbInput id="productName" type="text" [placeholder]="'PAGES.ProductsCardsStepper.productName' | translate" class="form-control"
+                                                <input nbInput id="productName" autocomplete="off" type="text" [placeholder]="'PAGES.ProductsCardsStepper.productName' | translate" class="form-control"
                                                     formControlName="productName"
                                                     [status]="(productName?.invalid && (productName.dirty || productName.touched)) ? 'danger' : ''">
                                             </div>
@@ -46,7 +46,7 @@
                                         <div class="form-item productCardInfo">
                                             <div class="firstSection">
                                                 <label class="mylabel" for="code">{{ 'PAGES.ProductsCardsStepper.enterProductCode' | translate }} </label>
-                                                <input nbInput id="code" type="text" [placeholder]="'PAGES.ProductsCardsStepper.code' | translate" class="form-control"
+                                                <input nbInput id="code" autocomplete="off" type="text" [placeholder]="'PAGES.ProductsCardsStepper.code' | translate" class="form-control"
                                                     formControlName="code"
                                                     [status]="(code?.invalid && (code.dirty || code.touched)) ? 'danger' : ''">
                                             </div>

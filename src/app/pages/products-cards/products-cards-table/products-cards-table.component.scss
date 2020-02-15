@@ -27,8 +27,13 @@ table {
   text-align: center;
   border: 1px solid #DDD;
   font-size: 1rem;
-  padding-left: 0.5% !important;
   width: 10%;
+  padding: 0.8%;
+}
+
+.our-table th {
+  font-weight: 700;
+  color: #000;
 }
 
 .our-table ::ng-deep .mat-sort-header-container {
@@ -73,7 +78,7 @@ table {
 .actions-btn {
   font-size: 1.3rem !important;
   margin: 0% 4%;
-  padding: 1rem 5% !important;
+  padding: 1% !important;
 }
 
 
