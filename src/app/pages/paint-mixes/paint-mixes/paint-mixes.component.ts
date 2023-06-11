@@ -449,7 +449,7 @@ export class PaintMixesComponent implements OnInit, AfterViewInit {
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
+    // moment.locale(this.translate.currentLanguage);
 
     const typeOptions = [], glizeOptions = [];
     for(const item of this.TYPE_OPTIONS.slice()) {

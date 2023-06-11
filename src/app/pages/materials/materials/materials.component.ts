@@ -203,7 +203,7 @@ export class MaterialsComponent implements OnInit, AfterViewInit {
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
+    // moment.locale(this.translate.currentLanguage);
 
     this.settings = {
       add: {

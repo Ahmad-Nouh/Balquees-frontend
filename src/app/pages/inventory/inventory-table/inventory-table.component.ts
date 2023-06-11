@@ -71,13 +71,13 @@ export class InventoryTableComponent implements OnInit, AfterViewInit {
     this.translate.changeLang
       .subscribe(async(currentLang: string) => {
         this.trans.use(currentLang);
-        moment.locale(this.translate.currentLanguage);
+        // moment.locale(this.translate.currentLanguage);
         await this.initSettingTranslation();
       });
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
+    // moment.locale(this.translate.currentLanguage);
 
     this.settings = {
       actions: false,

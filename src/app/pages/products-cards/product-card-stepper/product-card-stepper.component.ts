@@ -113,14 +113,14 @@ export class ProductCardStepperComponent implements OnInit, AfterViewInit {
     this.translate.changeLang
       .subscribe(async(currentLang: string) => {
         this.trans.use(currentLang);
-        moment.locale(this.translate.currentLanguage);
+        // moment.locale(this.translate.currentLanguage);
         // init select ui
         await this.initSelect();
       });
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage); 
+    // moment.locale(this.translate.currentLanguage); 
   }
 
   onNext(stepper: NbStepperComponent): void {
@@ -132,6 +132,8 @@ export class ProductCardStepperComponent implements OnInit, AfterViewInit {
 
       case 1:
         this.onSecondSubmit();
+        console.log("secondForm.valid ==>",this.secondForm);
+        
         stepper.next();
         break;
 
@@ -257,6 +259,7 @@ export class ProductCardStepperComponent implements OnInit, AfterViewInit {
     for (const control in this.secondForm.controls) {
       this.secondForm.controls[control].markAsDirty();
     }
+    
   }
 
   onThirdSubmit() {
@@ -420,6 +423,13 @@ export class ProductCardStepperComponent implements OnInit, AfterViewInit {
 
   onChangeSelectedPaint() {
     console.log('selected ', this.selectedPaintMix);
+    this.secondForm.controls.paintMix.setValue(this.selectedPaintMix._id)
+  }
+  onChangeSelectedEngob() {
+    this.thirdForm.controls.engobMix.setValue(this.selectedEngobMix._id)
+  }
+  onChangeSelectedBody() {
+    this.fourthForm.controls.bodyMix.setValue(this.selectedBodyMix._id)
   }
 
   showPreview(event) {
@@ -546,5 +556,10 @@ export class ProductCardStepperComponent implements OnInit, AfterViewInit {
 
   get productImage() {
     return this.sixthForm.controls['productImage'];
+  }
+
+  onChange(change:any) {
+    console.log(" change ==>", change);
+    
   }
 }

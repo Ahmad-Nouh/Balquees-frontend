@@ -482,7 +482,7 @@ export class BodyMixesComponent implements OnInit {
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
+    // moment.locale(this.translate.currentLanguage);
 
     const typeOptions = [];
     for(const item of this.TYPE_OPTIONS.slice()) {

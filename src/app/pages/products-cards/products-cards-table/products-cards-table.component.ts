@@ -87,7 +87,7 @@ export class ProductsCardsTableComponent implements OnInit, OnChanges, AfterView
     this.translate.changeLang
       .subscribe(async(currentLang: string) => {
         this.trans.use(currentLang);
-        moment.locale(this.translate.currentLanguage);
+        // moment.locale(this.translate.currentLanguage);
       });
   }
 

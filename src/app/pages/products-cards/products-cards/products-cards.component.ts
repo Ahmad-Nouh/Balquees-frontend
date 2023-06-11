@@ -124,7 +124,7 @@ export class ProductsCardsComponent implements OnInit, AfterViewInit {
     this.translate.changeLang
       .subscribe(async(currentLang: string) => {
         this.trans.use(currentLang);
-        moment.locale(this.translate.currentLanguage);
+        // moment.locale(this.translate.currentLanguage);
         // init select ui
         await this.initSelect();
       });
@@ -427,7 +427,7 @@ export class ProductsCardsComponent implements OnInit, AfterViewInit {
   }
 
   async initSettingTranslation() {
-    moment.locale(this.translate.currentLanguage);
+    // moment.locale(this.translate.currentLanguage);
     // init select ui
     await this.initSelect(); 
   }
